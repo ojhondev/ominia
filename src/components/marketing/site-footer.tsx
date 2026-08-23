@@ -23,12 +23,12 @@ const columns = [
 export function SiteFooter() {
   return (
     <footer className="py-16">
-      <div className="mx-auto flex max-w-(--breakpoint-xl) flex-col gap-12 px-6 sm:flex-row sm:justify-between">
+      <div className="flex w-full flex-col gap-12 px-6 sm:flex-row sm:justify-between sm:px-10 lg:px-16 xl:px-24">
         <div className="max-w-xs">
           <OminiaMark height={20} />
           <p className="mt-4 text-sm text-ash">
-            Hub de tecnologia ESG para agroindústria brasileira. Dados, Compliance e
-            Valor em um só lugar.
+            Hub de tecnologia ESG para a agroindústria brasileira. Dados, Compliance e
+            Valor para todo o agronegócio, em um só lugar.
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-16 max-w-(--breakpoint-xl) border-t border-graphite-light px-6 pt-8">
+      <div className="mt-16 w-full border-t border-graphite-light px-6 pt-8 sm:px-10 lg:px-16 xl:px-24">
         <p className="text-xs text-pewter">
           © {new Date().getFullYear()} Ominia. Todos os direitos reservados.
         </p>

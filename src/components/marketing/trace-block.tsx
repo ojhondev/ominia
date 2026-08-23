@@ -18,8 +18,8 @@ const toneClass: Record<(typeof lines)[number]["tone"], string> = {
 export function TraceBlock() {
   return (
     <section className="border-b border-graphite-light bg-depth py-24 sm:py-32">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-6">
-        <Reveal className="mx-auto max-w-2xl text-center">
+      <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24">
+        <Reveal className="max-w-2xl text-left">
           <span className="font-mono text-xs uppercase tracking-widest text-neon-glow">
             Um fluxo, não três ferramentas
           </span>
@@ -27,14 +27,14 @@ export function TraceBlock() {
             Dados → Compliance → Valor, em uma única chamada
           </h2>
           <p className="mt-5 text-base text-ash">
-            Cada fornecedor rastreado percorre o mesmo pipeline: entra como dado, sai
-            como evidência de auditoria e como número em reais.
+            Cada fornecedor da sua cadeia produtiva percorre o mesmo pipeline: entra
+            como dado, sai como evidência de auditoria e como número em reais.
           </p>
         </Reveal>
 
         <Reveal
           delay={120}
-          className="mx-auto mt-14 max-w-2xl rounded-ui border border-graphite-light bg-graphite-deep p-6 shadow-lg sm:p-8"
+          className="mt-14 max-w-2xl rounded-ui border border-graphite-light bg-graphite-deep p-6 shadow-lg sm:p-8"
         >
           <div className="mb-5 flex gap-1.5" aria-hidden>
             <span className="h-2.5 w-2.5 rounded-full bg-graphite-light" />

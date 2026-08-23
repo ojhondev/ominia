@@ -20,7 +20,7 @@ export function FeatureSection({
 }) {
   return (
     <section id={id} className="border-b border-graphite-light py-24 sm:py-32">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-6">
+      <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24">
         <div
           className={`grid grid-cols-1 items-center gap-16 lg:grid-cols-2 ${
             reverse ? "lg:[&>*:first-child]:order-2" : ""

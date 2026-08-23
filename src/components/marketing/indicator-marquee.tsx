@@ -17,7 +17,7 @@ export function IndicatorMarquee() {
   return (
     <section className="overflow-hidden border-b border-graphite-light bg-blackout py-8">
       <p className="mb-6 text-center font-mono text-xs uppercase tracking-widest text-pewter">
-        Normas e indicadores que a Ominia acompanha
+        Normas e indicadores do agronegócio que a Ominia acompanha
       </p>
       <div className="flex w-max marquee-track">
         {track.map((item, i) => (

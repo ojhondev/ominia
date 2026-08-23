@@ -3,23 +3,23 @@ import { Reveal } from "./reveal";
 
 const others = [
   "Você é o dado — o banco ou a seguradora é o cliente",
-  "Cobra por fornecedor avaliado, penaliza rastrear mais",
+  "Cobra por fornecedor avaliado, penaliza rastrear a cadeia produtiva",
   "Entrega score de risco ou relatório de conformidade",
-  "Termina no crédito — não cobre a gestão da operação",
+  "Termina no crédito — não cobre a gestão da agroindústria",
 ];
 
 const ominia = [
-  "Você é o cliente — o hub é seu, para gerir sua operação",
+  "Você é o cliente — o hub é seu, para gerir sua agroindústria",
   "Cobra por empresa, não por fornecedor rastreado",
   "Entrega Dados → Compliance → Valor, um fluxo único",
-  "Traduz ESG em reais: argumento de crédito e comercial",
+  "Traduz o ESG do seu agronegócio em reais: crédito e argumento comercial",
 ];
 
 export function Comparison() {
   return (
     <section id="diferencial" className="border-b border-graphite-light py-24 sm:py-32">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-6">
-        <Reveal className="mx-auto max-w-2xl text-center">
+      <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24">
+        <Reveal className="max-w-2xl text-left">
           <span className="font-mono text-xs uppercase tracking-widest text-neon-glow">
             Por que Ominia
           </span>
@@ -27,12 +27,12 @@ export function Comparison() {
             Feita para quem opera. Não para quem financia.
           </h2>
           <p className="mt-5 text-base text-ash">
-            A maioria das plataformas ESG do agro vende seu dado de risco para bancos e
-            seguradoras decidirem sobre você. A Ominia inverte isso.
+            A maioria das plataformas ESG do agronegócio vende seu dado de risco para
+            bancos e seguradoras decidirem sobre você. A Ominia inverte isso.
           </p>
         </Reveal>
 
-        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="mt-16 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2">
           <Reveal className="rounded-ui border border-graphite-light bg-depth p-8">
             <p className="font-mono text-xs uppercase tracking-widest text-pewter">
               Plataformas de risco tradicionais

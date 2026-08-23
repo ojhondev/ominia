@@ -11,7 +11,7 @@ const navLinks = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-graphite-light/60 bg-blackout/70 backdrop-blur-md">
-      <div className="mx-auto flex max-w-(--breakpoint-xl) items-center justify-between px-6 py-5">
+      <div className="flex w-full items-center justify-between px-6 py-5 sm:px-10 lg:px-16 xl:px-24">
         <Link href="/" aria-label="Ominia">
           <OminiaMark height={20} />
         </Link>
@@ -21,7 +21,7 @@ export function SiteHeader() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-ash transition-colors hover:text-whiteout"
+              className="text-sm text-whiteout transition-colors hover:text-neon-glow"
             >
               {link.label}
             </a>

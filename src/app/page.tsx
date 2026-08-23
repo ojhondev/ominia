@@ -1,3 +1,4 @@
+import { AnnouncementBar } from "@/components/marketing/announcement-bar";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { Hero } from "@/components/marketing/hero";
 import { PillarBar } from "@/components/marketing/pillar-bar";
@@ -14,6 +15,7 @@ import { SiteFooter } from "@/components/marketing/site-footer";
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-blackout">
+      <AnnouncementBar />
       <SiteHeader />
       <Hero />
       <PillarBar />
@@ -23,11 +25,11 @@ export default function LandingPage() {
         id="dados"
         eyebrow="Pilar Dados"
         title="Uma base ESG confiável, não uma planilha a mais"
-        description="Centralize unidades, fornecedores e indicadores em um catálogo único. Cada dado importado vira um registro rastreável — pronto para virar evidência, não retrabalho."
+        description="Centralize unidades, fornecedores e indicadores da sua cadeia produtiva em um catálogo único. Cada dado importado vira um registro rastreável — pronto para virar evidência, não retrabalho."
         bullets={[
-          "Importação de planilhas sem reestruturar sua operação",
-          "Catálogo global de indicadores, já mapeado para o agro",
-          "Um registro por fornecedor — não um score que você não controla",
+          "Importação de planilhas sem reestruturar sua agroindústria",
+          "Catálogo global de indicadores, já mapeado para o agronegócio",
+          "Um registro por fornecedor da sua cadeia produtiva — não um score que você não controla",
         ]}
         visual={<DadosMockup />}
       />
@@ -36,11 +38,11 @@ export default function LandingPage() {
         id="compliance"
         eyebrow="Pilar Compliance"
         title="Da planilha à trilha de auditoria, sem hiato"
-        description="Cada indicador do Pilar Dados gera evidência de conformidade automaticamente — com histórico, responsável e data. Quando o auditor, o banco ou o comprador perguntar, a resposta já está pronta."
+        description="Cada indicador do Pilar Dados gera evidência de conformidade automaticamente — com histórico, responsável e data. Quando o auditor, o banco ou o comprador da sua cadeia produtiva perguntar, a resposta já está pronta."
         bullets={[
           "Trilha de auditoria gerada junto com o dado, não depois",
-          "Cobertura para EUDR, CVM 244, GEE Scope 1-3 e mais",
-          "Evidência exportável — sem montar dossiê na véspera",
+          "Cobertura para EUDR, CVM 244, GEE Scope 1-3 e mais normas do agronegócio",
+          "Evidência exportável — sem montar dossiê na véspera para a agroindústria",
         ]}
         visual={<ComplianceMockup />}
         reverse
@@ -50,11 +52,11 @@ export default function LandingPage() {
         id="valor"
         eyebrow="Pilar Valor"
         title="O que nenhum concorrente entrega: quanto isso vale em reais"
-        description="Score de fornecedor, elegibilidade de crédito verde, cenário climático — tudo traduzido em BRL. Não é relatório de conformidade. É o argumento financeiro que abre uma linha de crédito melhor ou fecha um contrato comercial."
+        description="Score de fornecedor, elegibilidade de crédito verde, cenário climático — tudo traduzido em BRL. Não é relatório de conformidade. É o argumento financeiro que abre uma linha de crédito melhor ou fecha um contrato comercial para o seu agronegócio."
         bullets={[
           "Elegibilidade de crédito verde calculada a partir do seu dado",
-          "Economia e ganho gerados pelo ESG, em R$, por trimestre",
-          "Argumento pronto para o banco, o comprador ou o investidor",
+          "Economia e ganho gerados pelo ESG da sua agroindústria, em R$, por trimestre",
+          "Argumento pronto para o banco, o comprador ou o investidor da sua cadeia produtiva",
         ]}
         visual={<ValorMockup />}
       />
