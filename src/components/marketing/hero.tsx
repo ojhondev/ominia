@@ -17,7 +17,7 @@ export function Hero() {
 
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blackout/10 via-transparent to-blackout" />
 
-      <div className="flex w-full flex-col items-start px-6 pt-40 pb-40 text-left sm:px-10 lg:px-16 lg:pt-56 xl:px-24">
+      <div className="flex w-full flex-col items-start px-6 pt-20 pb-20 text-left sm:px-10 sm:pt-32 sm:pb-28 lg:px-16 lg:pt-56 lg:pb-40 xl:px-24">
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-graphite-light bg-blackout/50 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-neon-glow backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-neon-glow pulse-dot" aria-hidden />
@@ -26,10 +26,8 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={80}>
-          <h1 className="mt-8 max-w-4xl text-5xl font-medium tracking-tight text-whiteout sm:text-6xl lg:text-[80px] lg:leading-[1]">
-            Dados. Compliance e Valor
-            <br />
-            para a agroindústria brasileira.
+          <h1 className="mt-6 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-whiteout sm:mt-8 sm:text-5xl md:text-6xl lg:text-[80px] lg:leading-[1]">
+            Dados. Compliance e Valor para a agroindústria brasileira.
           </h1>
         </Reveal>
 

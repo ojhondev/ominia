@@ -90,6 +90,15 @@ body {
   animation: blink-cursor 1s step-end infinite;
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);
