@@ -1,75 +1,68 @@
-import Link from "next/link";
-import { OminiaMark } from "@/components/brand/ominia-mark";
-
-const pilares = [
-  {
-    nome: "Dados",
-    frase: "Transformamos dados dispersos da empresa em uma base ESG confiável.",
-  },
-  {
-    nome: "Compliance",
-    frase: "Transformamos seus dados em conformidade e evidências.",
-  },
-  {
-    nome: "Valor",
-    frase: "Quanto o ESG está gerando ou economizando para sua empresa?",
-  },
-];
+import { SiteHeader } from "@/components/marketing/site-header";
+import { Hero } from "@/components/marketing/hero";
+import { PillarBar } from "@/components/marketing/pillar-bar";
+import { IndicatorMarquee } from "@/components/marketing/indicator-marquee";
+import { FeatureSection } from "@/components/marketing/feature-section";
+import { DadosMockup } from "@/components/marketing/mockups/dados-mockup";
+import { ComplianceMockup } from "@/components/marketing/mockups/compliance-mockup";
+import { ValorMockup } from "@/components/marketing/mockups/valor-mockup";
+import { TraceBlock } from "@/components/marketing/trace-block";
+import { Comparison } from "@/components/marketing/comparison";
+import { CtaBanner } from "@/components/marketing/cta-banner";
+import { SiteFooter } from "@/components/marketing/site-footer";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-blackout">
-      <header className="mx-auto flex max-w-(--breakpoint-xl) items-center justify-between px-6 py-8">
-        <OminiaMark height={22} />
-        <nav className="flex items-center gap-3">
-          <Link
-            href="/login"
-            className="rounded-full border border-graphite-light px-[18px] py-3 text-sm text-whiteout transition-colors hover:border-neon-glow"
-          >
-            Entrar
-          </Link>
-          <Link
-            href="/cadastro"
-            className="rounded-full bg-whiteout px-7 py-3 text-sm font-medium text-graphite-deep transition-opacity hover:opacity-90"
-          >
-            Começar
-          </Link>
-        </nav>
-      </header>
+      <SiteHeader />
+      <Hero />
+      <PillarBar />
+      <IndicatorMarquee />
 
-      <main className="mx-auto flex max-w-(--breakpoint-xl) flex-col items-center px-6 pt-24 pb-32 text-center">
-        <span className="font-mono text-xs uppercase tracking-widest text-neon-glow">
-          Hub de tecnologia ESG para agroindústria
-        </span>
-        <h1 className="mt-6 max-w-4xl text-5xl font-medium tracking-tight text-whiteout sm:text-6xl">
-          Dados. Compliance. Valor.
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-ash">
-          A Ominia centraliza o dado ESG da sua operação, transforma isso em
-          conformidade com trilha de auditoria, e prova, em reais, quanto isso gera ou
-          economiza.
-        </p>
-        <Link
-          href="/cadastro"
-          className="mt-10 rounded-full bg-whiteout px-7 py-3 text-sm font-medium text-graphite-deep transition-opacity hover:opacity-90"
-        >
-          Começar agora
-        </Link>
+      <FeatureSection
+        id="dados"
+        eyebrow="Pilar Dados"
+        title="Uma base ESG confiável, não uma planilha a mais"
+        description="Centralize unidades, fornecedores e indicadores em um catálogo único. Cada dado importado vira um registro rastreável — pronto para virar evidência, não retrabalho."
+        bullets={[
+          "Importação de planilhas sem reestruturar sua operação",
+          "Catálogo global de indicadores, já mapeado para o agro",
+          "Um registro por fornecedor — não um score que você não controla",
+        ]}
+        visual={<DadosMockup />}
+      />
 
-        <div className="mt-28 grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-          {pilares.map((pilar) => (
-            <div
-              key={pilar.nome}
-              className="rounded-ui border border-graphite-light bg-graphite-deep p-6 text-left"
-            >
-              <p className="font-mono text-xs uppercase tracking-wide text-neon-glow">
-                {pilar.nome}
-              </p>
-              <p className="mt-3 text-sm text-cloud">{pilar.frase}</p>
-            </div>
-          ))}
-        </div>
-      </main>
+      <FeatureSection
+        id="compliance"
+        eyebrow="Pilar Compliance"
+        title="Da planilha à trilha de auditoria, sem hiato"
+        description="Cada indicador do Pilar Dados gera evidência de conformidade automaticamente — com histórico, responsável e data. Quando o auditor, o banco ou o comprador perguntar, a resposta já está pronta."
+        bullets={[
+          "Trilha de auditoria gerada junto com o dado, não depois",
+          "Cobertura para EUDR, CVM 244, GEE Scope 1-3 e mais",
+          "Evidência exportável — sem montar dossiê na véspera",
+        ]}
+        visual={<ComplianceMockup />}
+        reverse
+      />
+
+      <FeatureSection
+        id="valor"
+        eyebrow="Pilar Valor"
+        title="O que nenhum concorrente entrega: quanto isso vale em reais"
+        description="Score de fornecedor, elegibilidade de crédito verde, cenário climático — tudo traduzido em BRL. Não é relatório de conformidade. É o argumento financeiro que abre uma linha de crédito melhor ou fecha um contrato comercial."
+        bullets={[
+          "Elegibilidade de crédito verde calculada a partir do seu dado",
+          "Economia e ganho gerados pelo ESG, em R$, por trimestre",
+          "Argumento pronto para o banco, o comprador ou o investidor",
+        ]}
+        visual={<ValorMockup />}
+      />
+
+      <TraceBlock />
+      <Comparison />
+      <CtaBanner />
+      <SiteFooter />
     </div>
   );
 }
