@@ -28,8 +28,7 @@ export function Hero() {
 
         <Reveal delay={80}>
           <h1 className="mt-6 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-whiteout sm:mt-8 sm:text-5xl md:text-6xl lg:text-[80px] lg:leading-[1]">
-            <span>Dados. Compliance e Valor</span>{" "}
-            <span className="sm:block">para a agroindústria brasileira.</span>
+            Tecnologia ESG para a agroindústria brasileira.
           </h1>
         </Reveal>
 
