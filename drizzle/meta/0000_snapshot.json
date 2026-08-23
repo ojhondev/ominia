@@ -1,0 +1,3095 @@
+{
+  "id": "818e8d85-83f0-4b5a-8bc4-3e6e95687851",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.assegurancoes": {
+      "name": "assegurancoes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "relatorio_id": {
+          "name": "relatorio_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auditor_nome": {
+          "name": "auditor_nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "auditor_empresa": {
+          "name": "auditor_empresa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tipo_asseguranca": {
+          "name": "tipo_asseguranca",
+          "type": "asseguranca_tipo",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parecer": {
+          "name": "parecer",
+          "type": "asseguranca_parecer",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data_emissao": {
+          "name": "data_emissao",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "documento_id": {
+          "name": "documento_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "assegurancoes_relatorio_id_relatorios_id_fk": {
+          "name": "assegurancoes_relatorio_id_relatorios_id_fk",
+          "tableFrom": "assegurancoes",
+          "tableTo": "relatorios",
+          "columnsFrom": [
+            "relatorio_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "assegurancoes_documento_id_documentos_id_fk": {
+          "name": "assegurancoes_documento_id_documentos_id_fk",
+          "tableFrom": "assegurancoes",
+          "tableTo": "documentos",
+          "columnsFrom": [
+            "documento_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.auditoria_log": {
+      "name": "auditoria_log",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "entidade_tipo": {
+          "name": "entidade_tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entidade_id": {
+          "name": "entidade_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "acao": {
+          "name": "acao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usuario_id": {
+          "name": "usuario_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_anterior": {
+          "name": "valor_anterior",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_novo": {
+          "name": "valor_novo",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "auditoria_log_usuario_id_usuarios_id_fk": {
+          "name": "auditoria_log_usuario_id_usuarios_id_fk",
+          "tableFrom": "auditoria_log",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "usuario_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.cenario_impactos": {
+      "name": "cenario_impactos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "cenario_id": {
+          "name": "cenario_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_risco": {
+          "name": "tipo_risco",
+          "type": "cenario_tipo_risco",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "escopo_tipo": {
+          "name": "escopo_tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "escopo_id": {
+          "name": "escopo_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao_impacto": {
+          "name": "descricao_impacto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_estimado": {
+          "name": "valor_estimado",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "unidade_valor": {
+          "name": "unidade_valor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "cenario_impactos_cenario_id_cenarios_climaticos_id_fk": {
+          "name": "cenario_impactos_cenario_id_cenarios_climaticos_id_fk",
+          "tableFrom": "cenario_impactos",
+          "tableTo": "cenarios_climaticos",
+          "columnsFrom": [
+            "cenario_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.cenarios_climaticos": {
+      "name": "cenarios_climaticos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fonte_metodologia": {
+          "name": "fonte_metodologia",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "horizonte_ano": {
+          "name": "horizonte_ano",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "premissas": {
+          "name": "premissas",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "cenarios_climaticos_empresa_id_empresas_id_fk": {
+          "name": "cenarios_climaticos_empresa_id_empresas_id_fk",
+          "tableFrom": "cenarios_climaticos",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.divergencias": {
+      "name": "divergencias",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "valor_indicador_id": {
+          "name": "valor_indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "divergencia_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'aberta'"
+        },
+        "resolvido_por": {
+          "name": "resolvido_por",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resolvido_em": {
+          "name": "resolvido_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "divergencias_valor_indicador_id_valores_indicador_id_fk": {
+          "name": "divergencias_valor_indicador_id_valores_indicador_id_fk",
+          "tableFrom": "divergencias",
+          "tableTo": "valores_indicador",
+          "columnsFrom": [
+            "valor_indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "divergencias_resolvido_por_usuarios_id_fk": {
+          "name": "divergencias_resolvido_por_usuarios_id_fk",
+          "tableFrom": "divergencias",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "resolvido_por"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.documento_vinculos": {
+      "name": "documento_vinculos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "documento_id": {
+          "name": "documento_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entidade_tipo": {
+          "name": "entidade_tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entidade_id": {
+          "name": "entidade_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "documento_vinculos_documento_id_documentos_id_fk": {
+          "name": "documento_vinculos_documento_id_documentos_id_fk",
+          "tableFrom": "documento_vinculos",
+          "tableTo": "documentos",
+          "columnsFrom": [
+            "documento_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.documentos": {
+      "name": "documentos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "arquivo_url": {
+          "name": "arquivo_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hash_integridade": {
+          "name": "hash_integridade",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "enviado_por": {
+          "name": "enviado_por",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "documentos_empresa_id_empresas_id_fk": {
+          "name": "documentos_empresa_id_empresas_id_fk",
+          "tableFrom": "documentos",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "documentos_enviado_por_usuarios_id_fk": {
+          "name": "documentos_enviado_por_usuarios_id_fk",
+          "tableFrom": "documentos",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "enviado_por"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.elegibilidade_avaliacoes": {
+      "name": "elegibilidade_avaliacoes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "linha_id": {
+          "name": "linha_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_avaliacao": {
+          "name": "data_avaliacao",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "elegibilidade_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'nao_elegivel'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "elegibilidade_avaliacoes_empresa_id_empresas_id_fk": {
+          "name": "elegibilidade_avaliacoes_empresa_id_empresas_id_fk",
+          "tableFrom": "elegibilidade_avaliacoes",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "elegibilidade_avaliacoes_linha_id_linhas_credito_verde_id_fk": {
+          "name": "elegibilidade_avaliacoes_linha_id_linhas_credito_verde_id_fk",
+          "tableFrom": "elegibilidade_avaliacoes",
+          "tableTo": "linhas_credito_verde",
+          "columnsFrom": [
+            "linha_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.elegibilidade_criterio_resultados": {
+      "name": "elegibilidade_criterio_resultados",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "avaliacao_id": {
+          "name": "avaliacao_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "criterio_id": {
+          "name": "criterio_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "atendido": {
+          "name": "atendido",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "valor_encontrado": {
+          "name": "valor_encontrado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gap": {
+          "name": "gap",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "elegibilidade_criterio_resultados_avaliacao_id_elegibilidade_avaliacoes_id_fk": {
+          "name": "elegibilidade_criterio_resultados_avaliacao_id_elegibilidade_avaliacoes_id_fk",
+          "tableFrom": "elegibilidade_criterio_resultados",
+          "tableTo": "elegibilidade_avaliacoes",
+          "columnsFrom": [
+            "avaliacao_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "elegibilidade_criterio_resultados_criterio_id_linha_credito_criterios_id_fk": {
+          "name": "elegibilidade_criterio_resultados_criterio_id_linha_credito_criterios_id_fk",
+          "tableFrom": "elegibilidade_criterio_resultados",
+          "tableTo": "linha_credito_criterios",
+          "columnsFrom": [
+            "criterio_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.empresas": {
+      "name": "empresas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cnpj": {
+          "name": "cnpj",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "segmento": {
+          "name": "segmento",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "empresas_cnpj_unique": {
+          "name": "empresas_cnpj_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "cnpj"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.fontes_valor": {
+      "name": "fontes_valor",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "valor_indicador_id": {
+          "name": "valor_indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_fonte": {
+          "name": "tipo_fonte",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "origem_detalhe": {
+          "name": "origem_detalhe",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_reportado": {
+          "name": "valor_reportado",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "capturado_em": {
+          "name": "capturado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fontes_valor_valor_indicador_id_valores_indicador_id_fk": {
+          "name": "fontes_valor_valor_indicador_id_valores_indicador_id_fk",
+          "tableFrom": "fontes_valor",
+          "tableTo": "valores_indicador",
+          "columnsFrom": [
+            "valor_indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.fornecedor_relacionamentos": {
+      "name": "fornecedor_relacionamentos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "fornecedor_id": {
+          "name": "fornecedor_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fornecedor_relacionado_id": {
+          "name": "fornecedor_relacionado_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_relacao": {
+          "name": "tipo_relacao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nivel": {
+          "name": "nivel",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fornecedor_relacionamentos_fornecedor_id_fornecedores_id_fk": {
+          "name": "fornecedor_relacionamentos_fornecedor_id_fornecedores_id_fk",
+          "tableFrom": "fornecedor_relacionamentos",
+          "tableTo": "fornecedores",
+          "columnsFrom": [
+            "fornecedor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "fornecedor_relacionamentos_fornecedor_relacionado_id_fornecedores_id_fk": {
+          "name": "fornecedor_relacionamentos_fornecedor_relacionado_id_fornecedores_id_fk",
+          "tableFrom": "fornecedor_relacionamentos",
+          "tableTo": "fornecedores",
+          "columnsFrom": [
+            "fornecedor_relacionado_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.fornecedores": {
+      "name": "fornecedores",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "documento": {
+          "name": "documento",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "car": {
+          "name": "car",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status_cadastro": {
+          "name": "status_cadastro",
+          "type": "fornecedor_status_cadastro",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pendente'"
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fornecedores_empresa_id_empresas_id_fk": {
+          "name": "fornecedores_empresa_id_empresas_id_fk",
+          "tableFrom": "fornecedores",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frameworks": {
+      "name": "frameworks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "codigo": {
+          "name": "codigo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "versao": {
+          "name": "versao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "framework_tipo",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'voluntario'"
+        },
+        "vigente_a_partir": {
+          "name": "vigente_a_partir",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frameworks_codigo_unique": {
+          "name": "frameworks_codigo_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "codigo"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.indicadores": {
+      "name": "indicadores",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "codigo": {
+          "name": "codigo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoria": {
+          "name": "categoria",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unidade_medida": {
+          "name": "unidade_medida",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metodologia": {
+          "name": "metodologia",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "indicadores_codigo_unique": {
+          "name": "indicadores_codigo_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "codigo"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.linha_credito_criterios": {
+      "name": "linha_credito_criterios",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "linha_id": {
+          "name": "linha_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao_criterio": {
+          "name": "descricao_criterio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requisito_id": {
+          "name": "requisito_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "indicador_id": {
+          "name": "indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_minimo": {
+          "name": "valor_minimo",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_maximo": {
+          "name": "valor_maximo",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "obrigatorio": {
+          "name": "obrigatorio",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "linha_credito_criterios_linha_id_linhas_credito_verde_id_fk": {
+          "name": "linha_credito_criterios_linha_id_linhas_credito_verde_id_fk",
+          "tableFrom": "linha_credito_criterios",
+          "tableTo": "linhas_credito_verde",
+          "columnsFrom": [
+            "linha_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "linha_credito_criterios_requisito_id_requisitos_id_fk": {
+          "name": "linha_credito_criterios_requisito_id_requisitos_id_fk",
+          "tableFrom": "linha_credito_criterios",
+          "tableTo": "requisitos",
+          "columnsFrom": [
+            "requisito_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "linha_credito_criterios_indicador_id_indicadores_id_fk": {
+          "name": "linha_credito_criterios_indicador_id_indicadores_id_fk",
+          "tableFrom": "linha_credito_criterios",
+          "tableTo": "indicadores",
+          "columnsFrom": [
+            "indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.linhas_credito_verde": {
+      "name": "linhas_credito_verde",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "instituicao": {
+          "name": "instituicao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.metas": {
+      "name": "metas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "indicador_id": {
+          "name": "indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "baseline_valor": {
+          "name": "baseline_valor",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "baseline_ano": {
+          "name": "baseline_ano",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valor_alvo": {
+          "name": "valor_alvo",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ano_alvo": {
+          "name": "ano_alvo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "meta_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'em_andamento'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "metas_empresa_id_empresas_id_fk": {
+          "name": "metas_empresa_id_empresas_id_fk",
+          "tableFrom": "metas",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "metas_indicador_id_indicadores_id_fk": {
+          "name": "metas_indicador_id_indicadores_id_fk",
+          "tableFrom": "metas",
+          "tableTo": "indicadores",
+          "columnsFrom": [
+            "indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.politicas": {
+      "name": "politicas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "versao": {
+          "name": "versao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vigencia_inicio": {
+          "name": "vigencia_inicio",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vigencia_fim": {
+          "name": "vigencia_fim",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "politica_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'rascunho'"
+        },
+        "documento_id": {
+          "name": "documento_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "aprovador_id": {
+          "name": "aprovador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "politicas_empresa_id_empresas_id_fk": {
+          "name": "politicas_empresa_id_empresas_id_fk",
+          "tableFrom": "politicas",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "politicas_documento_id_documentos_id_fk": {
+          "name": "politicas_documento_id_documentos_id_fk",
+          "tableFrom": "politicas",
+          "tableTo": "documentos",
+          "columnsFrom": [
+            "documento_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "politicas_aprovador_id_usuarios_id_fk": {
+          "name": "politicas_aprovador_id_usuarios_id_fk",
+          "tableFrom": "politicas",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "aprovador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.projeto_indicadores": {
+      "name": "projeto_indicadores",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "projeto_id": {
+          "name": "projeto_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "indicador_id": {
+          "name": "indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "projeto_indicadores_projeto_id_projetos_sustentaveis_id_fk": {
+          "name": "projeto_indicadores_projeto_id_projetos_sustentaveis_id_fk",
+          "tableFrom": "projeto_indicadores",
+          "tableTo": "projetos_sustentaveis",
+          "columnsFrom": [
+            "projeto_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "projeto_indicadores_indicador_id_indicadores_id_fk": {
+          "name": "projeto_indicadores_indicador_id_indicadores_id_fk",
+          "tableFrom": "projeto_indicadores",
+          "tableTo": "indicadores",
+          "columnsFrom": [
+            "indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.projetos_sustentaveis": {
+      "name": "projetos_sustentaveis",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoria": {
+          "name": "categoria",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "investimento_total": {
+          "name": "investimento_total",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data_inicio": {
+          "name": "data_inicio",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data_fim_prevista": {
+          "name": "data_fim_prevista",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "projeto_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'planejado'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "projetos_sustentaveis_empresa_id_empresas_id_fk": {
+          "name": "projetos_sustentaveis_empresa_id_empresas_id_fk",
+          "tableFrom": "projetos_sustentaveis",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.questionario_perguntas": {
+      "name": "questionario_perguntas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "questionario_id": {
+          "name": "questionario_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "texto": {
+          "name": "texto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requisito_id": {
+          "name": "requisito_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ordem": {
+          "name": "ordem",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "questionario_perguntas_questionario_id_questionarios_id_fk": {
+          "name": "questionario_perguntas_questionario_id_questionarios_id_fk",
+          "tableFrom": "questionario_perguntas",
+          "tableTo": "questionarios",
+          "columnsFrom": [
+            "questionario_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "questionario_perguntas_requisito_id_requisitos_id_fk": {
+          "name": "questionario_perguntas_requisito_id_requisitos_id_fk",
+          "tableFrom": "questionario_perguntas",
+          "tableTo": "requisitos",
+          "columnsFrom": [
+            "requisito_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.questionario_respostas": {
+      "name": "questionario_respostas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "pergunta_id": {
+          "name": "pergunta_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resposta_texto": {
+          "name": "resposta_texto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "origem_resposta": {
+          "name": "origem_resposta",
+          "type": "resposta_origem",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'editada_manual'"
+        },
+        "valor_indicador_id": {
+          "name": "valor_indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "respondido_por": {
+          "name": "respondido_por",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "respondido_em": {
+          "name": "respondido_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "questionario_respostas_pergunta_id_questionario_perguntas_id_fk": {
+          "name": "questionario_respostas_pergunta_id_questionario_perguntas_id_fk",
+          "tableFrom": "questionario_respostas",
+          "tableTo": "questionario_perguntas",
+          "columnsFrom": [
+            "pergunta_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "questionario_respostas_valor_indicador_id_valores_indicador_id_fk": {
+          "name": "questionario_respostas_valor_indicador_id_valores_indicador_id_fk",
+          "tableFrom": "questionario_respostas",
+          "tableTo": "valores_indicador",
+          "columnsFrom": [
+            "valor_indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "questionario_respostas_respondido_por_usuarios_id_fk": {
+          "name": "questionario_respostas_respondido_por_usuarios_id_fk",
+          "tableFrom": "questionario_respostas",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "respondido_por"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.questionarios": {
+      "name": "questionarios",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "origem_tipo": {
+          "name": "origem_tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "origem_nome": {
+          "name": "origem_nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prazo": {
+          "name": "prazo",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "questionario_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'recebido'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "questionarios_empresa_id_empresas_id_fk": {
+          "name": "questionarios_empresa_id_empresas_id_fk",
+          "tableFrom": "questionarios",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.relatorio_requisitos": {
+      "name": "relatorio_requisitos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "relatorio_id": {
+          "name": "relatorio_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requisito_id": {
+          "name": "requisito_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor_snapshot": {
+          "name": "valor_snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completude_percentual": {
+          "name": "completude_percentual",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "relatorio_requisitos_relatorio_id_relatorios_id_fk": {
+          "name": "relatorio_requisitos_relatorio_id_relatorios_id_fk",
+          "tableFrom": "relatorio_requisitos",
+          "tableTo": "relatorios",
+          "columnsFrom": [
+            "relatorio_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "relatorio_requisitos_requisito_id_requisitos_id_fk": {
+          "name": "relatorio_requisitos_requisito_id_requisitos_id_fk",
+          "tableFrom": "relatorio_requisitos",
+          "tableTo": "requisitos",
+          "columnsFrom": [
+            "requisito_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.relatorios": {
+      "name": "relatorios",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "framework_id": {
+          "name": "framework_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodo_inicio": {
+          "name": "periodo_inicio",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodo_fim": {
+          "name": "periodo_fim",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "versao": {
+          "name": "versao",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "status": {
+          "name": "status",
+          "type": "relatorio_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'rascunho'"
+        },
+        "relatorio_anterior_id": {
+          "name": "relatorio_anterior_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publicado_em": {
+          "name": "publicado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "relatorios_empresa_id_empresas_id_fk": {
+          "name": "relatorios_empresa_id_empresas_id_fk",
+          "tableFrom": "relatorios",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "relatorios_framework_id_frameworks_id_fk": {
+          "name": "relatorios_framework_id_frameworks_id_fk",
+          "tableFrom": "relatorios",
+          "tableTo": "frameworks",
+          "columnsFrom": [
+            "framework_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "relatorios_relatorio_anterior_id_relatorios_id_fk": {
+          "name": "relatorios_relatorio_anterior_id_relatorios_id_fk",
+          "tableFrom": "relatorios",
+          "tableTo": "relatorios",
+          "columnsFrom": [
+            "relatorio_anterior_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.requisito_indicadores": {
+      "name": "requisito_indicadores",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "requisito_id": {
+          "name": "requisito_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "indicador_id": {
+          "name": "indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "requisito_indicadores_requisito_id_requisitos_id_fk": {
+          "name": "requisito_indicadores_requisito_id_requisitos_id_fk",
+          "tableFrom": "requisito_indicadores",
+          "tableTo": "requisitos",
+          "columnsFrom": [
+            "requisito_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "requisito_indicadores_indicador_id_indicadores_id_fk": {
+          "name": "requisito_indicadores_indicador_id_indicadores_id_fk",
+          "tableFrom": "requisito_indicadores",
+          "tableTo": "indicadores",
+          "columnsFrom": [
+            "indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.requisitos": {
+      "name": "requisitos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "framework_id": {
+          "name": "framework_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "codigo": {
+          "name": "codigo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "topico": {
+          "name": "topico",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "obrigatorio": {
+          "name": "obrigatorio",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "requisitos_framework_id_frameworks_id_fk": {
+          "name": "requisitos_framework_id_frameworks_id_fk",
+          "tableFrom": "requisitos",
+          "tableTo": "frameworks",
+          "columnsFrom": [
+            "framework_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.risco_vinculos": {
+      "name": "risco_vinculos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "risco_id": {
+          "name": "risco_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entidade_tipo": {
+          "name": "entidade_tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entidade_id": {
+          "name": "entidade_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "risco_vinculos_risco_id_riscos_id_fk": {
+          "name": "risco_vinculos_risco_id_riscos_id_fk",
+          "tableFrom": "risco_vinculos",
+          "tableTo": "riscos",
+          "columnsFrom": [
+            "risco_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.riscos": {
+      "name": "riscos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoria": {
+          "name": "categoria",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "probabilidade": {
+          "name": "probabilidade",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "impacto": {
+          "name": "impacto",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "risco_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'identificado'"
+        },
+        "mitigacao": {
+          "name": "mitigacao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "responsavel_id": {
+          "name": "responsavel_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "riscos_empresa_id_empresas_id_fk": {
+          "name": "riscos_empresa_id_empresas_id_fk",
+          "tableFrom": "riscos",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "riscos_responsavel_id_usuarios_id_fk": {
+          "name": "riscos_responsavel_id_usuarios_id_fk",
+          "tableFrom": "riscos",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "responsavel_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.score_fornecedor_resultados": {
+      "name": "score_fornecedor_resultados",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "fornecedor_id": {
+          "name": "fornecedor_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "modelo_id": {
+          "name": "modelo_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodo_referencia": {
+          "name": "periodo_referencia",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score_final": {
+          "name": "score_final",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "detalhamento": {
+          "name": "detalhamento",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "score_fornecedor_resultados_fornecedor_id_fornecedores_id_fk": {
+          "name": "score_fornecedor_resultados_fornecedor_id_fornecedores_id_fk",
+          "tableFrom": "score_fornecedor_resultados",
+          "tableTo": "fornecedores",
+          "columnsFrom": [
+            "fornecedor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "score_fornecedor_resultados_modelo_id_score_modelos_id_fk": {
+          "name": "score_fornecedor_resultados_modelo_id_score_modelos_id_fk",
+          "tableFrom": "score_fornecedor_resultados",
+          "tableTo": "score_modelos",
+          "columnsFrom": [
+            "modelo_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.score_modelo_criterios": {
+      "name": "score_modelo_criterios",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "modelo_id": {
+          "name": "modelo_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "peso": {
+          "name": "peso",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "indicador_id": {
+          "name": "indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "requisito_id": {
+          "name": "requisito_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "score_modelo_criterios_modelo_id_score_modelos_id_fk": {
+          "name": "score_modelo_criterios_modelo_id_score_modelos_id_fk",
+          "tableFrom": "score_modelo_criterios",
+          "tableTo": "score_modelos",
+          "columnsFrom": [
+            "modelo_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "score_modelo_criterios_indicador_id_indicadores_id_fk": {
+          "name": "score_modelo_criterios_indicador_id_indicadores_id_fk",
+          "tableFrom": "score_modelo_criterios",
+          "tableTo": "indicadores",
+          "columnsFrom": [
+            "indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "score_modelo_criterios_requisito_id_requisitos_id_fk": {
+          "name": "score_modelo_criterios_requisito_id_requisitos_id_fk",
+          "tableFrom": "score_modelo_criterios",
+          "tableTo": "requisitos",
+          "columnsFrom": [
+            "requisito_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.score_modelos": {
+      "name": "score_modelos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "versao": {
+          "name": "versao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vigente_a_partir": {
+          "name": "vigente_a_partir",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.unidades": {
+      "name": "unidades",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cnpj": {
+          "name": "cnpj",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "municipio": {
+          "name": "municipio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "uf": {
+          "name": "uf",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "unidade_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ativa'"
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "unidades_empresa_id_empresas_id_fk": {
+          "name": "unidades_empresa_id_empresas_id_fk",
+          "tableFrom": "unidades",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.usuarios": {
+      "name": "usuarios",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senha_hash": {
+          "name": "senha_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "papel": {
+          "name": "papel",
+          "type": "usuario_papel",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'operacoes'"
+        },
+        "fornecedor_id": {
+          "name": "fornecedor_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "usuarios_empresa_id_empresas_id_fk": {
+          "name": "usuarios_empresa_id_empresas_id_fk",
+          "tableFrom": "usuarios",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "usuarios_fornecedor_id_fornecedores_id_fk": {
+          "name": "usuarios_fornecedor_id_fornecedores_id_fk",
+          "tableFrom": "usuarios",
+          "tableTo": "fornecedores",
+          "columnsFrom": [
+            "fornecedor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "usuarios_email_unique": {
+          "name": "usuarios_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.valor_eventos": {
+      "name": "valor_eventos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "empresa_id": {
+          "name": "empresa_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pilar_categoria": {
+          "name": "pilar_categoria",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subtipo": {
+          "name": "subtipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "escopo_tipo": {
+          "name": "escopo_tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "escopo_id": {
+          "name": "escopo_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodo_inicio": {
+          "name": "periodo_inicio",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodo_fim": {
+          "name": "periodo_fim",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor_numerico": {
+          "name": "valor_numerico",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unidade_valor": {
+          "name": "unidade_valor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metodologia": {
+          "name": "metodologia",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "baseado_em": {
+          "name": "baseado_em",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "valor_evento_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'calculado'"
+        },
+        "validado_por": {
+          "name": "validado_por",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gerado_em": {
+          "name": "gerado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "valor_eventos_empresa_id_empresas_id_fk": {
+          "name": "valor_eventos_empresa_id_empresas_id_fk",
+          "tableFrom": "valor_eventos",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "valor_eventos_validado_por_usuarios_id_fk": {
+          "name": "valor_eventos_validado_por_usuarios_id_fk",
+          "tableFrom": "valor_eventos",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "validado_por"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.valores_indicador": {
+      "name": "valores_indicador",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "indicador_id": {
+          "name": "indicador_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "escopo_tipo": {
+          "name": "escopo_tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "escopo_id": {
+          "name": "escopo_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodo_inicio": {
+          "name": "periodo_inicio",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodo_fim": {
+          "name": "periodo_fim",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor": {
+          "name": "valor",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "valor_indicador_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pendente'"
+        },
+        "responsavel_id": {
+          "name": "responsavel_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "validado_em": {
+          "name": "validado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "valores_indicador_indicador_id_indicadores_id_fk": {
+          "name": "valores_indicador_indicador_id_indicadores_id_fk",
+          "tableFrom": "valores_indicador",
+          "tableTo": "indicadores",
+          "columnsFrom": [
+            "indicador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "valores_indicador_responsavel_id_usuarios_id_fk": {
+          "name": "valores_indicador_responsavel_id_usuarios_id_fk",
+          "tableFrom": "valores_indicador",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "responsavel_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.asseguranca_parecer": {
+      "name": "asseguranca_parecer",
+      "schema": "public",
+      "values": [
+        "aprovado",
+        "aprovado_com_ressalvas",
+        "reprovado"
+      ]
+    },
+    "public.asseguranca_tipo": {
+      "name": "asseguranca_tipo",
+      "schema": "public",
+      "values": [
+        "limitada",
+        "razoavel"
+      ]
+    },
+    "public.cenario_tipo_risco": {
+      "name": "cenario_tipo_risco",
+      "schema": "public",
+      "values": [
+        "fisico",
+        "transicao"
+      ]
+    },
+    "public.divergencia_status": {
+      "name": "divergencia_status",
+      "schema": "public",
+      "values": [
+        "aberta",
+        "em_analise",
+        "resolvida"
+      ]
+    },
+    "public.elegibilidade_status": {
+      "name": "elegibilidade_status",
+      "schema": "public",
+      "values": [
+        "elegivel",
+        "elegivel_parcial",
+        "nao_elegivel"
+      ]
+    },
+    "public.fornecedor_status_cadastro": {
+      "name": "fornecedor_status_cadastro",
+      "schema": "public",
+      "values": [
+        "pendente",
+        "ativo",
+        "bloqueado"
+      ]
+    },
+    "public.framework_tipo": {
+      "name": "framework_tipo",
+      "schema": "public",
+      "values": [
+        "regulatorio",
+        "voluntario"
+      ]
+    },
+    "public.meta_status": {
+      "name": "meta_status",
+      "schema": "public",
+      "values": [
+        "em_andamento",
+        "atingida",
+        "nao_atingida",
+        "revisada"
+      ]
+    },
+    "public.politica_status": {
+      "name": "politica_status",
+      "schema": "public",
+      "values": [
+        "rascunho",
+        "vigente",
+        "em_revisao",
+        "revogada"
+      ]
+    },
+    "public.projeto_status": {
+      "name": "projeto_status",
+      "schema": "public",
+      "values": [
+        "planejado",
+        "em_execucao",
+        "concluido",
+        "cancelado"
+      ]
+    },
+    "public.questionario_status": {
+      "name": "questionario_status",
+      "schema": "public",
+      "values": [
+        "recebido",
+        "em_preenchimento",
+        "respondido",
+        "enviado"
+      ]
+    },
+    "public.relatorio_status": {
+      "name": "relatorio_status",
+      "schema": "public",
+      "values": [
+        "rascunho",
+        "em_revisao",
+        "publicado",
+        "substituido"
+      ]
+    },
+    "public.resposta_origem": {
+      "name": "resposta_origem",
+      "schema": "public",
+      "values": [
+        "sugerida_ia",
+        "editada_manual"
+      ]
+    },
+    "public.risco_status": {
+      "name": "risco_status",
+      "schema": "public",
+      "values": [
+        "identificado",
+        "em_mitigacao",
+        "mitigado",
+        "aceito"
+      ]
+    },
+    "public.unidade_status": {
+      "name": "unidade_status",
+      "schema": "public",
+      "values": [
+        "ativa",
+        "inativa"
+      ]
+    },
+    "public.usuario_papel": {
+      "name": "usuario_papel",
+      "schema": "public",
+      "values": [
+        "admin",
+        "operacoes",
+        "compliance",
+        "fornecedor"
+      ]
+    },
+    "public.valor_evento_status": {
+      "name": "valor_evento_status",
+      "schema": "public",
+      "values": [
+        "calculado",
+        "validado",
+        "publicado"
+      ]
+    },
+    "public.valor_indicador_status": {
+      "name": "valor_indicador_status",
+      "schema": "public",
+      "values": [
+        "pendente",
+        "validado",
+        "divergente",
+        "rejeitado"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
