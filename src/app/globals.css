@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --color-neon-glow: #34d59a;
+  --color-neon-muted: #285d49;
+  --color-system-warning: #ff3621;
+  --color-whiteout: #ffffff;
+  --color-ash: #797d86;
+  --color-pewter: #94979e;
+  --color-cloud: #c9cbcf;
+  --color-graphite-light: #303236;
+  --color-graphite: #242628;
+  --color-graphite-deep: #151617;
+  --color-depth: #0a0a0b;
+  --color-blackout: #000000;
+}
+
+@theme inline {
+  --color-neon-glow: var(--color-neon-glow);
+  --color-neon-muted: var(--color-neon-muted);
+  --color-system-warning: var(--color-system-warning);
+  --color-whiteout: var(--color-whiteout);
+  --color-ash: var(--color-ash);
+  --color-pewter: var(--color-pewter);
+  --color-cloud: var(--color-cloud);
+  --color-graphite-light: var(--color-graphite-light);
+  --color-graphite: var(--color-graphite);
+  --color-graphite-deep: var(--color-graphite-deep);
+  --color-depth: var(--color-depth);
+  --color-blackout: var(--color-blackout);
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geistmono);
+
+  --radius-ui: 4px;
+
+  --shadow-lg: 0px 8px 20px 0px rgba(0, 0, 0, 0.4);
+}
+
+body {
+  background: var(--color-blackout);
+  color: var(--color-whiteout);
+}
+
+::selection {
+  background: var(--color-neon-muted);
+  color: var(--color-whiteout);
+}
+
+.scanline {
+  background-image: linear-gradient(
+    90deg,
+    rgba(52, 213, 154, 0.6) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  background-size: 6px 1px;
+}
