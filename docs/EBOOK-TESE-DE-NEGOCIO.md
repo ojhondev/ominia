@@ -1,650 +1,600 @@
 # Ominia — Tese de Negócio, Mercado e Modelo Comercial
+## Foco: Inventário de Emissões de GEE para Agroindústria
 
-Ebook interno de produto/negócio · Versão 0.1 · 2026-08-22
+Ebook interno de produto/negócio · Versão 0.2 (reescrita com foco único em inventário
+de emissões) · 2026-08-24
 
-> Este documento complementa o [PRD](PRD.md) e os três modelos de dados
-> ([Dados](DATA-MODEL.md), [Compliance](DATA-MODEL-COMPLIANCE.md),
-> [Valor](DATA-MODEL-VALOR.md)) com a tese comercial: por que este negócio existe, por
-> que agora, para quem, quanto cobrar e por quê, contra quem competimos, e o que custa
-> construir. Números de mercado citados aqui vêm de pesquisa dedicada (fontes ao final,
-> capítulo 14) — onde a fonte é fraca, ambígua ou ausente, isso está dito
-> explicitamente, em vez de apresentado como certeza.
+> Esta versão substitui a v0.1, que tratava a Ominia como um hub de três pilares
+> (Dados → Compliance → Valor). Decisão registrada nesta sessão: o hub completo é
+> complexo demais para construir e vender como ponto de partida. Esta reescrita
+> restringe o produto a **um único wedge**: inventário de emissões de GEE (Escopo 1,
+> 2 e 3, metodologia GHG Protocol) com trilha de auditoria e evidência automática —
+> o pedaço do Pilar 2 (Compliance) do PRD original com maior urgência real hoje. Os
+> pilares Dados e Valor completos, e o restante do catálogo de frameworks (GRI, IFRS
+> S1 amplo, questionários genéricos), saem do escopo de venda v1 e viram roadmap
+> (capítulo 14). Números de mercado, regulação e concorrência foram repesquisados
+> especificamente para este escopo mais estreito — não são um recorte da v0.1.
 
 ---
 
 ## 1. Sumário executivo
 
-A Ominia vende **confiança sobre dado ESG de agroindústria, traduzida em decisão de
-negócio**. A tese em uma frase: enquanto a concorrência disputa "quem faz o melhor
-relatório", a Ominia disputa **"quem prova para o banco, o cliente e o auditor que o
-número é real"** — e depois mostra, em reais, quanto esse número vale.
+A Ominia vende **inventário de emissões de GEE auditável para agroindústria
+brasileira, com um caminho claro até dinheiro** — não um relatório de sustentabilidade
+genérico. A tese em uma frase: o inventário de emissões deixa de ser custo de
+compliance e passa a ser **o que sustenta mais CBios emitidos, elegibilidade a
+Bonsucro e prontidão para o mercado regulado de carbono (SBCE)** — três coisas que já
+valem dinheiro ou já são exigidas por comprador, hoje, para uma usina de
+cana-de-açúcar.
 
-Três fatos de mercado sustentam a aposta, e todos os três vieram da pesquisa (não de
-suposição):
+Quatro fatos de mercado sustentam essa versão mais estreita da tese, todos vindos de
+pesquisa dedicada para esta reescrita (fontes no capítulo 16):
 
-1. **O gatilho regulatório doméstico é mais fraco do que parecia em agosto de 2026.**
-   A CVM tornou a divulgação de sustentabilidade (CBPS/IFRS S1-S2) **voluntária de
-   novo** em maio de 2026, revertendo a obrigatoriedade que estava programada para
-   2026 (capítulo 3.4). Isso muda a venda de "você é obrigado" para "você sai na
-   frente e prova isso ao mercado" — uma venda mais difícil, mas com margem melhor e
-   menos concorrência de "checkbox compliance".
-2. **A pressão real, hoje, é comercial e de exportação — não doméstica.** O
-   Regulamento Europeu de Desmatamento (EUDR) entra em vigor para operadores
-   grandes/médios em **30 de dezembro de 2026**, e cobre soja, carne, café, cacau,
-   madeira, dendê e borracha (não cana-de-açúcar diretamente). Novas regras de
-   crédito rural também estão **aumentando a exigência de inteligência territorial
-   dentro dos bancos** — um canal B2B2B real e pouco explorado (capítulo 3.5, 8.2).
-3. **O mercado de software ESG é pequeno perto do hype, mas cresce rápido — e o Brasil
-   não tem número próprio confiável.** O segmento global de "ESG reporting software"
-   vale ~US$1,3 bi (2023) crescendo para ~US$5,6 bi até 2029 (Verdantix); não existe
-   estimativa em dólares especificamente para o Brasil que resista a uma checagem de
-   fonte primária (capítulo 3.2) — isso é dito às claras, não maquiado com um número
-   emprestado de outro mercado.
+1. **O inventário de emissões já é o item mais concreto e mensurável dentro do
+   universo "ESG"** — ao contrário de "compliance geral" ou "score ESG", ele tem uma
+   metodologia internacional única (GHG Protocol), uma unidade de medida clara
+   (tCO2e) e, no caso do setor sucroenergético, **um mecanismo que já converte
+   inventário preciso em receita**: o RenovaBio/CBio.
+2. **O CBio está em um momento que favorece quem tem inventário melhor, não pior.**
+   O preço do CBio caiu de ~R$75 (início de 2025) para a faixa de R$29-32 em 2026 —
+   queda de mais da metade — enquanto o volume negociado subiu 53% no mesmo
+   comparativo. Ou seja: **a margem por CBio caiu, e o volume emitido corretamente
+   passou a importar mais**, não menos, para compensar o preço mais baixo (capítulo
+   4.2). Isso é um argumento comercial direto para uma ferramenta de inventário
+   melhor, e é um dado que a v0.1 deste documento não tinha.
+3. **O SBCE (mercado regulado de carbono brasileiro) ainda não confirmou o agro na
+   primeira fase.** A primeira etapa (2027) cobre alumínio, aço, cimento, petróleo e
+   gás, papel e celulose e aviação — **não** inclui explicitamente agroindústria ou
+   alimentos/bebidas até a publicação oficial da lista final (capítulo 4.1). Isso é
+   dito às claras: não dá para vender "você é obrigado pelo SBCE" para uma usina hoje.
+   A venda é "prepare-se antes, e monetize o inventário via CBios/Bonsucro enquanto
+   isso".
+4. **O mercado de ferramentas de inventário de GEE no Brasil não está vazio** — ao
+   contrário do quadrante "hub completo" da v0.1, que estava genuinamente livre, o
+   segmento estreito de "software de inventário de emissões" já tem players
+   brasileiros ativos (Ororo, CarbonSys, Zaya, Legitimus, Carbon Free Brasil — capítulo
+   8). Isso muda a natureza da aposta: não é mais "ser o primeiro", é **"ser o mais
+   profundo em sucroenergético e o único que liga inventário a CBio/Bonsucro como
+   produto, não como funcionalidade lateral"**.
 
-O ICP inicial (usinas de cana-de-açúcar e agroindústrias de porte médio-grande) e o
-modelo de precificação por empresa — não por fornecedor cadastrado — são o núcleo do
-capítulo 6, que é o capítulo mais importante deste documento por pedido explícito.
+O ICP permanece o mesmo da v0.1 (usinas de cana-de-açúcar de porte médio-grande,
+capítulo 5), mas o produto, o preço e a análise competitiva mudam integralmente.
 
 ---
 
-## 2. A tese de negócio
+## 2. A tese de negócio (redefinida)
 
 ### 2.1 O problema em uma frase
 
-Agroindústria brasileira de porte médio-grande tem dado ESG disperso, sem trilha de
-auditoria, e por isso não consegue: (a) responder rápido a due diligence de cliente ou
-banco, (b) provar redução de custo/risco que já aconteceu na operação, e (c) acessar
-capital ou mercado mais barato/melhor por causa disso. O dado existe — em ERP, em
-e-mail, em planilha, em nota fiscal — mas não existe **de um jeito que sustente uma
-afirmação perante terceiro**.
+A usina sabe, aproximadamente, quanto emite — mas não tem esse número num formato que
+resista a auditoria, que maximize CBios corretamente apurados, ou que responda rápido
+a um comprador, banco ou certificadora (Bonsucro) pedindo evidência. O dado de energia,
+combustível, insumo e resíduo existe em planilha, ERP e nota fiscal, mas ninguém junta
+isso num inventário defensável de Escopo 1, 2 e 3 sem um processo manual, refeito a
+cada pedido.
 
-### 2.2 Por que agora
+### 2.2 Por que inventário de emissões, especificamente, e não o hub inteiro
 
-Não é "porque ESG está na moda". É porque três relógios estão correndo ao mesmo tempo,
-e nenhum deles espera a empresa se organizar:
+Comparado ao restante do universo ESG (score de fornecedor, políticas internas,
+questionários genéricos), o inventário de emissões tem três vantagens como ponto de
+entrada de produto:
 
-- **Relógio comercial**: EUDR (dez/2026) e exigências crescentes de grandes
-  compradores/tradings sobre rastreabilidade e evidência — já começou a bater na
-  porta de exportadores de soja, carne, café.
-- **Relógio de capital**: bancos estão sendo obrigados a ter mais inteligência
-  territorial/socioambiental para conceder crédito rural — o que empurra a exigência
-  de evidência para dentro da relação banco-produtor, não só para relatório voluntário.
-- **Relógio de custo**: energia, resíduo, água e eficiência operacional já geram
-  economia hoje, mas a empresa não consegue apontar o número — está deixando prova de
-  valor em cima da mesa.
+- **Metodologia única e internacional** (GHG Protocol) — não é preciso decidir "qual
+  norma priorizar primeiro" como no restante do Pilar Compliance; o padrão já existe
+  e já é o que todo comprador/banco/certificadora pede.
+- **Ligação direta e já existente com dinheiro**, via RenovaBio/CBio — nenhum outro
+  dado ESG do setor sucroenergético tem um mercado secundário líquido comprando
+  aquele número hoje (capítulo 4.2).
+- **Escopo tecnicamente menor** — não exige as integrações de ERP multi-fonte do
+  Pilar Dados completo nem o motor de score/ledger financeiro do Pilar Valor; é
+  coleta estruturada + cálculo por fatores de emissão + evidência + trilha de
+  auditoria. Constrói-se em semanas, não em uma arquitetura de hub.
 
-### 2.3 Por que agroindústria, por que Brasil
+### 2.3 Por que agroindústria, por que Brasil (mantido da v0.1, ainda válido)
 
 O agronegócio é **25,13% do PIB brasileiro em 2025** (R$ 3,20 trilhões, alta de 12,2%
 no ano) e as exportações do setor bateram recorde de **US$ 169,2 bilhões em 2025**
-(48,5% de tudo que o Brasil exporta), com superávit setorial de US$ 149 bilhões
-(CEPEA/CNA; Ministério da Agricultura, 2026) — ver capítulo 3.1 para a tabela completa.
-Não existe outro setor no Brasil onde "prova de ESG" tenha, ao mesmo tempo, tanto peso
-econômico e tanta bagunça de dado. Isso é oportunidade, não coincidência de nicho.
+(48,5% de tudo que o Brasil exporta) — CEPEA/CNA; Ministério da Agricultura, 2026. Não
+existe outro setor no Brasil onde "prova de emissão" tenha, ao mesmo tempo, tanto peso
+econômico e tão pouca ferramenta especializada em sucroenergético especificamente
+(capítulo 8). **Nota:** o PIB do agro não cresce em linha reta — CEPEA registrou recuo
+de ~2% no 1º trimestre de 2026 após o forte 2025; tratar como tendência de médio
+prazo.
 
-**Nota:** o PIB do agro não cresce em linha reta — o próprio CEPEA registrou recuo de
-~2% no 1º trimestre de 2026 após o forte 2025. Trate crescimento do setor como
-tendência de médio prazo, não como garantia trimestre a trimestre.
+### 2.4 A aposta central: inventário como produto que se paga, não como custo
 
-### 2.4 A aposta central: Dados → Compliance → Valor como motor comercial
-
-O motivo de construir os três pilares como um hub, e não como três produtos, não é só
-arquitetural (já justificado nos modelos de dados) — é **comercial**: o Pilar Dados
-vende barato e rápido (dor operacional óbvia, ciclo de venda curto), o Pilar
-Compliance vende por medo/urgência regulatória-comercial (ciclo médio), e o Pilar
-Valor vende caro e defende o preço da renovação (o CFO renova pelo número que o
-sistema já provou gerar). Land-and-expand entre os três pilares é a estratégia de
-receita, não um efeito colateral do roadmap (ver capítulo 8.4).
+O argumento de venda não é "você precisa de compliance" — é **"o inventário melhor se
+paga sozinho via CBios mais precisos e elegibilidade a crédito verde, e o compliance
+vem de graça junto"**. Isso inverte a lógica de venda por medo (que a v0.1 já havia
+identificado como frágil, dado que a CVM reverteu a obrigatoriedade do CBPS em
+maio/2026 — capítulo 4.4) para venda por retorno mensurável, o que é uma venda mais
+fácil de fechar e mais defensável na renovação.
 
 ---
 
 ## 3. Oportunidade de mercado no Brasil
 
-### 3.1 Tamanho do setor-alvo (agroindústria brasileira)
+### 3.1 Tamanho do setor-alvo (agroindústria brasileira, sucroenergético)
 
 | Métrica | Valor | Fonte |
 |---|---|---|
 | PIB do agronegócio (2025) | R$ 3,20 trilhões (25,13% do PIB nacional) | CEPEA/USP + CNA, 2026 |
-| Crescimento do PIB do agro em 2025 | +12,2% vs. 2024 | CEPEA/CNA |
-| Recuo do PIB do agro no 1º tri/2026 | −2% vs. trimestre anterior | CEPEA |
 | Exportações do agronegócio (2025) | US$ 169,2 bilhões (recorde; 48,5% das exportações totais do Brasil) | Ministério da Agricultura / Agência Gov, jan/2026 |
-| Superávit comercial do agro (2025) | US$ 149,07 bilhões | idem |
-| Exportação de soja (2025) | US$ 43,5 bilhões (108,2 Mt, volume recorde) | idem |
-| Exportação de carne/boi (2025) | US$ 31,8 bilhões (10,4 Mt; boi in natura sozinho US$ 16,6 bi, +21,4%) | idem |
-| Exportação de café (2025) | US$ 14,9 bilhões (+31,1%, primeira vez acima desse patamar) | idem |
-| Principais compradores (2025) | China US$ 55,3 bi (32,7%) · UE US$ 25,2 bi (14,9%) · EUA US$ 11,4 bi (6,7%) | idem |
-| Empresas agroindustriais ativas no Brasil | ~3.480–4.520 (faixa entre duas bases distintas) | Econodata; Mapa Industrial |
-| Usinas de cana-de-açúcar no Brasil | ~260 unidades em operação na safra 2024/25 (dado operacional mais confiável); mais de 400 no total instalado, conforme a base | UNICA (boletins de safra); imprensa setorial |
+| Usinas de cana-de-açúcar em operação | ~260 unidades na safra 2024/25 (UNICA, base operacional) | UNICA, boletins de safra |
+| **Usinas certificadas para emitir CBios (RenovaBio)** | **332 usinas** (das quais 4 também produzem biometano e 39 biodiesel) | ANP, 2026 |
+| CBios escriturados por sucroenergéticas (acumulado até nov/2025) | 37,11 milhões de títulos | Novacana / consultoria setorial |
+| Projeção de CBios emitidos em 2026 | 45,1 milhões de títulos (+4,7% vs. 2025) | Novacana |
 
-**Nota sobre precisão:** não existe uma única fonte oficial que dê "o número" de
-usinas ou de empresas agroindustriais — a contagem muda conforme a definição
-(instalada vs. em operação na safra vs. afiliada a uma entidade setorial). Use faixas,
-não um número único, em qualquer material externo (investidor, banco, imprensa) até
-validar contra o boletim de safra mais recente da UNICA.
+**Por que a contagem de 332 usinas importa mais aqui do que a de "~260-400" da v0.1:**
+para um produto de inventário de emissões vendido com o gancho de CBio, o número
+relevante não é "quantas usinas existem", é **quantas já estão dentro do mecanismo que
+monetiza o inventário** — e a ANP já certificou 332 para isso. É a base mais precisa e
+mais qualificada de ICP que este documento já produziu.
 
-**Exportação de açúcar e etanol especificamente:** não foi encontrada, nesta
-pesquisa, uma quebra em dólares só para açúcar/etanol dentro do total de US$ 169,2
-bilhões — item para uma busca dedicada antes de uma apresentação a investidor focada
-no ICP de usinas.
+### 3.2 O mercado de software de contabilidade de carbono — tamanho, e uma discrepância grande que precisa ser dita
 
-### 3.2 O mercado de software ESG — tamanho e uma lacuna honesta
-
-| Segmento | Tamanho | Projeção | Fonte |
+| Segmento medido | Tamanho | Projeção | Fonte |
 |---|---|---|---|
-| ESG reporting software (global) | US$ 1,3 bi (2023) | US$ 5,6 bi até 2029 (~26% CAGR) | Verdantix |
-| Supply chain sustainability software (global) | US$ 1,7 bi (2023) | US$ 7,7 bi até 2029 (~29% CAGR) | Verdantix |
-| Carbon management software (global) | US$ 744 mi (2025) | US$ 1,8 bi até 2031 (~15% CAGR) | Verdantix |
-| ESG software, definição ampla (outra metodologia) | US$ 1,24 bi (2025) | US$ 5,19 bi até 2033 (~20% CAGR) | Grand View Research |
-| "Sustainability software", categoria ainda mais ampla | US$ 4,4 bi (2025) | US$ 11,9 bi até 2031 (~18% CAGR) | Mordor Intelligence |
+| Carbon management software (definição estreita, só SaaS) | US$ 744 milhões (2025) | US$ 1,8 bi até 2031 (~15% CAGR) | Verdantix |
+| Carbon accounting market (definição ampla) | US$ 29,82 bilhões (2026) | US$ 97,58 bi até 2031 (~26,8% CAGR) | Mordor Intelligence |
+| Carbon accounting software platforms (outra metodologia ampla) | US$ 13 bilhões (2026) | US$ 68 bi até 2033 (~22% CAGR) | Intel Market Research |
+| Carbon accounting software (mais uma metodologia ampla) | US$ 27,78 bilhões (2026) | US$ 63,54 bi até 2030 (~23% CAGR) | The Business Research Company |
 
-Essas cinco linhas **não medem a mesma coisa** — a diferença de quase 4x entre a menor
-e a maior é a diferença entre "só relatório ESG" e "qualquer software que toque
-sustentabilidade, incluindo EHS e consultoria". Para a Ominia, os números da Verdantix
-(reporting + supply chain) são os mais próximos do escopo real do produto.
+**Isto precisa ser dito às claras, no mesmo espírito de rigor da v0.1:** há uma
+diferença de **quase 40x** entre a estimativa mais estreita (Verdantix, US$744
+milhões) e as mais amplas (US$13-30 bilhões). Isso não é erro de uma fonte — é
+diferença de escopo: as estimativas amplas de "carbon accounting market" muito
+provavelmente somam software + consultoria + serviços de MRV (monitoramento,
+relato, verificação) + tecnologia de captura/mercado de créditos, não apenas o
+software de inventário que a Ominia constrói. **Para efeito de dimensionamento deste
+produto, a referência correta é a Verdantix (US$744 milhões → US$1,8 bilhão, 2025-2031,
+~15% CAGR)**, por medir especificamente "carbon management software" — o mesmo
+escopo funcional do produto Ominia. As demais linhas ficam registradas por
+transparência, não por serem usáveis em pitch.
 
-> **O que não existe:** uma estimativa em dólares/reais especificamente para o
-> mercado brasileiro ou latino-americano de software ESG que resista a checagem de
-> fonte primária. Um número de "6% de participação da América Latina" circula em
-> buscadores, mas a fonte citada (Grand View Research) não confirma isso num acesso
-> direto ao relatório. **Não usar esse número em material externo.** Trate o TAM
-> brasileiro como derivado (capítulo 3.3), não como um dado publicado.
+> **O que não existe, de novo:** nenhuma quebra confiável em dólares ou reais
+> especificamente para o Brasil dentro desse mercado. O caminho, como na v0.1,
+> continua sendo construir de baixo para cima (capítulo 3.3).
 
-### 3.3 TAM / SAM / SOM — qualitativo, com metodologia às claras
-
-Como não existe um número de mercado brasileiro pronto, o caminho honesto é construir
-de baixo para cima, a partir do número de empresas (seção 3.1) e da faixa de preço
-que a Ominia pretende praticar (capítulo 6) — não de um relatório de terceiro.
+### 3.3 TAM / SAM / SOM — recalculado para o produto de inventário de emissões
 
 | Camada | Definição | Cálculo ilustrativo | Resultado (faixa) |
 |---|---|---|---|
-| **TAM** (mercado total endereçável) | Todas as empresas agroindustriais de porte médio-grande no Brasil que precisam de gestão ESG de dado/compliance/valor | ~4.000 empresas × ticket médio anual de R$ 150k–350k (capítulo 6.4) | **R$ 600 milhões – R$ 1,4 bilhão/ano** |
-| **SAM** (mercado que a Ominia consegue atender com o produto/GTM atual) | Subconjunto com porte, exportação ou exigência de crédito suficiente para justificar o investimento, e que a Ominia consegue alcançar via GTM direto + parcerias bancárias | ~15–25% do TAM | **R$ 90 milhões – R$ 350 milhões/ano** |
-| **SOM** (mercado capturável nos primeiros 3 anos) | Fração realista dado ciclo de venda B2B longo, capacidade de entrega e concorrência já instalada (Agrotools, entre outros) | ~2–5% do SAM em 3 anos | **R$ 2 milhões – R$ 17 milhões/ano de receita recorrente** |
+| **TAM** | Usinas certificadas RenovaBio + agroindústrias médias-grandes com pressão de exportação/crédito que precisam de inventário GEE | 332 usinas certificadas + ~500-1.000 agroindústrias médias-grandes adicionais × ticket médio anual de R$ 60k–130k (capítulo 7) | **R$ 65 milhões – R$ 175 milhões/ano** |
+| **SAM** | Subconjunto alcançável via GTM direto + parceria com certificadoras/tradings, com porte suficiente para justificar o ticket | ~20-30% do TAM | **R$ 15 milhões – R$ 50 milhões/ano** |
+| **SOM** | Captura realista em 3 anos, dado ciclo de venda B2B e concorrência local já instalada (capítulo 8) | ~3-8% do SAM em 3 anos | **R$ 500 mil – R$ 4 milhões/ano de receita recorrente** |
 
-Trate esta tabela como **um exercício de ordem de grandeza**, não uma previsão
-financeira — o intervalo é largo de propósito, porque os dois insumos (nº de empresas
-e ticket médio) já vêm com incerteza própria (capítulos 3.1 e 6).
+Este TAM é deliberadamente **menor** que o da v0.1 (R$600 milhões – R$1,4 bilhão) —
+isso é esperado e correto: um wedge de produto mais estreito tem um mercado endereçável
+menor, em troca de um ciclo de venda mais curto e uma construção mais rápida. Tratar
+como ordem de grandeza, não previsão financeira.
 
-### 3.4 Os vetores regulatórios reais — e uma correção importante
+### 3.4 A pressão comercial permanece mais forte que a obrigação doméstica
 
-> **Atualização crítica em relação ao histórico deste projeto:** a Resolução CVM 193
-> (2023) criava a obrigatoriedade de divulgação financeira de sustentabilidade
-> (CBPS/IFRS S1-S2) para companhias abertas a partir do exercício de 2026. Em **29 de
-> maio de 2026, a Resolução CVM 244 revogou essa obrigatoriedade** — a divulgação
-> voltou a ser **voluntária**, com um regime de "pratique ou explique" (quem não
-> reporta precisa declarar por que não reporta). Isso **muda a narrativa de venda**:
-> não dá para vender CBPS/IFRS S1-S2 como "você é obrigado por lei" hoje. A venda
-> correta é "você sai na frente da obrigação que pode voltar, e usa isso
-> comercialmente enquanto for diferencial, não commodity."
-
-Vetores regulatórios e quase-regulatórios relevantes, com o status real de cada um:
-
-| Vetor | Status real (ago/2026) | Relevância para o ICP (usinas de cana) |
-|---|---|---|
-| CBPS / IFRS S1-S2 (CVM 193/244) | **Voluntário** desde mai/2026 (revertido de obrigatório) | Baixa urgência legal; alta urgência comercial/diferencial |
-| SBCE — mercado de carbono (Lei 15.042/2024) | Regulamentação em andamento; cronograma proposto por setor tem **Fase 1 (2027): papel/celulose, siderurgia, cimento, alumínio primário, óleo & gás, aviação; Fase 2 (2029): mineração, alumínio reciclado, eletricidade, vidro, alimentos & bebidas, químicos** | Cana-de-açúcar/etanol **não aparece explicitamente** nas fases propostas até aqui — "alimentos & bebidas" (fase 2, 2029) pode tangenciar parte do setor. **Monitorar, não vender como obrigação hoje.** |
-| RenovaBio / CBios (Lei 13.576/2017) | Programa já maduro e específico do setor de biocombustíveis, com CBios negociados desde 2020 | **Alta relevância direta** — é o mecanismo de descarbonização que já existe e já vale dinheiro para uma usina, hoje. Deveria estar no catálogo de frameworks da Ominia (ver nota abaixo). |
-| Bonsucro (certificação voluntária internacional) | Padrão setorial já estabelecido para cana-de-açúcar sustentável, usado por compradores globais | **Alta relevância direta** — é o "GRI da cana", já exigido por parte dos compradores internacionais de açúcar. Também deveria estar no catálogo de frameworks. |
-| EUDR (UE) | Aplicação para operadores grandes/médios a partir de **30/12/2026** (data já mudou duas vezes — confirmar antes de qualquer comunicação externa) | **Não cobre cana-de-açúcar/etanol diretamente** (cobre soja, carne, café, cacau, madeira, dendê, borracha). Relevante para grupos agroindustriais diversificados que também produzem/comercializam essas commodities. |
-| Reforma tributária / Imposto Seletivo (LC 214/2025) | Fertilizantes e defensivos **cotados como candidatos** a entrar no Imposto Seletivo por dano ambiental — critério ainda indefinido | Relevância indireta (custo de insumo), não é uma obrigação de reporte |
-
-> **Recomendação de produto (fora do escopo deste ebook, mas registrada aqui):**
-> incluir RenovaBio/CBios e Bonsucro no catálogo `frameworks` do
-> [DATA-MODEL-COMPLIANCE.md](DATA-MODEL-COMPLIANCE.md) — são, na prática, mais
-> relevantes para o ICP de usinas do dia a dia do que IFRS S1/S2 no cenário atual
-> (voluntário). Ainda não implementado; ver capítulo 15 (próximos passos).
-
-### 3.5 A pressão comercial é mais forte que a obrigação doméstica, hoje
-
-Dois pontos reforçam por que o discurso comercial (não o discurso de "lei") deve
-liderar a venda em 2026-2027:
-
-- **Crédito rural**: novas regras estão **aumentando a exigência de soluções de
-  inteligência territorial dentro dos bancos** para concessão de crédito rural — ou
-  seja, o banco está sendo pressionado a exigir o dado que a Ominia organiza, mesmo
-  que a lei não obrigue diretamente a usina a produzi-lo (Mesa Brasileira da Pecuária
-  Sustentável, 2025-2026). Isso abre um canal B2B2B real: vender através do banco,
-  não só direto à usina (capítulo 8.2).
-- **Crédito sustentável está mais concorrido, não necessariamente mais fácil**: o
-  volume total de crédito rural sustentável na safra 2025/26 **caiu R$ 8,2 bilhões**
-  até março de 2026 na comparação divulgada — ou seja, o funil está mais apertado, o
-  que valoriza quem consegue provar elegibilidade de forma organizada em vez de
-  depender de relacionamento bancário informal.
+Herdado da v0.1 e ainda válido: crédito rural sustentável está mais concorrido (volume
+caiu R$8,2 bilhões até março/2026), o que valoriza quem prova elegibilidade de forma
+organizada — e essa prova depende, na base, do mesmo inventário de emissões que este
+documento agora trata como produto principal, não como um módulo entre vários.
 
 ---
 
-## 4. Público-alvo e ICP
+## 4. Os vetores regulatórios e comerciais específicos de emissões
 
-### 4.1 ICP primário
+### 4.1 SBCE — Sistema Brasileiro de Comércio de Emissões
+
+| Item | Status real (ago/2026) |
+|---|---|
+| Base legal | Lei 15.042/2024 |
+| Proposta de cronograma | Publicada pelo Ministério da Fazenda em 19/mai/2026, cobrindo 17 setores altamente emissivos, implantação entre 2027 e 2031 |
+| **Fase 1 (relato obrigatório a partir de 2027)** | Alumínio primário, ferro e aço (usinas integradas), cimento, exploração e produção de petróleo e gás, refino de petróleo, papel e celulose, transporte aéreo |
+| Transição metodológica | Cada setor tem 4 anos de "só relato", sem custo ou obrigação de redução real, antes de entrar no regime de limite (cap) |
+| Operadores >10.000 tCO2e/ano | Precisam submeter plano de monitoramento entre 2028-2029 |
+| Fase de transação plena / cap nacional | Prevista para 2030-2031 |
+| **Agroindústria / alimentos e bebidas** | **Não confirmado na Fase 1.** Não há, até esta pesquisa, base oficial para afirmar se ou quando cadeias agroindustriais entram no SBCE — a lista final ainda não foi publicada. |
+
+**Implicação de venda:** o SBCE **não é** hoje um argumento de "você é obrigado" para
+uma usina de cana. É um argumento de **antecipação**: quem já tem inventário GHG
+Protocol organizado entra em qualquer fase futura do SBCE sem retrabalho, e usa esse
+inventário para CBios/Bonsucro enquanto isso (capítulo 4.2, 4.3). Vender o SBCE como
+obrigação hoje seria repetir o erro que a v0.1 já identificou com CBPS/CVM 244.
+
+### 4.2 RenovaBio / CBios — o mecanismo que já vale dinheiro, hoje
+
+O RenovaBio (Lei 13.576/2017) é o único vetor regulatório deste documento que já
+**converte inventário de emissões em receita líquida** para uma usina, sem depender de
+nenhuma obrigação futura.
+
+| Métrica | Valor | Leitura |
+|---|---|---|
+| Preço do CBio, início de 2025 | ~R$75 | Pico recente |
+| Preço do CBio, dez/2025 | ~R$24,30 (mínima do ano) | Queda de ~68% no ano |
+| Preço do CBio, fev/2026 | ~R$32 | Recuperação parcial |
+| Preço do CBio, abr/2026 | ~R$29 | Ainda ~60% abaixo do início de 2025 |
+| Volume negociado, abr/2026 | 7,54 milhões de créditos (+53% vs. abr/2025) | Volume sobe |
+| Movimentação financeira, abr/2026 | R$219,45 milhões (−35,5% vs. abr/2025) | Receita cai apesar do volume subir — efeito preço domina |
+| Usinas certificadas | 332 (ANP) | Base endereçável direta |
+
+**Leitura para a tese de produto:** com o preço por CBio caindo mais rápido do que o
+volume sobe, **a margem por tonelada evitada caiu** — o que significa que uma usina
+precisa apurar e emitir CBios com mais precisão e menos perda (por erro de cálculo,
+subestimação ou inventário incompleto) só para manter a receita que já tinha. Isso é
+um argumento comercial concreto e datado, não um discurso genérico de "sustentabilidade
+importa": **inventário melhor = menos CBio deixado na mesa**, num momento em que cada
+CBio vale menos.
+
+### 4.3 Bonsucro — o padrão setorial que já exige inventário
+
+Bonsucro é a certificação internacional voluntária de cana-de-açúcar sustentável,
+usada como critério de compra por parte relevante dos importadores globais de açúcar e
+etanol. O padrão já exige métrica de GEE como parte da certificação — ou seja, é
+**hoje**, não em 2027, um motivo direto para uma usina exportadora ter inventário
+organizado. Junto com o RenovaBio, é o vetor de maior urgência real e imediata do
+capítulo 4 inteiro (herdado da constatação já feita na v0.1, capítulo 3.4, mas agora
+como pilar central da tese, não como nota lateral).
+
+### 4.4 CBPS / IFRS S1-S2 — relevância específica para clima, e o alerta que continua valendo
+
+A Resolução CVM 244 (29/mai/2026) reverteu a obrigatoriedade de divulgação
+CBPS/IFRS S1-S2 que a Resolução CVM 193 (2023) havia criado — voltou a ser
+**voluntária**, regime "pratique ou explique". O IFRS S2 é especificamente sobre
+divulgação relacionada a clima, incluindo emissões — então continua relevante para o
+produto de inventário, mas como diferencial comercial ("sair na frente"), não como
+obrigação legal a vender hoje.
+
+### 4.5 EUDR — tangencial, não é sobre emissões diretamente
+
+O Regulamento Europeu de Desmatamento entra em vigor para operadores grandes/médios em
+30/12/2026 e cobre soja, carne, café, cacau, madeira, dendê e borracha — **não cobre
+cana-de-açúcar/etanol diretamente**. É rastreabilidade de origem, não inventário de
+GEE. Fica registrado como vetor relevante para o ICP secundário (capítulo 5.2), não
+para o produto de emissões do ICP primário.
+
+---
+
+## 5. Público-alvo e ICP
+
+### 5.1 ICP primário
 
 | Critério | Perfil-alvo |
 |---|---|
-| Setor | Sucroenergético (usinas de cana-de-açúcar/etanol/bioeletricidade) |
-| Porte | Médio-grande — tipicamente centenas a milhares de funcionários (inclusive sazonais de safra), múltiplas unidades/plantas |
-| Sinal de dor | Já responde due diligence de cliente, banco ou trading; já tem ou está buscando linha de crédito rural sustentável; já iniciou algum relatório de sustentabilidade manualmente (planilha/consultoria) |
-| Estrutura de compra | Tem ou está montando uma função de sustentabilidade/ESG, ainda que informal (às vezes dentro de Operações ou Jurídico) |
-| Gatilho comercial | Pressão de comprador internacional, exigência de banco para renovar linha de crédito, ou meta de descarbonização/RenovaBio já assumida |
+| Setor | Sucroenergético — usinas certificadas RenovaBio (base de 332, capítulo 3.1) |
+| Porte | Médio-grande, múltiplas unidades/plantas |
+| Sinal de dor | Já emite CBios mas suspeita de estar deixando volume na mesa; já responde due diligence de comprador Bonsucro; já sentiu o preço do CBio cair (capítulo 4.2) |
+| Gatilho comercial | Renovação de certificação Bonsucro, fechamento de safra (janela natural para revisar o inventário do ano), ou queda de receita de CBio identificada internamente |
 
-### 4.2 ICP secundário / expansão futura
+### 5.2 ICP secundário / expansão futura
 
-A arquitetura de dados já foi desenhada multi-commodity (soja, milho, café, carne,
-algodão, madeira, cacau — decisão já registrada em memória de projeto anterior). A
-expansão natural, nesta ordem, segue o mesmo racional de pressão comercial real:
+Mesma lógica multi-commodity da v0.1, mas priorizada agora pela urgência de **emissões
+especificamente**, não de ESG amplo: soja e carne (maior volume de exportação,
+pressão de compradores globais por pegada de carbono declarada), depois café.
+Cana/etanol continua sendo o ponto de entrada porque é o único com mecanismo de
+monetização direta (CBio) já maduro.
 
-1. **Soja e carne** — cobertos diretamente pelo EUDR (dez/2026), maior urgência
-   comercial de exportação entre as commodities brasileiras.
-2. **Café** — também no escopo do EUDR, e com exportação em forte alta (+31,1% em
-   2025).
-3. Demais commodities (algodão, madeira, cacau) — expansão de médio prazo, quando a
-   base de clientes sucroenergéticos já validar o produto.
+### 5.3 Personas compradoras
 
-### 4.3 Personas compradoras
-
-| Persona | Papel na compra | O que essa persona quer ver |
-|---|---|---|
-| **Diretor(a) de Sustentabilidade/ESG** (quando existe o cargo) | Campeão interno, monta o caso de negócio | Menos retrabalho manual, evidência pronta para auditoria, um lugar único para responder qualquer questionário |
-| **CFO / Diretor Financeiro** | Aprova o orçamento, decide se renova | Números do Pilar Valor: quanto isso economiza ou destrava em crédito — não "relatório bonito" |
-| **Diretor de Operações/Industrial** | Dono dos dados de energia/água/resíduo, usuário primário do Pilar Dados | Que o sistema não vire trabalho extra — integração com o que já existe (ERP, sistemas de planta) |
-| **Jurídico/Compliance** | Valida risco regulatório e frameworks | Que a "biblioteca de frameworks" seja mantida atualizada pela Ominia, não por eles |
-
-### 4.4 Critérios de qualificação (fit score) — proposta inicial
-
-Sinal simples para priorizar prospecção comercial (a validar em campo):
-
-- ✅ Porte compatível com ticket mínimo (capítulo 6) — tipicamente >R$ 300 milhões de
-  faturamento anual ou múltiplas unidades industriais
-- ✅ Já exporta ou já busca crédito rural com componente de sustentabilidade
-- ✅ Já foi alvo de questionário de due diligence de cliente/banco no último ano
-- ⚠️ Sinal de alerta (não desqualifica, mas alonga o ciclo): empresa sem nenhuma
-  função de sustentabilidade/ESG designada, nem informalmente
+| Persona | O que essa persona quer ver |
+|---|---|
+| **Diretor(a) de Sustentabilidade/ESG** (quando existe) | Inventário pronto sem garimpar e-mail/planilha a cada renovação Bonsucro |
+| **Diretor Financeiro / de Relações com Investidores** | Quanto CBio a mais (ou a menos) o inventário atual está gerando — número em R$, não em tCO2e |
+| **Diretor Industrial** | Que o sistema não vire trabalho extra de coleta manual |
 
 ---
 
-## 5. Modelo de negócio e regras de negócio
+## 6. O produto: Inventário de Emissões Ominia
 
-### 5.1 Como a Ominia cobra, e por quê
+### 6.1 Escopo funcional (v1 — deliberadamente restrito)
 
-**Decisão já registrada no PRD: cobrança por empresa, não por fornecedor cadastrado.**
-Isso é deliberado, não só uma escolha de simplicidade — é um diferencial de pricing
-frente ao modelo mais comum do mercado (ex.: EcoVadis cobra por faixa de volume de
-fornecedores avaliados). Cobrar por fornecedor **penaliza o cliente por crescer a
-cadeia de fornecedores** — exatamente o comportamento que a Ominia quer incentivar
-(mais fornecedores rastreados = mais dado = mais valor provado). Cobrando por
-empresa, o incentivo do cliente e o incentivo da Ominia ficam alinhados.
+- Inventário de GEE — **Escopo 1** (emissões diretas: queima de combustível,
+  processos), **Escopo 2** (energia elétrica comprada) e **Escopo 3** (cadeia de
+  fornecedores, transporte, insumos) — metodologia **GHG Protocol**.
+- Coleta estruturada (upload de planilha/ERP para os dados que já existem — **não**
+  inclui, nesta v1, a integração automática multi-ERP completa que o Pilar Dados da
+  v0.1 previa; isso fica para depois, capítulo 14).
+- Cálculo por fatores de emissão (fatores públicos reconhecidos — GHG Protocol,
+  inventário nacional — aplicados de forma auditável, com a fonte do fator sempre
+  visível).
+- Trilha de auditoria — cada valor carrega origem, timestamp, quem validou.
+- Pacote de evidências por indicador (herdado do PRD original, seção 3.2): para cada
+  fonte de emissão, o sistema monta o conjunto de documentos que sustenta aquele
+  número.
 
-### 5.2 O que está incluso em cada pilar contratado
+### 6.2 O que fica fora da v1, deliberadamente
 
-| Pilar contratado | Incluso |
-|---|---|
-| **Dados** | Centralização das 7 fontes (energia/água/resíduo, emissões, fornecedores, indicadores sociais, documentos, unidades, cadeia de valor), validação, cruzamento multi-fonte, trilha de auditoria |
-| **Compliance** (requer Dados) | Biblioteca de frameworks aplicáveis (mantida pela Ominia — ver capítulo 9.2), matriz de riscos, políticas, questionários de terceiros, geração de relatórios/asseguração |
-| **Valor** (requer Compliance) | Ledger de valor financeiro/capital/comercial/estratégico, metas, projetos, cenários climáticos, avaliação de elegibilidade de crédito verde, score ESG de fornecedores |
+- Score de fornecedor, políticas internas, questionários genéricos de terceiros,
+  ledger financeiro amplo (economia de água/resíduo fora do escopo de emissões),
+  cenários climáticos, matriz de risco ESG ampla. Tudo isso era Pilar Dados
+  completo/Compliance completo/Valor na v0.1 — vira roadmap (capítulo 14), não
+  promessa de venda v1.
 
-### 5.3 Regras de uso
+### 6.3 O diferencial real: inventário ligado a dinheiro, não só a relatório
 
-- **Supplier Portal gratuito para o fornecedor** — decisão já travada; a Ominia nunca
-  cobra do fornecedor cadastrado, apenas da empresa compradora.
-- **Unidades incluídas por tier, adicional por unidade extra** (capítulo 6.2) — porque
-  o custo de integração/validação escala com o número de plantas, não com o número de
-  fornecedores.
-- **Atualização de frameworks regulatórios está incluída na assinatura**, sem custo
-  adicional — é o time de compliance da Ominia que absorve a manutenção da norma
-  mudando, não o cliente (ver capítulo 9.2). Este é um argumento de venda direto: "você
-  não paga de novo quando a CVM muda de ideia outra vez."
-- **SLA de suporte por tier** (proposta inicial, a validar):
+Nenhum concorrente mapeado (capítulo 8) entrega, como parte central do produto — não
+como add-on —, a leitura de **"quantos CBios este inventário sustenta, e quanto isso
+vale em R$ ao preço de mercado atual"**. Isso transforma o card de indicador do PRD
+original:
 
-| Tier | Tempo de resposta (suporte) | Canal |
-|---|---|---|
-| Dados | até 24h úteis | e-mail/portal |
-| Compliance | até 8h úteis | e-mail/portal + chat |
-| Completo / Enterprise | até 4h úteis | e-mail/portal/chat + CSM dedicado |
+```
+Indicador:          Emissões evitadas (Escopo 1) — safra 2026
+Status:             94% completo
+CBios sustentados:  ~[N] títulos, ao preço médio do mês: R$[X]
+Evidências:         [N] documentos
+Fonte:              Combustível + energia + processo industrial
+Última validação:   [data]
+```
 
-- **Propriedade e portabilidade do dado**: o cliente é dono do seu dado; em caso de
-  cancelamento, exportação completa é garantida (não há lock-in de dado, só de
-  metodologia/produto).
-
-### 5.4 Ciclo de vida do contrato
-
-Onboarding (30-60 dias, capítulo 9.1) → operação → **land-and-expand entre pilares**
-(entra por Dados, expande para Compliance em 6-12 meses, expande para Valor quando o
-Compliance já estiver maduro) → renovação anual, com reajuste por IPCA + até 5% para
-cobrir expansão de escopo regulatório (capítulo 6.4).
+Esse card é o que separa a Ominia de "mais um software de inventário de GEE" —
+transforma o número de emissão em número de receita, na mesma tela.
 
 ---
 
-## 6. Precificação — o ICP e as mensalidades
+## 7. Modelo de negócio e precificação
 
-> **Aviso de enquadramento:** os valores abaixo são **faixas propostas, ancoradas em
-> benchmark de mercado (capítulo 6.1) e no porte esperado do ICP** — não são preços
-> testados em venda real. Trate como ponto de partida para as primeiras
-> negociações-piloto, a ser recalibrado com dado real de fechamento.
+> **Aviso de enquadramento, herdado da v0.1:** faixas propostas, ancoradas em
+> benchmark — não preços testados em venda real.
 
-### 6.1 Benchmarks de mercado (o que a pesquisa trouxe)
+### 7.1 Benchmarks de mercado
 
-| Porte do comprador | Faixa anual típica de software ESG (mercado geral, não-Brasil-específico) |
-|---|---|
-| Pequena (10-50 funcionários) | €600 – €2.000/ano |
-| Média (50-250 funcionários) | €2.000 – €10.000/ano |
-| Média-alta (250-1.000 funcionários) | €10.000 – €50.000/ano |
-| Enterprise (1.000+ funcionários) | €50.000 – €250.000+/ano |
+| Referência | Faixa | Nota |
+|---|---|---|
+| Normative (carbon accounting, global) | US$3k/ano (entrada) até ~US$200k/ano (topo) | Benchmark internacional mais próximo do escopo estreito da Ominia v1 |
+| Watershed | US$37k – US$264k/ano | Enterprise, escopo mais amplo que só inventário |
+| Persefoni | Comparável a Watershed/Normative no topo | Enterprise |
+| SMB carbon accounting (mercado global, entrada) | a partir de US$299/mês (~US$3.6k/ano) | Piso do mercado internacional para ferramentas simples de inventário |
+| **Concorrentes brasileiros (Ororo, CarbonSys, Zaya, Legitimus, Carbon Free Brasil)** | **Não divulgado publicamente** | Nenhum destes publica preço; validar por cotação direta antes de fixar tabela (capítulo 15) |
 
-Fonte: ExecutESG (2026), corroborado por benchmark geral de SaaS ESG mid-market
-(US$15k–60k/ano) e por preços públicos/observados de concorrentes diretos:
-EcoVadis (US$15k–100k+/ano, por faixa de volume de fornecedores), Watershed
-(US$37k–264k/ano), Normative (US$3k–5k de entrada até ~US$200k/ano no topo). O ICP da
-Ominia (usinas médias-grandes, multi-unidade) se encaixa, por porte, majoritariamente
-na faixa **"média-alta" a "enterprise"** dessa tabela — ou seja, o ticket da Ominia
-deveria mirar a parte de cima do mercado, não o piso.
+**Leitura:** o ICP da Ominia (usinas médias-grandes, multi-unidade, já dentro do
+RenovaBio) está acima do piso SMB internacional, mas o produto v1 é mais estreito que
+Watershed/Persefoni — a faixa correta de ancoragem é próxima da Normative de entrada a
+meio de tabela, ajustada para cima pelo componente exclusivo de leitura de CBio
+(capítulo 6.3), que nenhum benchmark internacional precifica porque é específico do
+Brasil.
 
-**Conversão de referência usada neste capítulo:** ~R$ 5,50/€1 e ~R$ 5,50/US$1 (ago/2026,
-aproximada — confirmar câmbio real antes de fechar proposta comercial).
+### 7.2 Os planos da Ominia (v1)
 
-### 6.2 Os planos da Ominia
-
-| Plano | Pilares | Unidades incluídas | Mensalidade (faixa) | Setup/onboarding (único) |
+| Plano | Escopo | Unidades incluídas | Mensalidade (faixa) | Setup (único) |
 |---|---|---|---|---|
-| **Ominia Dados** | Pilar 1 | até 3 | R$ 5.900 – 9.900 | R$ 15.000 – 30.000 |
-| **Ominia Compliance** | Pilares 1+2 | até 3 | R$ 14.900 – 24.900 | R$ 25.000 – 50.000 |
-| **Ominia Completo** | Pilares 1+2+3 | até 5 | R$ 27.900 – 49.900 | R$ 40.000 – 80.000 |
-| **Ominia Enterprise** | Todos + integrações sob medida | 6+ / grupo com múltiplas usinas | sob consulta (referência: R$ 55.000 – 120.000+) | sob escopo |
+| **Ominia Inventário — Essencial** | Escopo 1+2, 1 unidade | 1 | R$ 2.900 – 4.900 | R$ 8.000 – 15.000 |
+| **Ominia Inventário — Sucroenergético** | Escopo 1+2+3, leitura de CBio/Bonsucro, multi-unidade | até 3 | R$ 6.900 – 12.900 | R$ 15.000 – 30.000 |
+| **Ominia Inventário — Grupo** | Múltiplas usinas/grupo, integrações sob medida | 4+ | sob consulta (referência R$ 15.000 – 30.000+/mês) | sob escopo |
 
-Unidade adicional além do limite do plano: **+R$ 900 a R$ 1.500/mês** por unidade,
-dependendo do tier.
+Unidade adicional além do limite do plano: **R$ 700 – 1.200/mês**.
 
-### 6.3 Racional de precificação por tier
+### 7.3 Racional de precificação
 
-- **Ominia Dados** ancora no piso do "média-alta" do benchmark (capítulo 6.1) —
-  suficiente para competir com "fazer isso em planilha/consultoria pontual", mas já
-  entregando trilha de auditoria que planilha nenhuma entrega.
-- **Ominia Compliance** salta de faixa porque agrega o ativo mais caro de replicar
-  manualmente: manutenção contínua de biblioteca de frameworks (o cliente hoje paga
-  isso via consultoria de compliance por projeto, tipicamente mais caro e sem deixar
-  uma plataforma para trás).
-- **Ominia Completo** é ancorado não no custo de entrega, mas **no valor que o Pilar
-  Valor já demonstra** (ver [DATA-MODEL-VALOR.md](DATA-MODEL-VALOR.md), seção 3.1,
-  exemplo de R$ 184.500 de economia de energia em 6 meses, para uma única unidade, em
-  um único indicador) — captura de valor de ~10-20% do valor comprovadamente gerado é
-  uma prática comum e defensável em SaaS de valor mensurável, e sustenta o salto de
-  preço deste tier frente ao Compliance.
-- **Ominia Enterprise** existe para não deixar dinheiro na mesa em grupos com múltiplas
-  usinas/múltiplos commodities — mesmo racional do benchmark "enterprise"
-  (€50k-250k+/ano).
+- Ticket **abaixo** do "Ominia Dados" da v0.1 (R$5.900-9.900) porque o escopo de dado
+  é mais estreito (só emissões, não as 7 fontes do Pilar Dados completo).
+- Ticket do plano Sucroenergético se aproxima do antigo "Ominia Compliance" da v0.1
+  porque agrega o mesmo ativo caro de replicar manualmente (evidência + trilha de
+  auditoria), mas dentro de um escopo funcional menor — o preço reflete o **valor da
+  leitura de CBio**, não o volume de dado processado.
+- Desconto de 15% para pagamento anual antecipado, reajuste anual IPCA + até 5%
+  (mantido da v0.1, ainda razoável).
 
-### 6.4 Ticket médio projetado e política de desconto/reajuste
+### 7.4 ARPU e ciclo de venda projetados
 
-- **ARPU mensal projetado** (mix de carteira, ano 1-2 de operação comercial,
-  majoritariamente Compliance/Completo dado o ICP): **R$ 18.000 – 35.000/mês**
-  (R$ 216k – 420k/ano por cliente) — ilustrativo, usado no cálculo de SAM/SOM
-  (capítulo 3.3).
-- **Desconto para pagamento anual antecipado**: 15% (em linha com desconto
-  multi-ano observado em concorrentes como EcoVadis, 15-30%).
-- **Reajuste anual**: IPCA + até 5% adicional para cobrir expansão de escopo
-  regulatório (frameworks novos incorporados) — consistente com a prática de mercado
-  de 5-10% de escalonamento anual observada no benchmark ESG SaaS.
-
-### 6.5 Por que "por empresa" é o argumento certo de venda
-
-Ao apresentar preço, o vendedor deve contrastar explicitamente com o modelo
-per-fornecedor da concorrência (capítulo 7): *"Diferente de plataformas que cobram
-por fornecedor avaliado, a Ominia não penaliza você por rastrear mais elos da sua
-cadeia — o incentivo aqui é rastrear tudo."* Isso é simples de dizer e difícil de um
-concorrente com pricing per-fornecedor copiar rápido sem reestruturar o próprio
-modelo de receita.
+ARPU mensal ilustrativo: **R$ 5.000 – 10.000/mês** (R$60k-120k/ano por cliente) — mix
+majoritariamente no plano Sucroenergético dado o ICP. Ciclo de venda esperado **mais
+curto** que o hub completo da v0.1 (2-4 meses, não 3-9) porque a decisão de compra é
+mais simples (um produto, um problema, um retorno claro em CBio) e o comprador
+frequentemente já orçou "algo para o inventário" mesmo que hoje seja planilha ou
+consultoria pontual.
 
 ---
 
-## 7. Análise competitiva / benchmark
+## 8. Análise competitiva / benchmark
 
-### 7.1 Matriz de concorrentes
+### 8.1 Matriz de concorrentes (repesquisada especificamente para inventário de emissões)
 
-| Concorrente | O que faz | Geografia/mercado | Modelo de preço conhecido | Sobreposição com a Ominia | Onde a Ominia é diferente |
-|---|---|---|---|---|---|
-| **Agrotools** | Maior agtech ESG/risco do Brasil — data lake geoespacial (>1.200 camadas, >200 milhões de ha monitorados), risco de crédito rural, rastreabilidade de grãos, risco de seguro agrícola | Brasil, ~15 anos de mercado, R$ 200 milhões de receita reportada | Sob consulta (venda via API para bancos/seguradoras/tradings) | **Alta** — é o concorrente direto mais próximo do ICP | Agrotools vende principalmente **dado de risco para terceiros** (banco, seguradora); a Ominia vende **o hub operado pela própria usina**, incluindo o Pilar Valor de tradução financeira interna — menos "score para quem empresta", mais "ferramenta de gestão para quem opera" |
-| **EcoVadis** | Score ESG de fornecedores via questionário/evidência | Global, modelo puxado pelo comprador | US$ 15k–100k+/ano, por faixa de volume de fornecedores avaliados | Média — sobrepõe no score de fornecedor (Pilar Valor/Comercial) | Ominia cobra por empresa, não por fornecedor (capítulo 6.5); e cobre Dados/Compliance internos, não só score de terceiro |
-| **Neoway** | Inteligência de dados para fraude, crédito, compliance e KYC; tem vertical de agronegócio | Brasil, maior empresa de dados do país | Não público | Baixa-média — adjacente (risco de contraparte/fornecedor), não é hub ESG dedicado | Ominia é especializada em ESG/agro desde a concepção; Neoway é uma plataforma de dados geral com vertical agro |
-| **Traive** | Fintech de crédito agro usando dado alternativo (incl. ESG) para underwriting | Brasil | N/A (serviço de crédito, não SaaS por assinatura) | Baixa — complementar, não concorrente direto | Ecossistema: um cliente Ominia bem instrumentado é candidato melhor a crédito via Traive ou similar — parceria potencial, não disputa |
-| **Watershed / Persefoni / Normative** | Contabilidade de carbono (Scope 1-3), gestão de programa climático | Global, enterprise (Watershed) a todos os portes (Normative) | US$ 3k a US$ 264k/ano conforme porte/vendor | Média — sobrepõe só no módulo de emissões dentro do Pilar Dados/Compliance | Foco em carbono apenas; não cobrem fornecedores/social/documentos/valor financeiro como hub único |
-| **Koltiva / Farmforce / TraceX** | Rastreabilidade de cadeia agrícola para compliance de EUDR (dendê, soja, cacau, borracha etc.) | Global, categoria em forte crescimento por causa do prazo EUDR (dez/2026) | Não público | Baixa para o ICP atual (cana não é commodity EUDR) — **alta para o ICP secundário** (soja, café, capítulo 4.2) | Ominia cobre o ciclo completo (dado → compliance → valor), não só rastreabilidade de origem para um regulamento específico |
+| Concorrente | O que faz | Geografia | Sobreposição | Onde a Ominia é diferente |
+|---|---|---|---|---|
+| **Ororo** | Plataforma de ESG e inventário de carbono com experiência específica em grandes produtores rurais e agroindústrias | Brasil | **Alta** — é o concorrente brasileiro mais próximo do ICP e do escopo | Ororo é ESG amplo com módulo de GEE; a Ominia é **especializada em emissões + leitura de CBio/Bonsucro como produto central**, não como um módulo entre vários |
+| **CarbonSys** (gestaodeemissoes.com.br) | Software dedicado a inventário de GEE, automação da elaboração do inventário por fontes de emissão | Brasil | **Alta** — concorrente direto de escopo | Não identificado foco setorial em sucroenergético/CBio; Ominia liga inventário a receita de CBio explicitamente |
+| **Zaya** | Plataforma para completar inventário GEE "rápido e fácil" | Brasil | Média-alta | Posicionamento generalista (qualquer empresa), não agro-específico |
+| **Legitimus Ambiental** | Ferramenta de cálculo de emissões para empresas de todos os portes | Brasil | Média | Generalista, sem especialização setorial aparente |
+| **Carbon Free Brasil** | Metodologias internacionais (GHG Protocol, ISO 14064) + plataforma de gestão de dado de emissão | Brasil | Média-alta | Não identificado gancho de monetização (CBio/Bonsucro) como produto |
+| **AFRY — App Carbon Meter** | App para facilitar inventário de emissões | Brasil (subsidiária de consultoria global) | Média | Ferramenta de apoio a serviço de consultoria, não SaaS autônomo focado no cliente final |
+| **Bridge3** | Consultoria (não SaaS) especializada em GHG Protocol para agricultura | Brasil | Baixa-média — é serviço, não produto recorrente | Concorre pelo mesmo orçamento, mas como projeto pontual de consultoria, não assinatura — argumento de venda direto: plataforma substitui recontratação anual de consultoria |
+| **Watershed / Persefoni / Normative** | Contabilidade de carbono enterprise, Escopo 1-3 | Global | Baixa para o ICP atual (ticket e foco não-Brasil) | Referência de preço/produto "classe mundial", não concorrente ativo no ICP sucroenergético hoje |
+| **Agrotools** | Data lake geoespacial e risco de crédito rural/seguro; não é ferramenta de inventário de GEE dedicada | Brasil | Baixa direta neste escopo específico | Adjacente — parceiro potencial de dado geoespacial, não concorrente de inventário |
 
-### 7.2 Quadrante de posicionamento
+### 8.2 O que mudou frente à v0.1: o quadrante não está vazio
 
-Eixo X: amplitude do escopo ESG (de uma ferramenta de nicho até um hub completo
-Dados→Compliance→Valor). Eixo Y: especialização real em agronegócio brasileiro (de
-uma ferramenta genérica/global até algo desenhado para o setor e para o Brasil).
+A v0.1 descrevia o quadrante "hub completo + alta especialização agro-BR" como vazio.
+**Isso não é verdade para o quadrante mais estreito "inventário de emissões +
+especialização agro-BR"** — Ororo, CarbonSys, Zaya, Legitimus e Carbon Free Brasil já
+disputam esse espaço, com a Ororo like a mais próxima em especialização setorial.
+Reconhecer isso é o ponto mais importante desta reescrita: **a aposta da Ominia não
+pode mais ser "somos os únicos"**, tem que ser **"somos os únicos que ligam o
+inventário a CBio/Bonsucro como produto central, dentro do setor sucroenergético
+especificamente"**.
 
 ```mermaid
 quadrantChart
-    title Escopo x especializacao em agro-BR
-    x-axis Foco unico --> Hub completo
-    y-axis Baixa especializacao em agro-BR --> Alta especializacao em agro-BR
-    quadrant-1 Hub especializado - espaco-alvo da Ominia
-    quadrant-2 Especialista de nicho no Brasil
-    quadrant-3 Ferramenta global generica
-    quadrant-4 Plataforma global ampla
-    Ominia - aposta: [0.85, 0.88]
-    Agrotools: [0.55, 0.85]
-    EcoVadis: [0.35, 0.15]
-    Neoway: [0.3, 0.55]
-    Watershed-Persefoni-Normative: [0.25, 0.1]
-    Koltiva-Farmforce-TraceX: [0.45, 0.3]
+    title Especializacao setorial x profundidade de monetizacao (CBio/Bonsucro)
+    x-axis Generico --> Especializado em sucroenergetico
+    y-axis So relatorio/inventario --> Inventario ligado a CBio/Bonsucro como produto
+    quadrant-1 Ominia - espaco-alvo
+    quadrant-2 Especialista setorial sem gancho de receita
+    quadrant-3 Generico sem gancho de receita
+    quadrant-4 Gancho de receita sem especializacao setorial
+    Ominia - aposta: [0.85, 0.85]
+    Ororo: [0.65, 0.3]
+    CarbonSys: [0.25, 0.25]
+    Zaya: [0.15, 0.2]
+    Legitimus: [0.15, 0.15]
+    Carbon-Free-Brasil: [0.2, 0.3]
+    Bridge3-consultoria: [0.6, 0.15]
 ```
 
-O quadrante superior direito (hub completo + alta especialização em agro-BR) está
-vazio hoje — é exatamente onde a Ominia se posiciona. Agrotools é o concorrente mais
-próximo desse espaço, mas ainda inclinado para risco/crédito (venda B2B2B) mais do
-que para gestão interna da usina.
+O quadrante superior direito (alta especialização sucroenergética + inventário
+explicitamente ligado a CBio/Bonsucro) está livre — nenhum concorrente mapeado faz as
+duas coisas ao mesmo tempo. Esse é o espaço real da aposta, mais estreito e mais
+defensável do que "hub ESG completo" da v0.1.
 
-### 7.3 Onde a Ominia gera diferenciação real
+### 8.3 Sinal de janela de tempo
 
-1. **Hub completo vs. ponto único** — todo concorrente mapeado resolve *um* pedaço
-   (score de fornecedor, carbono, rastreabilidade, risco de crédito). Nenhum entrega
-   Dados + Compliance + Valor como um fluxo único e conectado.
-2. **Pricing por empresa, não por fornecedor** — argumento direto contra EcoVadis
-   (capítulo 6.5).
-3. **Pilar Valor como produto, não relatório** — nenhum concorrente mapeado promete
-   "quanto isso vale em R$" como entregável central; todos entregam prova de
-   conformidade ou score, não tradução financeira.
-4. **Especialização real em agroindústria brasileira** — Agrotools tem isso, mas
-   dentro de um modelo B2B2B voltado a quem empresta/segura, não a quem opera a usina.
-
-### 7.4 Sinal de consolidação de mercado — janela de tempo
-
-A aquisição do negócio de contabilidade de carbono/ESG da Diligent pela Persefoni
-(22/out/2025) é sinal de que o mercado de ferramentas puramente pontuais (só carbono,
-só relatório) está consolidando rápido. Isso sugere que a janela para entrar como
-"hub completo" antes que um player internacional monte a mesma tese para o Brasil é
-de **1-2 anos, não 5** — reforça priorizar velocidade de GTM sobre amplitude de
-features no primeiro ano.
+Sem evento de consolidação específico identificado nesta pesquisa (diferente da v0.1,
+que citou a aquisição Persefoni-Diligent). Isso é, em si, informação: o segmento
+brasileiro de inventário de GEE ainda está fragmentado entre pequenos players locais
+— **é uma janela aberta, mas sem prazo de urgência externo forçando velocidade**; a
+pressão de tempo real vem do calendário de safra e renovação Bonsucro do próprio
+cliente, não de M&A do setor.
 
 ---
 
-## 8. Estratégia de go-to-market e marketing
+## 9. Estratégia de go-to-market
 
-### 8.1 Motion de vendas
+### 9.1 Motion de vendas
 
-B2B enterprise clássico: ciclo longo (3-9 meses estimado), múltiplos decisores
-(persona técnica + CFO, capítulo 4.3), venda consultiva — não self-service. Piloto
-pago de 90 dias com escopo Pilar Dados é a entrada recomendada para reduzir fricção
-de decisão inicial e gerar o primeiro caso de Pilar Valor mensurável antes da
-renovação.
+Ciclo mais curto que a v0.1 (2-4 meses, capítulo 7.4). **Piloto pago de 60 dias**
+(mais curto que os 90 dias da v0.1, porque o escopo é menor) cobrindo uma safra
+parcial ou uma unidade, com entrega do primeiro inventário completo e a leitura de
+CBio associada como prova de conceito.
 
-### 8.2 Canais
+### 9.2 Canais
 
-- **Direto** — prospecção ativa em usinas de médio-grande porte (associações
-  setoriais como UNICA como fonte de lista e evento de relacionamento).
-- **B2B2B via bancos** — o canal mais promissor e menos óbvio: bancos estão sendo
-  pressionados a ter inteligência territorial melhor para crédito rural (capítulo
-  3.5). Vender **através** do banco (banco oferece Ominia como parte da esteira de
-  crédito sustentável ao cliente agro) resolve dois problemas ao mesmo tempo — CAC
-  menor via canal, e credibilidade emprestada do banco.
-- **Certificadoras/auditoras** — parceria com quem já faz asseguração externa
-  ([DATA-MODEL-COMPLIANCE.md](DATA-MODEL-COMPLIANCE.md), seção 3.8) como canal de
-  indicação.
+- **Direto** — prospecção em usinas certificadas RenovaBio (lista pública da ANP é o
+  ponto de partida mais preciso que existe para esta venda — capítulo 3.1).
+- **Via Bonsucro / certificadoras** — parceria de indicação: quem já está no ciclo de
+  auditoria Bonsucro é o comprador mais qualificado que existe.
+- **Via consultorias de GHG Protocol** (ex.: perfil Bridge3) — não como concorrente a
+  evitar, mas como canal: consultorias que hoje fazem o inventário manualmente uma vez
+  por ano podem recomendar a Ominia como a ferramenta que sustenta o trabalho delas
+  entre um projeto e outro.
 
-### 8.3 Conteúdo e autoridade
+### 9.3 Conteúdo e autoridade
 
-O próprio rigor regulatório da Ominia (capítulo 3.4, a atualização sobre a CVM 244,
-o mapeamento RenovaBio/Bonsucro) é material de marketing em si — poucas empresas do
-setor têm clareza sobre o que mudou em maio/2026. Um boletim regulatório trimestral
-específico para o setor sucroenergético é um ativo de marketing de baixo custo e alta
-credibilidade.
-
-### 8.4 Land-and-expand entre pilares
-
-A régua comercial padrão: fechar Dados (ticket menor, decisão mais rápida) → em 6-12
-meses, quando o cliente já sente a dor de responder due diligence sem estrutura,
-propor Compliance → quando Compliance atinge maturidade (relatórios publicados,
-questionários respondidos), propor Valor com o argumento mais forte de todos: "olha o
-que já está provado no seu próprio dado."
+Um boletim trimestral específico sobre preço/volume de CBio + o que isso significa
+para a apuração de inventário (capítulo 4.2) é um ativo de marketing barato e
+diretamente ligado ao produto — mais afiado do que o boletim regulatório amplo da
+v0.1, porque fala a língua financeira do CFO/diretor de RI da usina, não só a língua
+de compliance.
 
 ---
 
-## 9. Processos e metodologia
+## 10. Processos e metodologia
 
-### 9.1 Metodologia de entrega
+### 10.1 Metodologia de entrega
 
-Onboarding em fases, espelhando o próprio roadmap de produto
-([PRD](PRD.md), capítulo 7): (1) mapeamento de fontes de dado e integrações
-(ERP, sistemas de planta) — 2-3 semanas; (2) validação inicial e resolução de
-divergências (capítulo 2.2 do PRD) — 2-4 semanas; (3) ativação do pilar contratado
-(Compliance ou Valor) sobre a base já validada. Meta: primeiro indicador
-"92% completo" (o exemplo de card do PRD) em até 60 dias de contrato.
+(1) Mapeamento das fontes de emissão da unidade (combustível, energia comprada,
+principais insumos de Escopo 3) — 1-2 semanas; (2) aplicação dos fatores de emissão
+GHG Protocol e primeira apuração — 1-2 semanas; (3) validação e evidência documental —
+1-2 semanas. Meta: primeiro inventário "completo" em até **45 dias** de contrato
+(mais rápido que os 60 dias da v0.1, escopo menor).
 
-### 9.2 Processo de atualização regulatória contínua
+### 10.2 Processo de atualização de fatores de emissão
 
-Esta é a peça operacional que sustenta a promessa do capítulo 5.3 ("você não paga de
-novo quando a norma muda"): um processo interno recorrente de monitoramento
-regulatório (a cada mudança como a da CVM 244, ou uma nova fase do SBCE) que atualiza
-o catálogo `frameworks`/`requisitos` (Pilar 2) como dado de configuração, não como
-retrabalho de produto — exatamente o desenho que o modelo de dados já previu.
-Recomendação: um responsável (interno ou parceria jurídica) dedicado a isso desde a
-Fase 2 de contratação (capítulo 10.2), não como tarefa lateral de outra função.
-
-### 9.3 Customer Success e renovação
-
-CSM dedicado a partir do tier Completo/Enterprise (capítulo 5.3); revisão trimestral
-de valor gerado (retirada direto do ledger `valor_eventos`) como ritual formal antes
-da renovação — a renovação se vende sozinha se o Pilar Valor já tiver números
-acumulados para mostrar.
+Os fatores de emissão (GHG Protocol, inventário nacional) mudam de versão
+periodicamente — mesma lógica da v0.1 (framework como configuração, não retrabalho):
+um processo interno de monitoramento mantém a tabela de fatores atualizada como dado,
+nunca como mudança de arquitetura.
 
 ---
 
-## 10. Time e estrutura organizacional
+## 11. Time e estrutura organizacional (MVP enxuto)
 
-### 10.1 Funções-chave
-
-| Função | Por que é crítica |
+| Função | Por que é crítica na v1 |
 |---|---|
-| **Especialista regulatório ESG-agro** (papel raro, difícil de terceirizar) | É quem mantém a biblioteca de frameworks correta — o ativo que justifica o tier Compliance. Sem essa função, o produto vira "só um banco de dados bonito". |
-| **Engenheiro(a) de dados** | Constrói as integrações com ERP/sistemas de planta — o gargalo real de qualquer implantação (Pilar Dados). |
-| **Engenheiro(a) full-stack (produto)** | Constrói e mantém a plataforma nos 3 pilares. |
-| **Customer Success / Implementação** com conhecimento de agro | Onboarding e adoção — decide se o cliente chega ao "92% completo" em 60 dias ou desiste em 6 meses. |
-| **Vendas enterprise B2B** com relacionamento no setor | Ciclo longo, decisor múltiplo — vendedor sem rede no agro não fecha no prazo do capítulo 8.1. |
-| **Cientista de dados/IA** (a partir da Fase 2) | Constrói o "pacote de evidências por IA" (diferencial do PRD, capítulo 3.2) e os modelos de score (Pilar Valor). |
+| **Especialista em GHG Protocol / inventário de emissões** (não "especialista ESG amplo") | Mantém a metodologia e os fatores de emissão corretos — ativo que justifica o preço acima do piso SMB |
+| **Engenheiro(a) full-stack (produto)** | Constrói e mantém a plataforma — escopo bem menor que o hub completo, um único fluxo de dado |
+| **Customer Success / Implementação com conhecimento de sucroenergético** | Onboarding em 45 dias (capítulo 10.1) |
+| **Vendas com relacionamento no setor sucroenergético** | Ciclo mais curto (capítulo 9.1), mas ainda B2B relacional |
 
-### 10.2 Roadmap de contratação por fase
-
-| Fase | Foco | Contratações típicas | Headcount acumulado (ilustrativo) |
-|---|---|---|---|
-| **Fase 1 — MVP Dados** (0-6 meses) | Validar o Pilar Dados com 1-3 clientes-piloto | Fundador(es) técnico + 1-2 eng. full-stack + 1 eng. de dados + 1 especialista regulatório (meio período/consultoria) | 4-6 pessoas |
-| **Fase 2 — Compliance** (6-12 meses) | Lançar Compliance, primeira contratação comercial dedicada | +1 vendas enterprise, +1 CS/implementação, +1 especialista regulatório (tempo integral) | 8-11 pessoas |
-| **Fase 3 — Valor / escala** (12-24 meses) | Lançar Valor, escalar vendas e CS | +1 cientista de dados, +1-2 eng. adicionais, +1-2 vendas, +1 CS | 14-20 pessoas |
+Headcount de lançamento (Fase 1, 0-6 meses): **3-4 pessoas** — bem menor que as 4-6 da
+v0.1, porque o produto é bem menor.
 
 ---
 
-## 11. Previsão de custos e unit economics
+## 12. Previsão de custos e unit economics (recalculado)
 
-> **Aviso de enquadramento:** os valores de folha abaixo são **faixas de mercado
-> ilustrativas de praça tech no Brasil, não uma pesquisa salarial dedicada para este
-> documento** — validar contra um benchmark salarial atualizado (ex.: Robert Half,
-> Revelo, Glassdoor Brasil) antes de usar em orçamento formal ou captação.
+> Mesmo aviso da v0.1: faixas ilustrativas de mercado, não pesquisa salarial dedicada.
 
-### 11.1 Estrutura de custos por fase (ilustrativo)
-
-| Fase | Headcount | Folha mensal estimada (CLT + encargos) | Infra/ferramentas (mensal) | Burn mensal total estimado |
+| Fase | Headcount | Folha mensal estimada | Infra/ferramentas | Burn mensal total |
 |---|---|---|---|---|
-| Fase 1 (0-6m) | 4-6 | R$ 90.000 – 150.000 | R$ 8.000 – 15.000 | R$ 100.000 – 170.000 |
-| Fase 2 (6-12m) | 8-11 | R$ 180.000 – 260.000 | R$ 15.000 – 25.000 | R$ 200.000 – 290.000 |
-| Fase 3 (12-24m) | 14-20 | R$ 320.000 – 480.000 | R$ 25.000 – 45.000 | R$ 350.000 – 530.000 |
+| Fase 1 — MVP (0-6m) | 3-4 | R$ 55.000 – 90.000 | R$ 5.000 – 10.000 | R$ 60.000 – 100.000 |
+| Fase 2 — Tração (6-12m) | 5-7 | R$ 100.000 – 160.000 | R$ 10.000 – 18.000 | R$ 110.000 – 180.000 |
 
-Faixas salariais individuais assumidas (CLT + encargos, mercado tech Brasil,
-ilustrativo): eng. sênior R$ 18k–28k/mês; eng. pleno R$ 10k–16k/mês; especialista
-regulatório R$ 15k–25k/mês; CS/implementação R$ 8k–14k/mês; vendas R$ 12k–20k +
-comissão; cientista de dados R$ 18k–28k/mês; pro-labore fundadores variável conforme
-caixa.
-
-### 11.2 CAC / LTV — ilustrativo
-
-Com ARPU mensal projetado de R$ 18k–35k (capítulo 6.4) e ciclo de venda B2B longo
-(capítulo 8.1), o CAC tende a ser alto em valor absoluto (múltiplos meses de um
-vendedor + marketing dedicados por fechamento) mas **baixo relativo ao LTV**, dado o
-padrão de contratos anuais renovados com upsell entre pilares:
-
-- **LTV ilustrativo** (assumindo retenção de 3-5 anos, com upsell de Dados → Completo
-  ao longo do tempo): **R$ 700 mil – R$ 2 milhões** por cliente ao longo do
-  relacionamento.
-- **CAC-alvo saudável** para esse LTV, usando a régua comum de LTV:CAC ≥ 3:1: até
-  **R$ 230 mil – 650 mil** por cliente fechado — folgado para um ciclo de venda
-  enterprise com vendedor dedicado, mas exige de fato fechar clientes de ticket alto
-  (Completo/Enterprise), não só o tier Dados.
-
-### 11.3 Ponto de equilíbrio — cenário ilustrativo
-
-Com burn de Fase 2 (~R$ 200k–290k/mês) e ARPU médio de R$ 18k-35k/mês por cliente,
-o breakeven operacional exigiria aproximadamente **8 a 16 clientes ativos** pagando
-o ticket médio projetado — plausível dentro do SOM de 3 anos calculado no capítulo
-3.3, mas sensível ao mix real de tiers vendidos (mais peso em "Dados" sozinho exige
-proporcionalmente mais clientes para o mesmo breakeven).
+Com ARPU mensal projetado de R$5k-10k (capítulo 7.4), o breakeven da Fase 2 exige
+aproximadamente **11 a 36 clientes ativos** — mais clientes que o hub completo da v0.1
+para o mesmo breakeven em R$, porque o ticket é menor; compensado por ciclo de venda
+mais curto e CAC menor por negócio mais simples de explicar.
 
 ---
 
-## 12. Riscos de negócio e mitigação
+## 13. Riscos de negócio e mitigação
 
 | Risco | Mitigação |
 |---|---|
-| Narrativa regulatória perde força se depender só de obrigação legal (CVM 244 já mostrou que pode reverter) | Ancorar venda em pressão comercial/de capital (capítulo 3.5), não só em lei — menos frágil a mudança política |
-| Agrotools (ou entrante internacional pós-consolidação, capítulo 7.4) lança um "Pilar Valor" antes da Ominia | Priorizar velocidade de lançamento do Pilar Valor com clientes-piloto reais, não esperar Compliance "perfeito" |
-| Ciclo de venda B2B mais longo que o modelado (capítulo 8.1), estourando o caixa da Fase 2 | Piloto pago de 90 dias (capítulo 8.1) reduz o ciclo até o primeiro contrato, mesmo que pequeno |
-| Dependência de 1-2 especialistas regulatórios (função rara, capítulo 10.1) | Formalizar o processo de atualização (capítulo 9.2) como playbook documentado desde o início, não conhecimento tácito de uma pessoa |
-| Números de mercado deste capítulo (3 e 6) usados sem validação em decisão de captação/investimento | Tratar como hipótese de trabalho, não fato — revalidar com dado de venda real assim que houver 3-5 clientes fechados |
+| Mercado de inventário de GEE no Brasil não está vazio (capítulo 8.2) — Ororo em particular já tem tração declarada em agro | Diferenciação explícita via leitura de CBio/Bonsucro como produto central, não só inventário — validar com 3-5 clientes-piloto se esse gancho realmente muda a decisão de compra |
+| SBCE não confirma agro na Fase 1 — argumento regulatório de urgência é fraco | Vender por retorno de CBio (capítulo 4.2), não por obrigação futura incerta |
+| Preço do CBio pode se recuperar ou cair ainda mais, mudando a força do argumento comercial | Monitorar trimestralmente (capítulo 9.3) e ajustar o discurso comercial ao cenário real, não a uma projeção fixa |
+| Escopo v1 deliberadamente pequeno pode não sustentar ticket suficiente para o breakeven do capítulo 12 | Land-and-expand para o roadmap do capítulo 14 assim que o cliente-piloto validar o inventário — não é promessa de venda v1, mas é caminho de expansão de receita por cliente já existente |
+| Nenhum preço de concorrente brasileiro (Ororo, CarbonSys etc.) é público | Cotação direta como parte da validação de preço do capítulo 15, antes de fixar tabela |
 
 ---
 
-## 13. Próximos passos
+## 14. Roadmap além do MVP (não é promessa de venda v1)
 
-1. Validar as faixas de precificação (capítulo 6.2) com 3-5 conversas reais de
-   pré-venda antes de publicar uma tabela de preço formal.
-2. Confirmar a data de aplicação do EUDR diretamente na página oficial da Comissão
-   Europeia antes de qualquer comunicação externa — já mudou duas vezes (capítulo
-   3.4).
-3. Adicionar RenovaBio/CBios e Bonsucro ao catálogo de frameworks do
-   [DATA-MODEL-COMPLIANCE.md](DATA-MODEL-COMPLIANCE.md) (capítulo 3.4) — mais
-   relevantes para o ICP hoje do que IFRS S1/S2 no cenário voluntário atual.
-4. Pesquisa dedicada: quebra de exportação de açúcar/etanol em dólares (capítulo 3.1)
-   e validação salarial (capítulo 11.1) antes de qualquer uso em captação.
-5. Definir o piloto pago de 90 dias (capítulo 8.1) como motion comercial formal para
-   os primeiros 3-5 clientes.
+A arquitetura de dados original (PRD, [DATA-MODEL.md](DATA-MODEL.md),
+[DATA-MODEL-COMPLIANCE.md](DATA-MODEL-COMPLIANCE.md),
+[DATA-MODEL-VALOR.md](DATA-MODEL-VALOR.md)) continua válida como visão de longo prazo
+— o inventário de emissões é o **primeiro requisito completo** dentro do Pilar
+Compliance, não uma ruptura de arquitetura. Expansão natural, nesta ordem, só depois
+de 3-5 clientes validando o produto de inventário:
+
+1. Ampliar o Pilar Dados para as demais 6 fontes (energia/água/resíduo além de
+   emissão, fornecedores, indicadores sociais) — quando o cliente pedir.
+2. Ampliar o catálogo de frameworks do Pilar Compliance (GRI, IFRS S1 amplo,
+   questionários de terceiros) além do inventário de GEE.
+3. Pilar Valor completo (ledger financeiro, elegibilidade de crédito verde além do
+   CBio, score de fornecedor) — só depois que Compliance estiver maduro em clientes
+   reais.
 
 ---
 
-## 14. Fontes
+## 15. Próximos passos
+
+1. Validar as faixas de precificação (capítulo 7.2) com 3-5 conversas reais de
+   pré-venda com usinas certificadas RenovaBio (lista ANP, capítulo 3.1).
+2. Cotar diretamente Ororo, CarbonSys, Zaya, Legitimus e Carbon Free Brasil (capítulo
+   8.1) — nenhum publica preço; é a lacuna de dado mais importante deste documento.
+3. Confirmar, na publicação oficial do Ministério da Fazenda, se e quando
+   agroindústria/alimentos e bebidas entram na lista final de setores do SBCE
+   (capítulo 4.1) — monitorar, não assumir.
+4. Definir o piloto pago de 60 dias (capítulo 9.1) como motion comercial formal para
+   os primeiros 3-5 clientes, com uma usina-âncora certificada RenovaBio.
+5. Validar com um especialista em GHG Protocol (não só pesquisa de IA) a lista de
+   fatores de emissão a usar no MVP antes de calcular o primeiro inventário real de
+   cliente.
+
+---
+
+## 16. Fontes
 
 - CEPEA/USP e CNA Brasil — PIB do agronegócio 2025/2026 (cepea.org.br, cnabrasil.org.br)
-- Ministério da Agricultura / Agência Gov — exportações do agronegócio 2025 (gov.br/secom, agenciagov.ebc.com.br)
+- Ministério da Agricultura / Agência Gov — exportações do agronegócio 2025
 - UNICA — boletins de safra 2024/25 (unica.com.br)
-- Econodata / Mapa Industrial — contagem de empresas agroindustriais ativas
-- CVM (gov.br) — Resolução 193/2023, Resolução 227/2025, Resolução 244/2026
-- Câmara dos Deputados / Ministério da Fazenda — Lei 15.042/2024 (SBCE), Decreto 12.768/2025
-- Poder360, ClimaInfo, eixos — cronograma setorial proposto do SBCE (2026)
-- Comissão Europeia (Green Forum) — status de aplicação do EUDR
-- Verdantix, Grand View Research, MarketsandMarkets, Mordor Intelligence — tamanho de mercado de software ESG/sustentabilidade
-- Vendr, Growlity, ExecutESG, Capterra, TrustRadius — preços observados/estimados de EcoVadis, Workiva, Sphera, Normative, Persefoni, Watershed
-- Bloomberg Línea — receita reportada da Agrotools
-- Mesa Brasileira da Pecuária Sustentável — exigências de inteligência territorial em crédito rural
-- BNDES (Agência de Notícias) — Fundo Clima, operações 2025/2026
-- Diário do Grande ABC, Rádio Itatiaia — crédito rural sustentável, safra 2025/26
+- ANP — usinas certificadas RenovaBio, 2026
+- Novacana, BiodieselBR, RPAnews, JornalCana — preço e volume de CBios, 2025-2026
+- Ministério da Fazenda — proposta de cronograma setorial do SBCE, maio/2026
+  (gov.br/fazenda)
+- Agência Brasil, Poder360, Mattos Filho, ClimaInfo, Canal Rural, eixos — cobertura do
+  cronograma SBCE
+- CVM (gov.br) — Resolução 193/2023, Resolução 244/2026
+- Verdantix — carbon management software, tamanho e projeção 2025-2031
+- Mordor Intelligence, Intel Market Research, The Business Research Company — carbon
+  accounting market (definição ampla, tratado com ressalva no capítulo 3.2)
+- Ororo (ororo.com.br) — plataforma ESG/GEE para agronegócio
+- CarbonSys / gestaodeemissoes.com.br — software de inventário GEE
+- Zaya (zaya.eco) — plataforma de inventário GEE
+- Legitimus Ambiental (legitimusambiental.com.br) — software GEE
+- Carbon Free Brasil (carbonfreebrasil.com) — gestão de emissões
+- AFRY — App Carbon Meter
+- Bridge3 (bridge3.com.br) — consultoria GHG Protocol para agricultura
+- Persefoni, Normative — benchmark internacional de carbon accounting software e preço
 
-*(Pesquisa realizada em 2026-08-22 via busca dedicada. Onde uma fonte não pôde ser
-confirmada de forma independente, isso está sinalizado no corpo do texto — ver
-capítulos 3.1, 3.2 e 11.1 em particular antes de reusar qualquer número em material
-externo.)*
+*(Pesquisa desta reescrita realizada em 2026-08-24 via busca dedicada, especificamente
+para o escopo de inventário de emissões — não é um recorte da pesquisa da v0.1. Onde
+uma fonte não pôde ser confirmada de forma independente ou apresenta discrepância
+grande entre fontes, isso está sinalizado no corpo do texto — ver capítulos 3.2, 4.1 e
+7.1 em particular antes de reusar qualquer número em material externo.)*
