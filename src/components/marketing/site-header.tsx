@@ -49,7 +49,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="sticky top-0 z-50">
+    <div className="sticky top-4 z-50 px-4 sm:top-6 sm:px-6 lg:px-10">
       <header className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-lp-line bg-lp-paper/95 py-3 pr-3 pl-6 shadow-[0px_8px_24px_rgba(21,15,38,0.08)] backdrop-blur-md">
         <Link href="/" aria-label="Ominia" onClick={() => setOpen(false)}>
           <Image
