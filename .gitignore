@@ -40,8 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
-.env*
-
-.vercel
-.env*
+# raw brand source files (large; processed versions live in public/)
+/Marca/

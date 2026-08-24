@@ -25,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-BR"
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-blackout font-sans text-whiteout">{children}</body>
+      <body className="min-h-full bg-lp-paper font-sans text-lp-ink">{children}</body>
     </html>
   );
 }

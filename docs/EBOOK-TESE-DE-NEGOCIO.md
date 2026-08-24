@@ -402,7 +402,7 @@ consultoria pontual.
 A v0.1 descrevia o quadrante "hub completo + alta especialização agro-BR" como vazio.
 **Isso não é verdade para o quadrante mais estreito "inventário de emissões +
 especialização agro-BR"** — Ororo, CarbonSys, Zaya, Legitimus e Carbon Free Brasil já
-disputam esse espaço, com a Ororo like a mais próxima em especialização setorial.
+disputam esse espaço, com a Ororo sendo a mais próxima em especialização setorial.
 Reconhecer isso é o ponto mais importante desta reescrita: **a aposta da Ominia não
 pode mais ser "somos os únicos"**, tem que ser **"somos os únicos que ligam o
 inventário a CBio/Bonsucro como produto central, dentro do setor sucroenergético

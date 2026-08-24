@@ -13,6 +13,18 @@
   --color-graphite-deep: #151617;
   --color-depth: #0a0a0b;
   --color-blackout: #000000;
+
+  --color-lp-purple: #18033e;
+  --color-lp-purple-soft: #2a1360;
+  --color-lp-maroon: #74210e;
+  --color-lp-maroon-deep: #2f1813;
+  --color-lp-pink: #ff268e;
+  --color-lp-pink-deep: #e0117a;
+  --color-lp-ink: #150f26;
+  --color-lp-muted: #6b6875;
+  --color-lp-line: #e7e4ee;
+  --color-lp-paper: #ffffff;
+  --color-lp-paper-soft: #f6f4fa;
 }
 
 @theme inline {
@@ -29,6 +41,18 @@
   --color-depth: var(--color-depth);
   --color-blackout: var(--color-blackout);
 
+  --color-lp-purple: var(--color-lp-purple);
+  --color-lp-purple-soft: var(--color-lp-purple-soft);
+  --color-lp-maroon: var(--color-lp-maroon);
+  --color-lp-maroon-deep: var(--color-lp-maroon-deep);
+  --color-lp-pink: var(--color-lp-pink);
+  --color-lp-pink-deep: var(--color-lp-pink-deep);
+  --color-lp-ink: var(--color-lp-ink);
+  --color-lp-muted: var(--color-lp-muted);
+  --color-lp-line: var(--color-lp-line);
+  --color-lp-paper: var(--color-lp-paper);
+  --color-lp-paper-soft: var(--color-lp-paper-soft);
+
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geistmono);
 
@@ -38,8 +62,8 @@
 }
 
 body {
-  background: var(--color-blackout);
-  color: var(--color-whiteout);
+  background: var(--color-lp-paper);
+  color: var(--color-lp-ink);
 }
 
 ::selection {

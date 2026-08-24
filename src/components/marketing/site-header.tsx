@@ -2,50 +2,84 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import { OminiaMark } from "@/components/brand/ominia-mark";
+import Image from "next/image";
+import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react";
 
-const navLinks = [
-  { href: "#dados", label: "Dados" },
-  { href: "#compliance", label: "Compliance" },
-  { href: "#valor", label: "Valor" },
-  { href: "#diferencial", label: "Por que Ominia" },
+const solucoes = [
+  { href: "#emissoes", label: "Inventário de Emissões GEE" },
+  { href: "#bonsucro", label: "Certificação Bonsucro" },
+  { href: "#cbios", label: "Créditos CBios (RenovaBio)" },
+  { href: "#auditoria", label: "Trilha de Auditoria" },
 ];
+
+const institucional = [
+  { href: "#sobre", label: "Sobre a Ominia" },
+  { href: "#time", label: "Time" },
+  { href: "#contato", label: "Contato" },
+];
+
+function Dropdown({ label, items }: { label: string; items: { href: string; label: string }[] }) {
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        className="flex items-center gap-1 text-sm text-lp-ink/70 transition-colors hover:text-lp-ink"
+      >
+        {label}
+        <ChevronDown className="size-3.5" strokeWidth={2} />
+      </button>
+      <div className="invisible absolute top-full left-1/2 z-50 w-64 -translate-x-1/2 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100">
+        <div className="rounded-2xl border border-lp-line bg-lp-paper p-2 shadow-[0px_16px_32px_rgba(21,15,38,0.12)]">
+          {items.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="block rounded-xl px-3 py-2.5 text-sm text-lp-ink/80 transition-colors hover:bg-lp-paper-soft hover:text-lp-ink"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-graphite-light/60 bg-blackout/70 backdrop-blur-md">
-      <div className="flex w-full items-center justify-between px-6 py-5 sm:px-10 lg:px-16 xl:px-24">
+    <div className="sticky top-4 z-50 px-4 sm:top-6 sm:px-6 lg:px-10">
+      <header className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-lp-line bg-lp-paper/95 py-3 pr-3 pl-6 shadow-[0px_8px_24px_rgba(21,15,38,0.08)] backdrop-blur-md">
         <Link href="/" aria-label="Ominia" onClick={() => setOpen(false)}>
-          <OminiaMark height={20} />
+          <Image
+            src="/brand/ominia-wordmark-dark.png"
+            alt="Ominia"
+            width={116}
+            height={21}
+            priority
+            className="h-[21px] w-auto"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-whiteout transition-colors hover:text-neon-glow"
-            >
-              {link.label}
-            </a>
-          ))}
+          <Dropdown label="Soluções" items={solucoes} />
+          <Dropdown label="Institucional" items={institucional} />
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+          <a
+            href="#contato"
+            className="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-lp-ink transition-colors hover:text-lp-pink-deep"
+          >
+            Contato
+            <ArrowUpRight className="size-3.5" strokeWidth={2} />
+          </a>
           <Link
             href="/login"
-            className="rounded-full border border-graphite-light px-[18px] py-3 text-sm text-whiteout transition-colors hover:border-neon-glow"
+            className="rounded-full bg-lp-pink px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
             Entrar
-          </Link>
-          <Link
-            href="/cadastro"
-            className="rounded-full bg-whiteout px-7 py-3 text-sm font-medium text-graphite-deep transition-opacity hover:opacity-90"
-          >
-            Começar
           </Link>
         </div>
 
@@ -54,44 +88,50 @@ export function SiteHeader() {
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="text-whiteout md:hidden"
+          className="text-lp-ink md:hidden"
         >
           {open ? <X className="size-6" strokeWidth={1.75} /> : <Menu className="size-6" strokeWidth={1.75} />}
         </button>
-      </div>
+      </header>
 
       {open && (
-        <div className="border-t border-graphite-light bg-blackout px-6 py-6 md:hidden">
-          <nav className="flex flex-col gap-5">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-base text-whiteout"
-              >
-                {link.label}
+        <div className="mx-auto mt-2 max-w-6xl rounded-3xl border border-lp-line bg-lp-paper p-6 shadow-[0px_16px_32px_rgba(21,15,38,0.12)] md:hidden">
+          <p className="font-mono text-xs tracking-wide text-lp-muted uppercase">Soluções</p>
+          <nav className="mt-3 flex flex-col gap-3">
+            {solucoes.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="text-base text-lp-ink">
+                {item.label}
               </a>
             ))}
           </nav>
-          <div className="mt-6 flex flex-col gap-3">
+
+          <p className="mt-6 font-mono text-xs tracking-wide text-lp-muted uppercase">Institucional</p>
+          <nav className="mt-3 flex flex-col gap-3">
+            {institucional.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="text-base text-lp-ink">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-6 flex flex-col gap-3 border-t border-lp-line pt-6">
+            <a
+              href="#contato"
+              onClick={() => setOpen(false)}
+              className="rounded-full border border-lp-line px-6 py-3 text-center text-sm font-medium text-lp-ink"
+            >
+              Contato
+            </a>
             <Link
               href="/login"
               onClick={() => setOpen(false)}
-              className="rounded-full border border-graphite-light px-[18px] py-3 text-center text-sm text-whiteout"
+              className="rounded-full bg-lp-pink px-6 py-3 text-center text-sm font-medium text-white"
             >
               Entrar
-            </Link>
-            <Link
-              href="/cadastro"
-              onClick={() => setOpen(false)}
-              className="rounded-full bg-whiteout px-7 py-3 text-center text-sm font-medium text-graphite-deep"
-            >
-              Começar
             </Link>
           </div>
         </div>
       )}
-    </header>
+    </div>
   );
 }
