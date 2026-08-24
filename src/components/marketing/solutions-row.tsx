@@ -1,41 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Plus } from "lucide-react";
 import { Reveal } from "./reveal";
-
-const solucoes = [
-  {
-    id: "emissoes",
-    titulo: "Inventário de Emissões GEE",
-    descricao:
-      "Levantamento completo de emissões Escopo 1, 2 e 3 seguindo o GHG Protocol, com trilha de auditoria pronta para bancos e certificadoras.",
-  },
-  {
-    id: "bonsucro",
-    titulo: "Certificação Bonsucro",
-    descricao:
-      "Estruturação do dossiê e das evidências para a certificação Bonsucro, do cadastro de fornecedores ao relatório final.",
-  },
-  {
-    id: "cbios",
-    titulo: "Créditos CBios (RenovaBio)",
-    descricao:
-      "Cálculo e organização dos dados necessários para a emissão de CBios dentro do RenovaBio, com rastreabilidade completa.",
-  },
-  {
-    id: "auditoria",
-    titulo: "Trilha de Auditoria e Evidências",
-    descricao:
-      "Cada número gerado já nasce com origem, responsável e data — pronto para qualquer auditoria externa.",
-  },
-  {
-    id: "score",
-    titulo: "Score ESG de Fornecedores",
-    descricao:
-      "Avaliação estruturada da sua cadeia de fornecedores, com critérios claros e evidência por trás de cada nota.",
-  },
-];
+import { solucoes, type Solucao } from "@/lib/solucoes";
 
 function SolutionCard({
   solucao,
@@ -46,7 +15,7 @@ function SolutionCard({
   onClose,
   onToggle,
 }: {
-  solucao: (typeof solucoes)[number];
+  solucao: Solucao;
   dark: boolean;
   open: boolean;
   hidden?: boolean;
@@ -56,7 +25,7 @@ function SolutionCard({
 }) {
   return (
     <div
-      id={hidden ? undefined : solucao.id}
+      id={hidden ? undefined : solucao.slug}
       aria-hidden={hidden}
       onMouseEnter={onOpen}
       onMouseLeave={onClose}
@@ -80,18 +49,22 @@ function SolutionCard({
           }`}
         >
           <p className="overflow-hidden text-sm leading-relaxed text-white/75">
-            {solucao.descricao}
+            {solucao.resumo}
           </p>
         </div>
       </div>
 
-      <span
+      <Link
+        href={`/solucoes/${solucao.slug}`}
+        aria-label={`Ver mais sobre ${solucao.titulo}`}
+        tabIndex={hidden ? -1 : 0}
+        onClick={(e) => e.stopPropagation()}
         className={`flex size-9 shrink-0 items-center justify-center rounded-full bg-lp-pink text-white transition-transform duration-300 ${
           open ? "rotate-45" : ""
         }`}
       >
         {open ? <Plus className="size-4" strokeWidth={2} /> : <ArrowRight className="size-4" strokeWidth={2} />}
-      </span>
+      </Link>
     </div>
   );
 }
@@ -123,15 +96,15 @@ export function SolutionsRow() {
             const isDuplicate = i >= solucoes.length;
             return (
               <SolutionCard
-                key={`${solucao.id}-${i}`}
+                key={`${solucao.slug}-${i}`}
                 solucao={solucao}
                 dark={i % 2 === 0}
                 hidden={isDuplicate}
-                open={openId === solucao.id}
-                onOpen={() => setHoverId(solucao.id)}
-                onClose={() => setHoverId((current) => (current === solucao.id ? null : current))}
+                open={openId === solucao.slug}
+                onOpen={() => setHoverId(solucao.slug)}
+                onClose={() => setHoverId((current) => (current === solucao.slug ? null : current))}
                 onToggle={() =>
-                  setClickedId((current) => (current === solucao.id ? null : solucao.id))
+                  setClickedId((current) => (current === solucao.slug ? null : solucao.slug))
                 }
               />
             );

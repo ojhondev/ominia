@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { solucoes } from "@/lib/solucoes";
 
 function InstagramGlyph() {
   return (
@@ -22,20 +23,15 @@ function LinkedinGlyph() {
 const columns = [
   {
     title: "Produto",
-    links: [
-      { href: "#emissoes", label: "Inventário de Emissões GEE" },
-      { href: "#bonsucro", label: "Certificação Bonsucro" },
-      { href: "#cbios", label: "Créditos CBios (RenovaBio)" },
-      { href: "#auditoria", label: "Trilha de Auditoria" },
-    ],
+    links: solucoes.map((s) => ({ href: `/solucoes/${s.slug}`, label: s.titulo })),
   },
   {
     title: "Institucional",
     links: [
-      { href: "#sobre", label: "Sobre a Ominia" },
-      { href: "#time", label: "Time" },
-      { href: "#", label: "Ética e Transparência" },
-      { href: "#contato", label: "Contato" },
+      { href: "/#sobre", label: "Sobre a Ominia" },
+      { href: "/#time", label: "Time" },
+      { href: "/#", label: "Ética e Transparência" },
+      { href: "/#contato", label: "Contato" },
     ],
   },
   {

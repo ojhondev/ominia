@@ -2,11 +2,15 @@ import { cadastrarLead } from "./actions";
 
 export function EmailCaptureForm({
   origem,
+  redirectTo = "/",
+  ctaLabel = "Cadastrar",
   consent = false,
   successMessage,
   errorMessage,
 }: {
   origem: string;
+  redirectTo?: string;
+  ctaLabel?: string;
   consent?: boolean;
   successMessage?: string;
   errorMessage?: string;
@@ -28,6 +32,7 @@ export function EmailCaptureForm({
         className="flex w-full max-w-md flex-col gap-2 sm:flex-row sm:items-center sm:gap-1 sm:rounded-full sm:bg-white sm:p-1.5 sm:shadow-[0px_8px_24px_rgba(21,15,38,0.16)]"
       >
         <input type="hidden" name="origem" value={origem} />
+        <input type="hidden" name="redirectTo" value={redirectTo} />
         <input
           type="email"
           name="email"
@@ -39,7 +44,7 @@ export function EmailCaptureForm({
           type="submit"
           className="w-full shrink-0 rounded-full bg-lp-pink px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:w-auto"
         >
-          Cadastrar
+          {ctaLabel}
         </button>
       </form>
       {consent && (
