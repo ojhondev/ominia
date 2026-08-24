@@ -25,7 +25,7 @@ export function EmailCaptureForm({
       )}
       <form
         action={cadastrarLead}
-        className="flex w-full max-w-md flex-col gap-1 rounded-full bg-white p-1.5 shadow-[0px_8px_24px_rgba(21,15,38,0.16)] sm:flex-row sm:items-center"
+        className="flex w-full max-w-md flex-col gap-2 sm:flex-row sm:items-center sm:gap-1 sm:rounded-full sm:bg-white sm:p-1.5 sm:shadow-[0px_8px_24px_rgba(21,15,38,0.16)]"
       >
         <input type="hidden" name="origem" value={origem} />
         <input
@@ -33,7 +33,7 @@ export function EmailCaptureForm({
           name="email"
           required
           placeholder="Seu melhor e-mail"
-          className="w-full flex-1 rounded-full bg-transparent px-5 py-3 text-sm text-lp-ink outline-none placeholder:text-lp-muted"
+          className="w-full rounded-full border border-lp-line bg-white px-5 py-3 text-sm text-lp-ink outline-none placeholder:text-lp-muted sm:flex-1 sm:border-0 sm:bg-transparent"
         />
         <button
           type="submit"

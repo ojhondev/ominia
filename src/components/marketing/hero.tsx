@@ -3,7 +3,7 @@ import { EmailCaptureForm } from "./email-capture-form";
 
 export function Hero({ status }: { status?: "inscrito" | "erro" }) {
   return (
-    <div className="relative isolate mt-2 min-h-[560px] overflow-hidden rounded-[26px] sm:mt-3 sm:min-h-[620px] lg:min-h-[680px]">
+    <div className="relative isolate mt-2 min-h-[520px] overflow-hidden rounded-xl sm:mt-3 sm:min-h-[620px] sm:rounded-[26px] lg:min-h-[680px]">
       <video
         className="absolute inset-0 -z-20 h-full w-full object-cover"
         autoPlay

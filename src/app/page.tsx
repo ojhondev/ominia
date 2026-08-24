@@ -16,7 +16,7 @@ export default async function LandingPage({ searchParams }: PageProps<"/">) {
   return (
     <div className="min-h-screen bg-lp-paper">
       <section className="px-4 pt-2 sm:px-6 sm:pt-2 lg:px-10">
-        <div className="rounded-[32px] bg-lp-purple p-2 sm:p-3">
+        <div className="rounded-2xl bg-lp-purple p-1.5 sm:rounded-[32px] sm:p-3">
           <SiteHeader />
           <Hero status={status} />
         </div>

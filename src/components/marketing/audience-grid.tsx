@@ -12,10 +12,14 @@ export function AudienceGrid() {
         </h2>
       </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 flex flex-col sm:grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
         {segmentos.map((segmento, i) => (
-          <Reveal key={segmento} delay={i * 80}>
-            <div className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-2xl border border-lp-line bg-lp-paper-soft p-5">
+          <div
+            key={segmento}
+            className="sticky top-20 pb-4 sm:static sm:pb-0"
+            style={{ zIndex: i + 1 }}
+          >
+            <div className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-2xl border border-lp-line bg-lp-paper-soft p-5 shadow-[0px_16px_32px_rgba(21,15,38,0.12)] sm:shadow-none">
               <span className="text-sm font-medium text-lp-ink">{segmento}</span>
               <div className="absolute inset-x-5 top-14 bottom-16 flex items-center justify-center rounded-xl border border-dashed border-lp-line/80 text-xs text-lp-muted">
                 Imagem
@@ -24,7 +28,7 @@ export function AudienceGrid() {
                 <ArrowRight className="size-4" strokeWidth={2} />
               </span>
             </div>
-          </Reveal>
+          </div>
         ))}
       </div>
     </section>
