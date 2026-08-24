@@ -15,7 +15,7 @@ const solucoes = [
 const institucional = [
   { href: "#sobre", label: "Sobre a Ominia" },
   { href: "#time", label: "Time" },
-  { href: "#contato", label: "Contato" },
+  { href: "#relacao-mercado", label: "Relação com o Mercado" },
 ];
 
 function Dropdown({ label, items }: { label: string; items: { href: string; label: string }[] }) {
@@ -49,7 +49,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="sticky top-4 z-50 px-4 sm:top-6 sm:px-6 lg:px-10">
+    <div className="sticky top-0 z-50">
       <header className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-lp-line bg-lp-paper/95 py-3 pr-3 pl-6 shadow-[0px_8px_24px_rgba(21,15,38,0.08)] backdrop-blur-md">
         <Link href="/" aria-label="Ominia" onClick={() => setOpen(false)}>
           <Image
@@ -68,19 +68,19 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <a
-            href="#contato"
-            className="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-lp-ink transition-colors hover:text-lp-pink-deep"
-          >
-            Contato
-            <ArrowUpRight className="size-3.5" strokeWidth={2} />
-          </a>
           <Link
             href="/login"
             className="rounded-full bg-lp-pink px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
             Entrar
           </Link>
+          <a
+            href="#relacao-mercado"
+            className="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-lp-ink transition-colors hover:text-lp-pink-deep"
+          >
+            Relação com o Mercado
+            <ArrowUpRight className="size-3.5" strokeWidth={2} />
+          </a>
         </div>
 
         <button
@@ -115,13 +115,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="mt-6 flex flex-col gap-3 border-t border-lp-line pt-6">
-            <a
-              href="#contato"
-              onClick={() => setOpen(false)}
-              className="rounded-full border border-lp-line px-6 py-3 text-center text-sm font-medium text-lp-ink"
-            >
-              Contato
-            </a>
             <Link
               href="/login"
               onClick={() => setOpen(false)}
@@ -129,6 +122,13 @@ export function SiteHeader() {
             >
               Entrar
             </Link>
+            <a
+              href="#relacao-mercado"
+              onClick={() => setOpen(false)}
+              className="rounded-full border border-lp-line px-6 py-3 text-center text-sm font-medium text-lp-ink"
+            >
+              Relação com o Mercado
+            </a>
           </div>
         </div>
       )}
