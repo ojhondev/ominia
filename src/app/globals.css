@@ -136,6 +136,10 @@ body {
   animation: marquee-scroll 32s linear infinite;
 }
 
+.marquee-track-slow {
+  animation: marquee-scroll 55s linear infinite;
+}
+
 @keyframes pulse-dot {
   0%,
   100% {
