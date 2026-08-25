@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { OminiaMark } from "@/components/brand/ominia-mark";
+import Image from "next/image";
 import { signUp } from "../actions";
 
 const ERROS: Record<string, string> = {
@@ -8,9 +8,9 @@ const ERROS: Record<string, string> = {
 };
 
 const inputClass =
-  "rounded-ui border border-graphite-light bg-graphite-deep px-3 py-2 text-sm text-whiteout outline-none focus:border-neon-glow";
+  "rounded-xl border border-lp-line bg-white px-3 py-2 text-sm text-lp-ink outline-none focus:border-lp-pink";
 
-const labelClass = "font-mono text-xs uppercase tracking-wide text-ash";
+const labelClass = "font-mono text-xs uppercase tracking-wide text-lp-muted";
 
 export default async function CadastroPage({ searchParams }: PageProps<"/cadastro">) {
   const params = await searchParams;
@@ -19,17 +19,17 @@ export default async function CadastroPage({ searchParams }: PageProps<"/cadastr
 
   return (
     <div className="flex flex-col gap-6">
-      <OminiaMark height={22} />
+      <Image src="/brand/ominia-wordmark-dark.png" alt="Ominia" width={116} height={21} priority className="h-[21px] w-auto" />
 
       <div>
-        <h1 className="text-xl font-medium tracking-tight text-whiteout">Criar conta</h1>
-        <p className="mt-1 text-sm text-ash">
+        <h1 className="text-xl font-medium tracking-tight text-lp-ink">Criar conta</h1>
+        <p className="mt-1 text-sm text-lp-muted">
           Comece a organizar os dados ESG da sua empresa.
         </p>
       </div>
 
       {erro && (
-        <p className="rounded-ui border border-system-warning/40 bg-system-warning/10 px-4 py-2 text-sm text-system-warning">
+        <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
           {erro}
         </p>
       )}
@@ -74,15 +74,15 @@ export default async function CadastroPage({ searchParams }: PageProps<"/cadastr
         </div>
         <button
           type="submit"
-          className="mt-2 rounded-full bg-whiteout px-7 py-3 text-sm font-medium text-graphite-deep transition-opacity hover:opacity-90"
+          className="mt-2 rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
         >
           Criar conta
         </button>
       </form>
 
-      <p className="text-center text-sm text-ash">
+      <p className="text-center text-sm text-lp-muted">
         Já tem uma conta?{" "}
-        <Link href="/login" className="font-medium text-whiteout hover:text-neon-glow">
+        <Link href="/login" className="font-medium text-lp-ink hover:text-lp-pink">
           Entrar
         </Link>
       </p>

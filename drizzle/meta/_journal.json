@@ -8,6 +8,13 @@
       "when": 1787594829682,
       "tag": "0000_spotty_thunderball",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1787675715520,
+      "tag": "0001_silly_lightspeed",
+      "breakpoints": true
     }
   ]
 }

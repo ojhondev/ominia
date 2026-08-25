@@ -1,10 +1,12 @@
 import {
   LayoutDashboard,
-  Factory,
-  Truck,
-  Gauge,
-  ShieldCheck,
-  TrendingUp,
+  Building2,
+  Database,
+  FileStack,
+  Flame,
+  Leaf,
+  Sprout,
+  ClipboardCheck,
   Settings,
   type LucideIcon,
 } from "lucide-react";
@@ -17,11 +19,13 @@ export type NavItem = {
 
 export const mainNavItems: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/dados/unidades", label: "Unidades", icon: Factory },
-  { href: "/dados/fornecedores", label: "Fornecedores", icon: Truck },
-  { href: "/dados/indicadores", label: "Indicadores", icon: Gauge },
-  { href: "/compliance", label: "Compliance", icon: ShieldCheck },
-  { href: "/valor", label: "Valor", icon: TrendingUp },
+  { href: "/organizacao", label: "Organização", icon: Building2 },
+  { href: "/data-hub", label: "Data Hub", icon: Database },
+  { href: "/evidencias", label: "Evidence Hub", icon: FileStack },
+  { href: "/ghg", label: "Motor GHG", icon: Flame },
+  { href: "/renovabio", label: "RenovaBio / CBIO", icon: Leaf },
+  { href: "/bonsucro", label: "Bonsucro", icon: Sprout },
+  { href: "/auditoria", label: "Auditoria", icon: ClipboardCheck },
 ];
 
 export const bottomNavItems: NavItem[] = [

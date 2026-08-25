@@ -16,14 +16,14 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     .limit(1);
 
   return (
-    <div className="flex min-h-screen bg-blackout">
+    <div className="flex min-h-screen bg-lp-paper-soft">
       <Sidebar empresaNome={empresa?.nome} />
       <div className="flex flex-1 flex-col">
-        <header className="flex h-16 items-center justify-end border-b border-graphite-light px-8">
+        <header className="flex h-16 items-center justify-end border-b border-lp-line bg-lp-paper px-8">
           <form action={signOut}>
             <button
               type="submit"
-              className="flex items-center gap-2 rounded-ui px-3 py-1.5 text-sm text-ash transition-colors hover:bg-graphite hover:text-whiteout"
+              className="flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm text-lp-muted transition-colors hover:bg-lp-paper-soft hover:text-lp-ink"
             >
               <LogOut className="size-4" strokeWidth={2} />
               Sair
