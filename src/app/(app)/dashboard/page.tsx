@@ -2,6 +2,7 @@ import { Building2, Database, Leaf, Sprout } from "lucide-react";
 import { requireSession } from "@/lib/auth/require-session";
 import { getEmpresa, getResumoDashboard } from "@/lib/queries/dashboard";
 import { StatCard } from "@/components/ui/stat-card";
+import { FormError } from "@/components/ui/form-error";
 
 const ATALHOS = [
   { href: "/organizacao", label: "Organização", desc: "Usinas, fazendas e safras", icon: Building2 },
@@ -10,8 +11,13 @@ const ATALHOS = [
   { href: "/bonsucro", label: "Bonsucro", desc: "Produtividade, água e compliance", icon: Sprout },
 ];
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ erro?: string }>;
+}) {
   const session = await requireSession();
+  const { erro } = await searchParams;
   const [empresa, resumo] = await Promise.all([
     getEmpresa(session.empresaId),
     getResumoDashboard(session.empresaId),
@@ -25,6 +31,8 @@ export default async function DashboardPage() {
         </h1>
         <p className="mt-1 text-lp-muted">Carbon &amp; Compliance OS — RenovaBio/CBIO e Bonsucro em um só lugar.</p>
       </div>
+
+      <FormError code={erro} />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
         {ATALHOS.map((item) => {

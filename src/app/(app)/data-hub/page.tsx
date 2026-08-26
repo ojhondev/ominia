@@ -7,6 +7,9 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
+import { ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import { ConfirmForm } from "@/components/ui/confirm-form";
 
 const CATEGORIA_LABEL: Record<string, string> = {
   agricola: "Agrícola",
@@ -127,12 +130,7 @@ export default async function DataHubPage({
             </Field>
           </div>
           <div className="col-span-2 flex items-end md:col-span-4">
-            <button
-              type="submit"
-              className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Adicionar registro
-            </button>
+            <SubmitButton>Adicionar registro</SubmitButton>
           </div>
         </form>
       )}
@@ -174,21 +172,21 @@ export default async function DataHubPage({
                   />
                 </Td>
                 <Td>
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
                     {r.status === "rascunho" && (
                       <form action={validarRegistro}>
                         <input type="hidden" name="id" value={r.id} />
-                        <button type="submit" className="font-mono text-xs text-lp-pink hover:underline">
+                        <ActionButton type="submit" variant="primary" pendingLabel="Validando...">
                           Validar
-                        </button>
+                        </ActionButton>
                       </form>
                     )}
-                    <form action={excluirRegistro}>
+                    <ConfirmForm action={excluirRegistro} confirmMessage="Excluir este registro de atividade? Essa ação não pode ser desfeita.">
                       <input type="hidden" name="id" value={r.id} />
-                      <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                      <ActionButton type="submit" variant="danger" pendingLabel="Excluindo...">
                         Excluir
-                      </button>
-                    </form>
+                      </ActionButton>
+                    </ConfirmForm>
                   </div>
                 </Td>
               </Tr>

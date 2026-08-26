@@ -26,7 +26,17 @@ function NavLink({ item, onNavigate }: { item: NavItem; onNavigate?: () => void 
   );
 }
 
-export function SidebarContent({ empresaNome, onNavigate }: { empresaNome?: string; onNavigate?: () => void }) {
+export function SidebarContent({
+  empresaNome,
+  isAdmin = true,
+  onNavigate,
+}: {
+  empresaNome?: string;
+  isAdmin?: boolean;
+  onNavigate?: () => void;
+}) {
+  const bottomItems = isAdmin ? bottomNavItems : [];
+
   return (
     <>
       <div className="mb-8 px-3">
@@ -49,19 +59,21 @@ export function SidebarContent({ empresaNome, onNavigate }: { empresaNome?: stri
         ))}
       </nav>
 
-      <div className="flex flex-col gap-1 border-t border-white/10 pt-4">
-        {bottomNavItems.map((item) => (
-          <NavLink key={item.href} item={item} onNavigate={onNavigate} />
-        ))}
-      </div>
+      {bottomItems.length > 0 && (
+        <div className="flex flex-col gap-1 border-t border-white/10 pt-4">
+          {bottomItems.map((item) => (
+            <NavLink key={item.href} item={item} onNavigate={onNavigate} />
+          ))}
+        </div>
+      )}
     </>
   );
 }
 
-export function Sidebar({ empresaNome }: { empresaNome?: string }) {
+export function Sidebar({ empresaNome, isAdmin }: { empresaNome?: string; isAdmin?: boolean }) {
   return (
     <aside className="hidden h-full w-60 shrink-0 flex-col bg-lp-purple px-4 py-6 md:flex">
-      <SidebarContent empresaNome={empresaNome} />
+      <SidebarContent empresaNome={empresaNome} isAdmin={isAdmin} />
     </aside>
   );
 }

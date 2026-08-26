@@ -6,6 +6,8 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FormError } from "@/components/ui/form-error";
 import { ActionLink, ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import { ConfirmForm } from "@/components/ui/confirm-form";
 
 export default async function UsinasPage({
   searchParams,
@@ -57,12 +59,7 @@ export default async function UsinasPage({
           </Field>
         </div>
         <div className="col-span-2 flex items-end gap-3 md:col-span-4">
-          <button
-            type="submit"
-            className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-          >
-            {emEdicao ? "Salvar alterações" : "Adicionar usina"}
-          </button>
+          <SubmitButton>{emEdicao ? "Salvar alterações" : "Adicionar usina"}</SubmitButton>
           {emEdicao && (
             <a href="/organizacao" className="text-sm text-lp-muted hover:text-lp-ink">
               Cancelar
@@ -95,12 +92,12 @@ export default async function UsinasPage({
                 <Td>
                   <div className="flex gap-2">
                     <ActionLink href={`/organizacao?editar=${u.id}`}>Editar</ActionLink>
-                    <form action={excluirUsina}>
+                    <ConfirmForm action={excluirUsina} confirmMessage={`Excluir a usina "${u.nome}"? Essa ação não pode ser desfeita.`}>
                       <input type="hidden" name="id" value={u.id} />
-                      <ActionButton type="submit" variant="danger">
+                      <ActionButton type="submit" variant="danger" pendingLabel="Excluindo...">
                         Excluir
                       </ActionButton>
-                    </form>
+                    </ConfirmForm>
                   </div>
                 </Td>
               </Tr>

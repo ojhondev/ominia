@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signUp } from "../actions";
+import { SubmitButton } from "@/components/ui/submit-button";
 
 const ERROS: Record<string, string> = {
   dados_invalidos: "Preencha todos os campos (senha com pelo menos 8 caracteres).",
@@ -74,12 +75,7 @@ export default async function CadastroPage({ searchParams }: PageProps<"/cadastr
             className={inputClass}
           />
         </div>
-        <button
-          type="submit"
-          className="mt-2 rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Criar conta
-        </button>
+        <SubmitButton className="mt-2" pendingLabel="Criando conta...">Criar conta</SubmitButton>
       </form>
 
       <p className="text-center text-sm text-lp-muted">

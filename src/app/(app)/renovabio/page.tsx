@@ -8,6 +8,7 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
+import { SubmitButton } from "@/components/ui/submit-button";
 
 const CODIGO_LABEL: Record<string, string> = {
   NEEA: "NEEA",
@@ -113,12 +114,7 @@ CBIO  = Volume comercializado × f`}
             <Input id="volume" name="volume" type="number" step="any" required placeholder="10000" />
           </Field>
           <div className="col-span-2 flex items-end md:col-span-4">
-            <button
-              type="submit"
-              className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Calcular NEEA, fator e CBIO
-            </button>
+            <SubmitButton pendingLabel="Calculando...">Calcular NEEA, fator e CBIO</SubmitButton>
           </div>
         </form>
       )}

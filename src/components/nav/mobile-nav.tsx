@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { SidebarContent } from "./sidebar";
 
-export function MobileNav({ empresaNome }: { empresaNome?: string }) {
+export function MobileNav({ empresaNome, isAdmin }: { empresaNome?: string; isAdmin?: boolean }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -31,7 +31,7 @@ export function MobileNav({ empresaNome }: { empresaNome?: string }) {
             >
               <X className="size-5" strokeWidth={2} />
             </button>
-            <SidebarContent empresaNome={empresaNome} onNavigate={() => setOpen(false)} />
+            <SidebarContent empresaNome={empresaNome} isAdmin={isAdmin} onNavigate={() => setOpen(false)} />
           </aside>
         </div>
       )}

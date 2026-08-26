@@ -3,7 +3,7 @@
 import { and, eq, ne } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { requireSession } from "@/lib/auth/require-session";
+import { requireAdmin } from "@/lib/auth/require-session";
 import { registrarAuditoria } from "@/lib/audit";
 import { hashPassword } from "@/lib/auth/password";
 import { isValidCnpj, onlyDigits } from "@/lib/cnpj";
@@ -13,7 +13,7 @@ import { empresas, usuarios, usuarioPapelEnum } from "@/db/schema";
 const PAPEIS = usuarioPapelEnum.enumValues;
 
 export async function atualizarEmpresa(formData: FormData) {
-  const session = await requireSession();
+  const session = await requireAdmin();
 
   const nome = String(formData.get("nome") ?? "").trim();
   const cnpj = onlyDigits(String(formData.get("cnpj") ?? ""));
@@ -48,7 +48,7 @@ export async function atualizarEmpresa(formData: FormData) {
 }
 
 export async function convidarUsuario(formData: FormData) {
-  const session = await requireSession();
+  const session = await requireAdmin();
 
   const nome = String(formData.get("nome") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
@@ -88,7 +88,7 @@ export async function convidarUsuario(formData: FormData) {
 }
 
 export async function removerUsuario(formData: FormData) {
-  const session = await requireSession();
+  const session = await requireAdmin();
   const id = String(formData.get("id") ?? "");
 
   if (id === session.usuarioId) {

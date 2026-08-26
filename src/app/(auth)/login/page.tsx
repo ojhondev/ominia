@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signIn } from "../actions";
+import { SubmitButton } from "@/components/ui/submit-button";
 
 const ERROS: Record<string, string> = {
   credenciais: "E-mail ou senha incorretos.",
@@ -44,12 +45,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
           </label>
           <input id="senha" name="senha" type="password" required className={inputClass} />
         </div>
-        <button
-          type="submit"
-          className="mt-2 rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Entrar
-        </button>
+        <SubmitButton className="mt-2" pendingLabel="Entrando...">Entrar</SubmitButton>
       </form>
 
       <p className="text-center text-sm text-lp-muted">

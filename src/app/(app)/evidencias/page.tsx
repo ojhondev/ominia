@@ -13,6 +13,9 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
+import { ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import { ConfirmForm } from "@/components/ui/confirm-form";
 
 const STATUS_TONE = {
   pendente: "warning",
@@ -101,12 +104,7 @@ export default async function EvidenciasPage({
             </Field>
           </div>
           <div className="col-span-2 flex items-end md:col-span-4">
-            <button
-              type="submit"
-              className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Adicionar documento
-            </button>
+            <SubmitButton pendingLabel="Enviando...">Adicionar documento</SubmitButton>
           </div>
         </form>
 
@@ -141,12 +139,12 @@ export default async function EvidenciasPage({
                   </Td>
                   <Td>{d.validoAte ?? "—"}</Td>
                   <Td>
-                    <form action={excluirDocumento}>
+                    <ConfirmForm action={excluirDocumento} confirmMessage={`Excluir o documento "${d.nome}"? Se houver arquivo anexado, ele também será apagado do armazenamento.`}>
                       <input type="hidden" name="id" value={d.id} />
-                      <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                      <ActionButton type="submit" variant="danger" pendingLabel="Excluindo...">
                         Excluir
-                      </button>
-                    </form>
+                      </ActionButton>
+                    </ConfirmForm>
                   </Td>
                 </Tr>
               ))}
@@ -196,12 +194,7 @@ export default async function EvidenciasPage({
               <Input id="responsavel" name="responsavel" placeholder="Nome do responsável" />
             </Field>
             <div className="col-span-2 flex items-end md:col-span-4">
-              <button
-                type="submit"
-                className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Vincular evidência
-              </button>
+              <SubmitButton>Vincular evidência</SubmitButton>
             </div>
           </form>
         )}
@@ -229,31 +222,31 @@ export default async function EvidenciasPage({
                     <StatusBadge label={STATUS_LABEL[e.status]} tone={STATUS_TONE[e.status as keyof typeof STATUS_TONE]} />
                   </Td>
                   <Td>
-                    <div className="flex gap-3">
+                    <div className="flex gap-2">
                       {e.status === "pendente" && (
                         <>
                           <form action={atualizarStatusEvidencia}>
                             <input type="hidden" name="id" value={e.id} />
                             <input type="hidden" name="status" value="aprovado" />
-                            <button type="submit" className="font-mono text-xs text-lp-pink hover:underline">
+                            <ActionButton type="submit" variant="primary" pendingLabel="Aprovando...">
                               Aprovar
-                            </button>
+                            </ActionButton>
                           </form>
                           <form action={atualizarStatusEvidencia}>
                             <input type="hidden" name="id" value={e.id} />
                             <input type="hidden" name="status" value="rejeitado" />
-                            <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                            <ActionButton type="submit" variant="danger" pendingLabel="Rejeitando...">
                               Rejeitar
-                            </button>
+                            </ActionButton>
                           </form>
                         </>
                       )}
-                      <form action={excluirEvidencia}>
+                      <ConfirmForm action={excluirEvidencia} confirmMessage="Remover este vínculo de evidência? Essa ação não pode ser desfeita.">
                         <input type="hidden" name="id" value={e.id} />
-                        <button type="submit" className="font-mono text-xs text-lp-muted hover:underline">
+                        <ActionButton type="submit" variant="neutral" pendingLabel="Removendo...">
                           Remover vínculo
-                        </button>
-                      </form>
+                        </ActionButton>
+                      </ConfirmForm>
                     </div>
                   </Td>
                 </Tr>

@@ -7,6 +7,9 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FormError } from "@/components/ui/form-error";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { ActionLink, ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import { ConfirmForm } from "@/components/ui/confirm-form";
 
 export default async function GhgPage({
   searchParams,
@@ -64,12 +67,7 @@ export default async function GhgPage({
             <Input id="validoDe" name="validoDe" type="date" required defaultValue={emEdicao?.validoDe} />
           </Field>
           <div className="flex items-end gap-3">
-            <button
-              type="submit"
-              className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              {emEdicao ? "Salvar" : "Adicionar fator"}
-            </button>
+            <SubmitButton>{emEdicao ? "Salvar" : "Adicionar fator"}</SubmitButton>
             {emEdicao && (
               <a href="/ghg" className="text-sm text-lp-muted hover:text-lp-ink">
                 Cancelar
@@ -106,16 +104,14 @@ export default async function GhgPage({
                   </Td>
                   <Td>
                     {f.empresaId === session.empresaId && (
-                      <div className="flex gap-3">
-                        <a href={`/ghg?editar=${f.id}`} className="font-mono text-xs text-lp-pink hover:underline">
-                          Editar
-                        </a>
-                        <form action={excluirFator}>
+                      <div className="flex gap-2">
+                        <ActionLink href={`/ghg?editar=${f.id}`}>Editar</ActionLink>
+                        <ConfirmForm action={excluirFator} confirmMessage={`Excluir o fator "${f.nome}"? Essa ação não pode ser desfeita.`}>
                           <input type="hidden" name="id" value={f.id} />
-                          <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                          <ActionButton type="submit" variant="danger" pendingLabel="Excluindo...">
                             Excluir
-                          </button>
-                        </form>
+                          </ActionButton>
+                        </ConfirmForm>
                       </div>
                     )}
                   </Td>
@@ -164,12 +160,7 @@ export default async function GhgPage({
               </Select>
             </Field>
             <div className="flex items-end">
-              <button
-                type="submit"
-                className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Calcular
-              </button>
+              <SubmitButton pendingLabel="Calculando...">Calcular</SubmitButton>
             </div>
           </form>
         )}

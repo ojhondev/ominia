@@ -16,12 +16,14 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     .where(eq(empresas.id, session.empresaId))
     .limit(1);
 
+  const isAdmin = session.papel === "admin";
+
   return (
     <div className="flex h-screen overflow-hidden bg-lp-paper-soft">
-      <Sidebar empresaNome={empresa?.nome} />
+      <Sidebar empresaNome={empresa?.nome} isAdmin={isAdmin} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <header className="flex h-16 shrink-0 items-center justify-between border-b border-lp-line bg-lp-paper px-4 sm:px-8">
-          <MobileNav empresaNome={empresa?.nome} />
+          <MobileNav empresaNome={empresa?.nome} isAdmin={isAdmin} />
           <div className="hidden md:block" />
           <form action={signOut}>
             <button

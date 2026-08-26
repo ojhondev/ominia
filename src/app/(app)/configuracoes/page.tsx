@@ -1,4 +1,4 @@
-import { requireSession } from "@/lib/auth/require-session";
+import { requireAdmin } from "@/lib/auth/require-session";
 import { getEmpresa } from "@/lib/queries/dashboard";
 import { listUsuarios } from "@/lib/queries/configuracoes";
 import { atualizarEmpresa, convidarUsuario, removerUsuario } from "./actions";
@@ -7,6 +7,8 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { FormError } from "@/components/ui/form-error";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import { ConfirmForm } from "@/components/ui/confirm-form";
 import { formatCnpj } from "@/lib/cnpj";
 
 const PAPEL_LABEL: Record<string, string> = {
@@ -24,7 +26,7 @@ export default async function ConfiguracoesPage({
 }: {
   searchParams: Promise<{ erro?: string }>;
 }) {
-  const session = await requireSession();
+  const session = await requireAdmin();
   const { erro } = await searchParams;
   const [empresa, usuariosList] = await Promise.all([
     getEmpresa(session.empresaId),
@@ -56,12 +58,7 @@ export default async function ConfiguracoesPage({
             <Input id="segmento" name="segmento" placeholder="Sucroenergético, grãos, bioenergia..." defaultValue={empresa?.segmento ?? ""} />
           </Field>
           <div className="flex items-end sm:col-span-2">
-            <button
-              type="submit"
-              className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Salvar dados da empresa
-            </button>
+            <SubmitButton>Salvar dados da empresa</SubmitButton>
           </div>
         </form>
       </section>
@@ -93,12 +90,7 @@ export default async function ConfiguracoesPage({
             </Select>
           </Field>
           <div className="sm:col-span-2 lg:col-span-4">
-            <button
-              type="submit"
-              className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Adicionar à equipe
-            </button>
+            <SubmitButton pendingLabel="Adicionando...">Adicionar à equipe</SubmitButton>
           </div>
         </form>
         <p className="text-xs text-lp-muted">
@@ -126,12 +118,12 @@ export default async function ConfiguracoesPage({
                 <Td>{PAPEL_LABEL[u.papel] ?? u.papel}</Td>
                 <Td>
                   {u.id !== session.usuarioId && (
-                    <form action={removerUsuario}>
+                    <ConfirmForm action={removerUsuario} confirmMessage={`Remover "${u.nome}" da equipe? Essa pessoa perde o acesso imediatamente.`}>
                       <input type="hidden" name="id" value={u.id} />
-                      <ActionButton type="submit" variant="danger">
+                      <ActionButton type="submit" variant="danger" pendingLabel="Removendo...">
                         Remover
                       </ActionButton>
-                    </form>
+                    </ConfirmForm>
                   )}
                 </Td>
               </Tr>

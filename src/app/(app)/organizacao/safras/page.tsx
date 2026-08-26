@@ -7,6 +7,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
 import { ActionLink, ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import { ConfirmForm } from "@/components/ui/confirm-form";
 
 export default async function SafrasPage({
   searchParams,
@@ -80,12 +82,7 @@ export default async function SafrasPage({
             />
           </Field>
           <div className="col-span-2 flex items-end gap-3 md:col-span-4">
-            <button
-              type="submit"
-              className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              {emEdicao ? "Salvar alterações" : "Adicionar safra"}
-            </button>
+            <SubmitButton>{emEdicao ? "Salvar alterações" : "Adicionar safra"}</SubmitButton>
             {emEdicao && (
               <a href="/organizacao/safras" className="text-sm text-lp-muted hover:text-lp-ink">
                 Cancelar
@@ -132,16 +129,16 @@ export default async function SafrasPage({
                     <ActionLink href={`/organizacao/safras?editar=${s.id}`}>Editar</ActionLink>
                     <form action={encerrarSafra}>
                       <input type="hidden" name="id" value={s.id} />
-                      <ActionButton type="submit" variant="neutral">
+                      <ActionButton type="submit" variant="neutral" pendingLabel="...">
                         {s.encerrada ? "Reabrir" : "Encerrar"}
                       </ActionButton>
                     </form>
-                    <form action={excluirSafra}>
+                    <ConfirmForm action={excluirSafra} confirmMessage={`Excluir a safra "${s.nome}"? Essa ação não pode ser desfeita.`}>
                       <input type="hidden" name="id" value={s.id} />
-                      <ActionButton type="submit" variant="danger">
+                      <ActionButton type="submit" variant="danger" pendingLabel="Excluindo...">
                         Excluir
                       </ActionButton>
-                    </form>
+                    </ConfirmForm>
                   </div>
                 </Td>
               </Tr>

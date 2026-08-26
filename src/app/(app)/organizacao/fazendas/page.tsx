@@ -7,6 +7,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
 import { ActionLink, ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
+import { ConfirmForm } from "@/components/ui/confirm-form";
 
 const TIPO_LABEL: Record<string, string> = {
   proprio: "Próprio",
@@ -83,12 +85,7 @@ export default async function FazendasPage({
           </Select>
         </Field>
         <div className="col-span-2 flex items-end gap-3 md:col-span-4">
-          <button
-            type="submit"
-            className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-          >
-            {emEdicao ? "Salvar alterações" : "Adicionar fazenda"}
-          </button>
+          <SubmitButton>{emEdicao ? "Salvar alterações" : "Adicionar fazenda"}</SubmitButton>
           {emEdicao && (
             <a href="/organizacao/fazendas" className="text-sm text-lp-muted hover:text-lp-ink">
               Cancelar
@@ -129,12 +126,12 @@ export default async function FazendasPage({
                 <Td>
                   <div className="flex gap-2">
                     <ActionLink href={`/organizacao/fazendas?editar=${f.id}`}>Editar</ActionLink>
-                    <form action={excluirFazenda}>
+                    <ConfirmForm action={excluirFazenda} confirmMessage={`Excluir a fazenda "${f.propriedade}"? Essa ação não pode ser desfeita.`}>
                       <input type="hidden" name="id" value={f.id} />
-                      <ActionButton type="submit" variant="danger">
+                      <ActionButton type="submit" variant="danger" pendingLabel="Excluindo...">
                         Excluir
                       </ActionButton>
-                    </form>
+                    </ConfirmForm>
                   </div>
                 </Td>
               </Tr>

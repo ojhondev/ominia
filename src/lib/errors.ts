@@ -6,6 +6,7 @@ export const ERROS: Record<string, string> = {
   cnpj_em_uso: "Já existe uma empresa cadastrada com este CNPJ.",
   email_em_uso: "Já existe uma conta com este e-mail.",
   nao_remover_proprio: "Você não pode remover a própria conta.",
+  sem_permissao: "Só administradores da empresa acessam essa área.",
   dados_invalidos: "Preencha todos os campos (senha com pelo menos 8 caracteres).",
   credenciais: "E-mail ou senha incorretos.",
   arquivo_obrigatorio: "Selecione um arquivo para enviar.",

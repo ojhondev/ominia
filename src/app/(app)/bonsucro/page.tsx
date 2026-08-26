@@ -18,6 +18,8 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
+import { ActionButton } from "@/components/ui/action-button";
+import { SubmitButton } from "@/components/ui/submit-button";
 
 const CODIGO_LABEL: Record<string, string> = {
   BNS01_PRODUTIVIDADE: "BNS-01 · Produtividade agrícola",
@@ -72,7 +74,6 @@ export default async function BonsucroPage({
   const score = usinaAtiva ? await complianceScore(session.empresaId, usinaAtiva) : null;
 
   const cardClass = "flex flex-col gap-3 rounded-2xl border border-lp-line bg-white p-5";
-  const buttonClass = "self-start rounded-full bg-lp-pink px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90";
 
   return (
     <div className="flex flex-col gap-10">
@@ -95,7 +96,7 @@ export default async function BonsucroPage({
             <p className="text-xs text-lp-muted">Produção ÷ área colhida (dados já cadastrados na safra).</p>
             <form action={calcularProdutividade} className="flex flex-col gap-3">
               <Field label="Safra" htmlFor="safraId-01"><SelectSafra id="safraId-01" safras={safrasList} /></Field>
-              <button type="submit" className={buttonClass}>Calcular</button>
+              <SubmitButton size="sm" pendingLabel="Calculando...">Calcular</SubmitButton>
             </form>
           </div>
 
@@ -104,7 +105,7 @@ export default async function BonsucroPage({
             <p className="text-xs text-lp-muted">Calcário + gesso aplicados (Data Hub) ÷ área colhida.</p>
             <form action={calcularSolo} className="flex flex-col gap-3">
               <Field label="Safra" htmlFor="safraId-02"><SelectSafra id="safraId-02" safras={safrasList} /></Field>
-              <button type="submit" className={buttonClass}>Calcular</button>
+              <SubmitButton size="sm" pendingLabel="Calculando...">Calcular</SubmitButton>
             </form>
           </div>
 
@@ -116,7 +117,7 @@ export default async function BonsucroPage({
               <Field label="Água consumida (m³)" htmlFor="aguaConsumidaM3">
                 <Input id="aguaConsumidaM3" name="aguaConsumidaM3" type="number" step="any" min="0" required placeholder="180000" />
               </Field>
-              <button type="submit" className={buttonClass}>Calcular</button>
+              <SubmitButton size="sm" pendingLabel="Calculando...">Calcular</SubmitButton>
             </form>
           </div>
 
@@ -132,7 +133,7 @@ export default async function BonsucroPage({
                   ))}
                 </Select>
               </Field>
-              <button type="submit" className={buttonClass}>Calcular</button>
+              <SubmitButton size="sm" pendingLabel="Calculando...">Calcular</SubmitButton>
             </form>
             <p className="text-xs text-lp-muted">Preencha &ldquo;Área preservada&rdquo; em Organização → Fazendas.</p>
           </div>
@@ -146,7 +147,7 @@ export default async function BonsucroPage({
             </p>
             <form action={calcularGhgBonsucro} className="flex flex-col gap-3">
               <Field label="Safra" htmlFor="safraId-05"><SelectSafra id="safraId-05" safras={safrasList} /></Field>
-              <button type="submit" className={buttonClass}>Consolidar</button>
+              <SubmitButton size="sm" pendingLabel="Consolidando...">Consolidar</SubmitButton>
             </form>
           </div>
 
@@ -155,7 +156,7 @@ export default async function BonsucroPage({
             <p className="text-xs text-lp-muted">Fertilizantes + defensivos (Data Hub) ÷ área colhida.</p>
             <form action={calcularInsumos} className="flex flex-col gap-3">
               <Field label="Safra" htmlFor="safraId-06"><SelectSafra id="safraId-06" safras={safrasList} /></Field>
-              <button type="submit" className={buttonClass}>Calcular</button>
+              <SubmitButton size="sm" pendingLabel="Calculando...">Calcular</SubmitButton>
             </form>
           </div>
 
@@ -164,7 +165,7 @@ export default async function BonsucroPage({
             <p className="text-xs text-lp-muted">Taxa de acidentes por 1.000 funcionários (Data Hub, categoria Social).</p>
             <form action={calcularSeguranca} className="flex flex-col gap-3">
               <Field label="Safra" htmlFor="safraId-07"><SelectSafra id="safraId-07" safras={safrasList} /></Field>
-              <button type="submit" className={buttonClass}>Calcular</button>
+              <SubmitButton size="sm" pendingLabel="Calculando...">Calcular</SubmitButton>
             </form>
           </div>
 
@@ -173,7 +174,7 @@ export default async function BonsucroPage({
             <p className="text-xs text-lp-muted">Margem bruta por tonelada (Data Hub, categoria Econômico).</p>
             <form action={calcularEconomico} className="flex flex-col gap-3">
               <Field label="Safra" htmlFor="safraId-08"><SelectSafra id="safraId-08" safras={safrasList} /></Field>
-              <button type="submit" className={buttonClass}>Calcular</button>
+              <SubmitButton size="sm" pendingLabel="Calculando...">Calcular</SubmitButton>
             </form>
           </div>
         </div>
@@ -264,9 +265,9 @@ export default async function BonsucroPage({
                               </option>
                             ))}
                           </Select>
-                          <button type="submit" className="font-mono text-xs text-lp-pink hover:underline">
+                          <ActionButton type="submit" variant="primary" pendingLabel="Salvando...">
                             Salvar
-                          </button>
+                          </ActionButton>
                         </form>
                       </Td>
                     </Tr>
