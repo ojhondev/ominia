@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { NewsletterCta } from "@/components/marketing/newsletter-cta";
 import { Reveal } from "@/components/marketing/reveal";
+import { FieldLines } from "@/components/marketing/field-lines";
 import { modulosMercado, getModuloMercado } from "@/lib/relacao-mercado";
 
 export function generateStaticParams() {
@@ -28,7 +29,7 @@ export default async function ModuloMercadoPage({
     <div className="min-h-screen bg-lp-paper">
       <SiteHeader />
 
-      <section className="px-4 pt-16 pb-10 sm:px-6 sm:pt-20 lg:px-10">
+      <section className="px-4 pt-16 pb-10 sm:px-6 sm:pt-20 sm:text-center lg:px-10">
         <Reveal>
           <Link href="/relacao-mercado" className="inline-flex items-center gap-1.5 text-sm text-lp-muted hover:text-lp-ink">
             <ArrowLeft className="size-3.5" strokeWidth={2} />
@@ -41,14 +42,15 @@ export default async function ModuloMercadoPage({
           </h1>
         </Reveal>
         <Reveal delay={160}>
-          <p className="mt-4 max-w-2xl text-base text-lp-muted sm:text-lg">{modulo.resumo}</p>
+          <p className="mt-4 max-w-2xl text-base text-lp-muted sm:mx-auto sm:text-lg">{modulo.resumo}</p>
         </Reveal>
       </section>
 
       <div className="px-4 sm:px-6 lg:px-10">
         <Reveal>
-          <div className="flex aspect-video items-center justify-center rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9]">
-            Imagem
+          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9] sm:max-h-80">
+            <FieldLines stroke="var(--color-lp-purple)" strokeOpacity={0.14} />
+            <span className="relative z-10">Imagem</span>
           </div>
         </Reveal>
       </div>

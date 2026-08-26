@@ -8,7 +8,13 @@ const VANISH_Y = -150;
 const BASE_Y = 600;
 const BASE_XS = [-150, 0, 150, 300, 500, 700, 850, 1000, 1150];
 
-export function FieldLines() {
+export function FieldLines({
+  stroke = "white",
+  strokeOpacity = 0.16,
+}: {
+  stroke?: string;
+  strokeOpacity?: number;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,8 +63,8 @@ export function FieldLines() {
             d={`M ${VANISH_X} ${VANISH_Y} L ${x} ${BASE_Y}`}
             pathLength={1}
             fill="none"
-            stroke="white"
-            strokeOpacity={0.16}
+            stroke={stroke}
+            strokeOpacity={strokeOpacity}
             strokeWidth={1.5}
             strokeDasharray="1"
             className="transition-[stroke-dashoffset] duration-500 ease-out"

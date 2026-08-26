@@ -59,7 +59,7 @@ export default async function EticaETransparenciaPage({
 
       <div className="px-4 sm:px-6 lg:px-10">
         <Reveal>
-          <div className="flex aspect-video items-center justify-center rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9]">
+          <div className="flex aspect-video items-center justify-center rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9] sm:max-h-80">
             Imagem
           </div>
         </Reveal>

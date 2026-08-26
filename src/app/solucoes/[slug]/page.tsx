@@ -8,6 +8,7 @@ import { NewsletterCta } from "@/components/marketing/newsletter-cta";
 import { EmailCaptureForm } from "@/components/marketing/email-capture-form";
 import { SolutionLinkCard } from "@/components/marketing/solution-link-card";
 import { Reveal } from "@/components/marketing/reveal";
+import { FieldLines } from "@/components/marketing/field-lines";
 import { solucoes, getSolucao } from "@/lib/solucoes";
 
 const segmentos = ["Sucroenergético", "Grãos", "Proteína Animal", "Bioenergia"] as const;
@@ -58,8 +59,9 @@ export default async function SolucaoPage({
 
       <div className="px-4 sm:px-6 lg:px-10">
         <Reveal>
-          <div className="relative aspect-video overflow-hidden rounded-2xl sm:aspect-[21/9]">
+          <div className="relative aspect-video overflow-hidden rounded-2xl sm:aspect-[21/9] sm:max-h-80">
             <Image src={solucao.imagem} alt={solucao.titulo} fill className="object-cover" priority />
+            <FieldLines />
           </div>
         </Reveal>
       </div>

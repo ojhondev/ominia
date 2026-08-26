@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { NewsletterCta } from "@/components/marketing/newsletter-cta";
 import { Reveal } from "@/components/marketing/reveal";
+import { FieldLines } from "@/components/marketing/field-lines";
 
 const frentes = [
   "Produto e metodologia, traduzindo cada norma oficial em fórmula dentro da plataforma",
@@ -51,8 +52,9 @@ export default async function TimePage({
 
       <div className="px-4 sm:px-6 lg:px-10">
         <Reveal>
-          <div className="flex aspect-video items-center justify-center rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9]">
-            Imagem
+          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9] sm:max-h-80">
+            <FieldLines stroke="var(--color-lp-purple)" strokeOpacity={0.14} />
+            <span className="relative z-10">Imagem</span>
           </div>
         </Reveal>
       </div>
