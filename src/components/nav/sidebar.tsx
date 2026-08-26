@@ -27,7 +27,7 @@ function NavLink({ item }: { item: NavItem }) {
 
 export function Sidebar({ empresaNome }: { empresaNome?: string }) {
   return (
-    <aside className="flex h-screen w-60 shrink-0 flex-col bg-lp-purple px-4 py-6">
+    <aside className="flex h-full w-60 shrink-0 flex-col bg-lp-purple px-4 py-6">
       <div className="mb-8 px-3">
         <Image
           src="/brand/ominia-wordmark-white.png"

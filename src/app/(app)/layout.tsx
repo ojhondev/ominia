@@ -16,10 +16,10 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     .limit(1);
 
   return (
-    <div className="flex min-h-screen bg-lp-paper-soft">
+    <div className="flex h-screen overflow-hidden bg-lp-paper-soft">
       <Sidebar empresaNome={empresa?.nome} />
-      <div className="flex flex-1 flex-col">
-        <header className="flex h-16 items-center justify-end border-b border-lp-line bg-lp-paper px-8">
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <header className="flex h-16 shrink-0 items-center justify-end border-b border-lp-line bg-lp-paper px-8">
           <form action={signOut}>
             <button
               type="submit"
@@ -30,7 +30,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
             </button>
           </form>
         </header>
-        <main className="flex-1 px-8 py-8">{children}</main>
+        <main className="flex-1 overflow-y-auto px-8 py-8">{children}</main>
       </div>
     </div>
   );

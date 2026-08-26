@@ -6,6 +6,7 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
+import { ActionLink, ActionButton } from "@/components/ui/action-button";
 
 export default async function SafrasPage({
   searchParams,
@@ -127,21 +128,19 @@ export default async function SafrasPage({
                   />
                 </Td>
                 <Td>
-                  <div className="flex flex-wrap gap-3">
-                    <a href={`/organizacao/safras?editar=${s.id}`} className="font-mono text-xs text-lp-pink hover:underline">
-                      Editar
-                    </a>
+                  <div className="flex flex-wrap gap-2">
+                    <ActionLink href={`/organizacao/safras?editar=${s.id}`}>Editar</ActionLink>
                     <form action={encerrarSafra}>
                       <input type="hidden" name="id" value={s.id} />
-                      <button type="submit" className="font-mono text-xs text-lp-muted hover:underline">
+                      <ActionButton type="submit" variant="neutral">
                         {s.encerrada ? "Reabrir" : "Encerrar"}
-                      </button>
+                      </ActionButton>
                     </form>
                     <form action={excluirSafra}>
                       <input type="hidden" name="id" value={s.id} />
-                      <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                      <ActionButton type="submit" variant="danger">
                         Excluir
-                      </button>
+                      </ActionButton>
                     </form>
                   </div>
                 </Td>

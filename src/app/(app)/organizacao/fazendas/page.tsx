@@ -6,6 +6,7 @@ import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FormError } from "@/components/ui/form-error";
+import { ActionLink, ActionButton } from "@/components/ui/action-button";
 
 const TIPO_LABEL: Record<string, string> = {
   proprio: "Próprio",
@@ -126,15 +127,13 @@ export default async function FazendasPage({
                 </Td>
                 <Td>{f.usinaNome ?? "—"}</Td>
                 <Td>
-                  <div className="flex gap-3">
-                    <a href={`/organizacao/fazendas?editar=${f.id}`} className="font-mono text-xs text-lp-pink hover:underline">
-                      Editar
-                    </a>
+                  <div className="flex gap-2">
+                    <ActionLink href={`/organizacao/fazendas?editar=${f.id}`}>Editar</ActionLink>
                     <form action={excluirFazenda}>
                       <input type="hidden" name="id" value={f.id} />
-                      <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                      <ActionButton type="submit" variant="danger">
                         Excluir
-                      </button>
+                      </ActionButton>
                     </form>
                   </div>
                 </Td>

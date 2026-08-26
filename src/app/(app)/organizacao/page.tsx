@@ -5,6 +5,7 @@ import { Field, Input } from "@/components/ui/field";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FormError } from "@/components/ui/form-error";
+import { ActionLink, ActionButton } from "@/components/ui/action-button";
 
 export default async function UsinasPage({
   searchParams,
@@ -92,15 +93,13 @@ export default async function UsinasPage({
                 <Td>{u.capacidadeProducaoTon ? `${Number(u.capacidadeProducaoTon).toLocaleString("pt-BR")} t` : "—"}</Td>
                 <Td>{u.rotaProducao ?? "—"}</Td>
                 <Td>
-                  <div className="flex gap-3">
-                    <a href={`/organizacao?editar=${u.id}`} className="font-mono text-xs text-lp-pink hover:underline">
-                      Editar
-                    </a>
+                  <div className="flex gap-2">
+                    <ActionLink href={`/organizacao?editar=${u.id}`}>Editar</ActionLink>
                     <form action={excluirUsina}>
                       <input type="hidden" name="id" value={u.id} />
-                      <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                      <ActionButton type="submit" variant="danger">
                         Excluir
-                      </button>
+                      </ActionButton>
                     </form>
                   </div>
                 </Td>

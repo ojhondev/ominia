@@ -6,6 +6,7 @@ import { listLogsAuditoria } from "@/lib/queries/auditoria";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { ActionLink } from "@/components/ui/action-button";
 
 const ACAO_LABEL: Record<string, string> = {
   criou: "criou",
@@ -67,9 +68,11 @@ export default async function AuditoriaPage() {
                 <p className="mt-1 text-xs text-lp-muted">
                   {score ? `${score.conformes} de ${score.total} requisitos conformes` : "sem avaliação ainda"}
                 </p>
-                <a href={`/bonsucro?usinaId=${usina.id}`} className="mt-3 inline-block font-mono text-xs text-lp-pink hover:underline">
-                  Ver requisitos →
-                </a>
+                <div className="mt-3">
+                  <ActionLink href={`/bonsucro?usinaId=${usina.id}`} variant="primary">
+                    Ver requisitos →
+                  </ActionLink>
+                </div>
               </div>
             ))}
           </div>
@@ -97,9 +100,7 @@ export default async function AuditoriaPage() {
                   <Td>{e.entidadeTipo}</Td>
                   <Td>{e.responsavel ?? "—"}</Td>
                   <Td>
-                    <a href="/evidencias" className="font-mono text-xs text-lp-pink hover:underline">
-                      Revisar →
-                    </a>
+                    <ActionLink href="/evidencias">Revisar →</ActionLink>
                   </Td>
                 </Tr>
               ))}
