@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { mainNavItems, bottomNavItems, type NavItem } from "./nav-items";
 
-function NavLink({ item }: { item: NavItem }) {
+function NavLink({ item, onNavigate }: { item: NavItem; onNavigate?: () => void }) {
   const pathname = usePathname();
   const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
   const Icon = item.icon;
@@ -13,6 +13,7 @@ function NavLink({ item }: { item: NavItem }) {
   return (
     <Link
       href={item.href}
+      onClick={onNavigate}
       className={`flex items-center gap-3 rounded-full px-3.5 py-2 text-sm transition-colors ${
         active
           ? "bg-white/12 text-white"
@@ -25,9 +26,9 @@ function NavLink({ item }: { item: NavItem }) {
   );
 }
 
-export function Sidebar({ empresaNome }: { empresaNome?: string }) {
+export function SidebarContent({ empresaNome, onNavigate }: { empresaNome?: string; onNavigate?: () => void }) {
   return (
-    <aside className="flex h-full w-60 shrink-0 flex-col bg-lp-purple px-4 py-6">
+    <>
       <div className="mb-8 px-3">
         <Image
           src="/brand/ominia-wordmark-white.png"
@@ -44,15 +45,23 @@ export function Sidebar({ empresaNome }: { empresaNome?: string }) {
 
       <nav className="flex flex-1 flex-col gap-1">
         {mainNavItems.map((item) => (
-          <NavLink key={item.href} item={item} />
+          <NavLink key={item.href} item={item} onNavigate={onNavigate} />
         ))}
       </nav>
 
       <div className="flex flex-col gap-1 border-t border-white/10 pt-4">
         {bottomNavItems.map((item) => (
-          <NavLink key={item.href} item={item} />
+          <NavLink key={item.href} item={item} onNavigate={onNavigate} />
         ))}
       </div>
+    </>
+  );
+}
+
+export function Sidebar({ empresaNome }: { empresaNome?: string }) {
+  return (
+    <aside className="hidden h-full w-60 shrink-0 flex-col bg-lp-purple px-4 py-6 md:flex">
+      <SidebarContent empresaNome={empresaNome} />
     </aside>
   );
 }

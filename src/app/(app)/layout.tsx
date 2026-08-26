@@ -6,6 +6,7 @@ import { empresas } from "@/db/schema";
 import { requireSession } from "@/lib/auth/require-session";
 import { signOut } from "@/app/(auth)/actions";
 import { Sidebar } from "@/components/nav/sidebar";
+import { MobileNav } from "@/components/nav/mobile-nav";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const session = await requireSession();
@@ -19,7 +20,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     <div className="flex h-screen overflow-hidden bg-lp-paper-soft">
       <Sidebar empresaNome={empresa?.nome} />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <header className="flex h-16 shrink-0 items-center justify-end border-b border-lp-line bg-lp-paper px-8">
+        <header className="flex h-16 shrink-0 items-center justify-between border-b border-lp-line bg-lp-paper px-4 sm:px-8">
+          <MobileNav empresaNome={empresa?.nome} />
+          <div className="hidden md:block" />
           <form action={signOut}>
             <button
               type="submit"
@@ -30,7 +33,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
             </button>
           </form>
         </header>
-        <main className="flex-1 overflow-y-auto px-8 py-8">{children}</main>
+        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-8 sm:py-8">{children}</main>
       </div>
     </div>
   );

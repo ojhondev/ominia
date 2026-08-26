@@ -54,18 +54,6 @@ export const solucoes: Solucao[] = [
       "Exportação para auditor",
     ],
   },
-  {
-    slug: "score",
-    titulo: "Score ESG de Fornecedores",
-    resumo:
-      "Avaliamos sua cadeia de fornecedores com critérios claros e evidência por trás de cada nota — visibilidade real, não uma pontuação genérica.",
-    funcionalidades: [
-      "Avaliação estruturada",
-      "Critérios claros e auditáveis",
-      "Evidência por trás de cada nota",
-      "Comparação entre fornecedores",
-    ],
-  },
 ];
 
 export function getSolucao(slug: string): Solucao | undefined {

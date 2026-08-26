@@ -10,11 +10,17 @@ import { ActionLink } from "@/components/ui/action-button";
 
 const ACAO_LABEL: Record<string, string> = {
   criou: "criou",
+  atualizou: "atualizou",
   atualizou_status: "atualizou status",
   calculou: "calculou",
   validou: "validou",
   aprovou: "aprovou",
   rejeitou: "rejeitou",
+  excluiu: "excluiu",
+  encerrou: "encerrou",
+  reabriu: "reabriu",
+  convidou: "convidou",
+  removeu: "removeu",
 };
 
 const ENTIDADE_LABEL: Record<string, string> = {
@@ -27,6 +33,8 @@ const ENTIDADE_LABEL: Record<string, string> = {
   fatores_emissao: "Fator de emissão",
   calculos: "Cálculo",
   resultados_compliance: "Compliance",
+  empresas: "Empresa",
+  usuarios: "Usuário",
 };
 
 export default async function AuditoriaPage() {
