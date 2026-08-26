@@ -54,9 +54,7 @@ export function AudienceGrid() {
               <span className="relative text-sm font-medium text-white">{segmento.nome}</span>
 
               <div className="relative mt-auto flex flex-col gap-3">
-                <p className="max-h-0 overflow-hidden text-xs leading-relaxed text-white/85 opacity-0 transition-all duration-300 group-hover:max-h-24 group-hover:opacity-100">
-                  {segmento.subtexto}
-                </p>
+                <p className="text-xs leading-relaxed text-white/85">{segmento.subtexto}</p>
                 <span className="flex size-9 items-center justify-center self-end rounded-full bg-lp-pink text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                   <ArrowRight className="size-4" strokeWidth={2} />
                 </span>

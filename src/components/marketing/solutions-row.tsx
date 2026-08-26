@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Plus } from "lucide-react";
 import { Reveal } from "./reveal";
@@ -72,8 +72,34 @@ function SolutionCard({
 export function SolutionsRow() {
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [clickedId, setClickedId] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [closedOnMobile, setClosedOnMobile] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   const openId = clickedId ?? hoverId;
-  const paused = openId !== null;
+  const paused = !isMobile && openId !== null;
+
+  const isOpen = (slug: string) => (isMobile ? !closedOnMobile.has(slug) : openId === slug);
+
+  const toggle = (slug: string) => {
+    if (isMobile) {
+      setClosedOnMobile((prev) => {
+        const next = new Set(prev);
+        if (next.has(slug)) next.delete(slug);
+        else next.add(slug);
+        return next;
+      });
+      return;
+    }
+    setClickedId((current) => (current === slug ? null : slug));
+  };
 
   const track = [...solucoes, ...solucoes];
 
@@ -100,12 +126,10 @@ export function SolutionsRow() {
                 solucao={solucao}
                 dark={i % 2 === 0}
                 hidden={isDuplicate}
-                open={openId === solucao.slug}
+                open={isOpen(solucao.slug)}
                 onOpen={() => setHoverId(solucao.slug)}
                 onClose={() => setHoverId((current) => (current === solucao.slug ? null : current))}
-                onToggle={() =>
-                  setClickedId((current) => (current === solucao.slug ? null : solucao.slug))
-                }
+                onToggle={() => toggle(solucao.slug)}
               />
             );
           })}

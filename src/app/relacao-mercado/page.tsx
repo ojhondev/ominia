@@ -10,14 +10,14 @@ export default function RelacaoMercadoPage() {
     <div className="min-h-screen bg-lp-paper">
       <SiteHeader />
 
-      <section className="px-4 pt-16 pb-10 sm:px-6 sm:pt-20 lg:px-10">
+      <section className="px-4 pt-16 pb-10 sm:px-6 sm:pt-20 sm:text-center lg:px-10">
         <Reveal>
           <h1 className="text-4xl leading-tight font-medium tracking-tight text-lp-purple sm:text-6xl">
             Relações com o Mercado
           </h1>
         </Reveal>
         <Reveal delay={80}>
-          <p className="mt-4 max-w-xl text-base text-lp-muted sm:text-lg">
+          <p className="mt-4 max-w-xl text-base text-lp-muted sm:mx-auto sm:text-lg">
             Cada módulo da Ominia expõe aqui sua própria metodologia, fontes oficiais e histórico de mudanças —
             clique em qualquer card para ver os detalhes.
           </p>

@@ -10,8 +10,8 @@ const track = [...parceiros, ...parceiros];
 export function PartnersStrip() {
   return (
     <section className="py-16">
-      <div className="flex flex-col gap-6 px-4 sm:flex-row sm:items-center sm:gap-10 sm:px-6 lg:px-10">
-        <p className="shrink-0 text-sm text-lp-muted">Alguns dos nossos parceiros</p>
+      <div className="flex flex-col items-center gap-6 px-4 sm:flex-row sm:items-center sm:gap-10 sm:px-6 lg:px-10">
+        <p className="shrink-0 text-center text-sm text-lp-muted sm:text-left">Alguns dos nossos parceiros</p>
         <div className="overflow-hidden">
           <div className="marquee-track flex w-max items-center gap-12">
             {track.map((parceiro, i) => (
