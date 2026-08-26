@@ -97,7 +97,7 @@ export default async function SolucaoPage({
                 <div className="sm:max-w-md">
                   <p className="text-sm text-lp-muted">{solucao.porSegmento[segmento]}</p>
                   <Link
-                    href="/#relacao-mercado"
+                    href="/relacao-mercado"
                     className="mt-4 inline-block rounded-full bg-lp-pink px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
                   >
                     Saiba mais

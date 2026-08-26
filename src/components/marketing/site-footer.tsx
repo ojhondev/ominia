@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { solucoes } from "@/lib/solucoes";
+import { modulosMercado } from "@/lib/relacao-mercado";
 
 function InstagramGlyph() {
   return (
@@ -26,12 +27,16 @@ const columns = [
     links: solucoes.map((s) => ({ href: `/solucoes/${s.slug}`, label: s.titulo })),
   },
   {
+    title: "Relação com o Mercado",
+    links: modulosMercado.map((m) => ({ href: `/relacao-mercado/${m.slug}`, label: m.titulo })),
+  },
+  {
     title: "Institucional",
     links: [
-      { href: "/#sobre", label: "Sobre a Ominia" },
-      { href: "/#time", label: "Time" },
-      { href: "/#", label: "Ética e Transparência" },
-      { href: "/#contato", label: "Contato" },
+      { href: "/sobre-a-ominia", label: "Sobre a Ominia" },
+      { href: "/time", label: "Time" },
+      { href: "/etica-e-transparencia", label: "Ética e Transparência" },
+      { href: "/contato", label: "Contato" },
     ],
   },
   {
@@ -66,7 +71,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 sm:flex sm:gap-16">
+          <div className="grid grid-cols-2 gap-10 sm:flex sm:flex-wrap sm:gap-x-10 sm:gap-y-10 lg:gap-x-16">
             {columns.map((column) => (
               <div key={column.title}>
                 <p className="font-mono text-xs tracking-wide text-white/50 uppercase">

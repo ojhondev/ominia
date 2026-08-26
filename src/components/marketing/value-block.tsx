@@ -1,17 +1,20 @@
 import Image from "next/image";
 import { Reveal } from "./reveal";
+import { FieldLines } from "./field-lines";
 
 export function ValueBlock() {
   return (
     <section id="sobre" className="px-4 py-8 sm:px-6 lg:px-10">
-      <div className="rounded-[32px] bg-lp-maroon px-6 py-16 sm:px-10 sm:py-20 lg:px-16">
-        <Reveal>
+      <div className="relative overflow-hidden rounded-[32px] bg-lp-maroon px-6 py-16 sm:px-10 sm:py-20 lg:px-16">
+        <FieldLines />
+
+        <Reveal className="relative z-10">
           <h2 className="mx-auto max-w-2xl text-center text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl">
             Inovadora, com a proximidade que você busca
           </h2>
         </Reveal>
 
-        <div className="mt-16 flex flex-col gap-16">
+        <div className="relative z-10 mt-16 flex flex-col gap-16">
           <Reveal delay={80}>
             <div className="flex flex-col items-center gap-8 lg:flex-row">
               <div className="relative aspect-video w-full overflow-hidden rounded-2xl lg:w-1/2">

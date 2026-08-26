@@ -9,9 +9,9 @@ import { solucoes } from "@/lib/solucoes";
 const solucoesNav = solucoes.map((s) => ({ href: `/solucoes/${s.slug}`, label: s.titulo }));
 
 const institucional = [
-  { href: "/#sobre", label: "Sobre a Ominia" },
-  { href: "/#time", label: "Time" },
-  { href: "/#relacao-mercado", label: "Relação com o Mercado" },
+  { href: "/sobre-a-ominia", label: "Sobre a Ominia" },
+  { href: "/time", label: "Time" },
+  { href: "/relacao-mercado", label: "Relação com o Mercado" },
 ];
 
 function Dropdown({ label, items }: { label: string; items: { href: string; label: string }[] }) {
@@ -71,7 +71,7 @@ export function SiteHeader() {
             Entrar
           </Link>
           <Link
-            href="/#relacao-mercado"
+            href="/relacao-mercado"
             className="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-lp-ink transition-colors hover:text-lp-pink-deep"
           >
             Relação com o Mercado
@@ -104,9 +104,9 @@ export function SiteHeader() {
           <p className="mt-6 font-mono text-xs tracking-wide text-lp-muted uppercase">Institucional</p>
           <nav className="mt-3 flex flex-col gap-3">
             {institucional.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="text-base text-lp-ink">
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="text-base text-lp-ink">
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -119,7 +119,7 @@ export function SiteHeader() {
               Entrar
             </Link>
             <Link
-              href="/#relacao-mercado"
+              href="/relacao-mercado"
               onClick={() => setOpen(false)}
               className="rounded-full border border-lp-line px-6 py-3 text-center text-sm font-medium text-lp-ink"
             >
