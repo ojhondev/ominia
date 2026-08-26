@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { registrosAtividade, usinas, fazendas, safras } from "@/db/schema";
 
@@ -25,4 +25,19 @@ export async function listRegistros(empresaId: string) {
     .where(eq(registrosAtividade.empresaId, empresaId))
     .orderBy(desc(registrosAtividade.criadoEm))
     .limit(200);
+}
+
+/** Soma a quantidade dos registros de uma safra cujo `tipo` esteja na lista informada. */
+export async function somaQuantidadePorTipo(empresaId: string, safraId: string, tipos: string[]) {
+  const [row] = await db
+    .select({ total: sql<string>`coalesce(sum(${registrosAtividade.quantidade}), 0)` })
+    .from(registrosAtividade)
+    .where(
+      and(
+        eq(registrosAtividade.empresaId, empresaId),
+        eq(registrosAtividade.safraId, safraId),
+        inArray(registrosAtividade.tipo, tipos),
+      ),
+    );
+  return Number(row.total);
 }

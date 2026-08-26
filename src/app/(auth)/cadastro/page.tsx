@@ -5,6 +5,8 @@ import { signUp } from "../actions";
 const ERROS: Record<string, string> = {
   dados_invalidos: "Preencha todos os campos (senha com pelo menos 8 caracteres).",
   email_em_uso: "Já existe uma conta com este e-mail.",
+  cnpj_invalido: "CNPJ inválido. Verifique os números digitados.",
+  cnpj_em_uso: "Já existe uma empresa cadastrada com este CNPJ.",
 };
 
 const inputClass =

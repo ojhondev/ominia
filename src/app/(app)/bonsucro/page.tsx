@@ -2,15 +2,32 @@ import { requireSession } from "@/lib/auth/require-session";
 import { listUsinas, listSafras } from "@/lib/queries/organizacao";
 import { listCalculosBonsucro, listRequisitosComStatus, complianceScore } from "@/lib/queries/bonsucro";
 import { ensureBonsucroVersao } from "@/lib/seed/metodologias";
-import { calcularProdutividade, calcularProdutividadeAgua, atualizarStatusRequisito } from "./actions";
+import {
+  calcularProdutividade,
+  calcularSolo,
+  calcularProdutividadeAgua,
+  calcularBiodiversidade,
+  calcularGhgBonsucro,
+  calcularInsumos,
+  calcularSeguranca,
+  calcularEconomico,
+  atualizarStatusRequisito,
+} from "./actions";
 import { Field, Input, Select } from "@/components/ui/field";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { FormError } from "@/components/ui/form-error";
 
 const CODIGO_LABEL: Record<string, string> = {
   BNS01_PRODUTIVIDADE: "BNS-01 · Produtividade agrícola",
+  BNS02_SOLO: "BNS-02 · Correção de solo",
   BNS03_AGUA: "BNS-03 · Produtividade da água",
+  BNS04_BIODIVERSIDADE: "BNS-04 · Área preservada",
+  BNS05_GHG: "BNS-05 · GHG (Motor GHG)",
+  BNS06_INSUMOS: "BNS-06 · Uso de insumos",
+  BNS07_SEGURANCA: "BNS-07 · Taxa de acidentes",
+  BNS08_MARGEM: "BNS-08 · Margem bruta",
 };
 
 const STATUS_OPTIONS = [
@@ -20,13 +37,28 @@ const STATUS_OPTIONS = [
   { value: "sem_dados", label: "Sem dados", tone: "neutral" as const },
 ];
 
+function SelectSafra({ id, safras }: { id: string; safras: { id: string; nome: string; usinaNome: string | null }[] }) {
+  return (
+    <Select id={id} name="safraId" required defaultValue="">
+      <option value="" disabled>
+        Selecione
+      </option>
+      {safras.map((s) => (
+        <option key={s.id} value={s.id}>
+          {s.usinaNome} — {s.nome}
+        </option>
+      ))}
+    </Select>
+  );
+}
+
 export default async function BonsucroPage({
   searchParams,
 }: {
-  searchParams: Promise<{ usinaId?: string }>;
+  searchParams: Promise<{ usinaId?: string; erro?: string }>;
 }) {
   const session = await requireSession();
-  const { usinaId: usinaSelecionada } = await searchParams;
+  const { usinaId: usinaSelecionada, erro } = await searchParams;
 
   const [usinasList, safrasList, historico] = await Promise.all([
     listUsinas(session.empresaId),
@@ -39,6 +71,9 @@ export default async function BonsucroPage({
   const requisitos = usinaAtiva ? await listRequisitosComStatus(session.empresaId, usinaAtiva) : [];
   const score = usinaAtiva ? await complianceScore(session.empresaId, usinaAtiva) : null;
 
+  const cardClass = "flex flex-col gap-3 rounded-2xl border border-lp-line bg-white p-5";
+  const buttonClass = "self-start rounded-full bg-lp-pink px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90";
+
   return (
     <div className="flex flex-col gap-10">
       <div>
@@ -49,64 +84,100 @@ export default async function BonsucroPage({
         </p>
       </div>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-01 · Produtividade agrícola</h2>
-        {safrasList.length === 0 ? (
-          <EmptyState title="Nenhuma safra cadastrada" description="Cadastre uma safra com produção e área colhida em Organização → Safras." />
-        ) : (
-          <form action={calcularProdutividade} className="flex flex-wrap items-end gap-4 rounded-2xl border border-lp-line bg-white p-6">
-            <div className="min-w-64">
-              <Field label="Safra" htmlFor="safraId-prod">
-                <Select id="safraId-prod" name="safraId" required defaultValue="">
-                  <option value="" disabled>
-                    Selecione (produção e área colhida já cadastradas)
-                  </option>
-                  {safrasList.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.usinaNome} — {s.nome}
-                    </option>
-                  ))}
-                </Select>
-              </Field>
-            </div>
-            <button type="submit" className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90">
-              Calcular produtividade
-            </button>
-          </form>
-        )}
-      </section>
+      <FormError code={erro} />
 
-      <section className="flex flex-col gap-4">
-        <h2 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-03 · Produtividade da água</h2>
-        {safrasList.length === 0 ? (
-          <EmptyState title="Nenhuma safra cadastrada" description="Cadastre uma safra em Organização → Safras." />
-        ) : (
-          <form action={calcularProdutividadeAgua} className="flex flex-wrap items-end gap-4 rounded-2xl border border-lp-line bg-white p-6">
-            <div className="min-w-64">
-              <Field label="Safra" htmlFor="safraId-agua">
-                <Select id="safraId-agua" name="safraId" required defaultValue="">
-                  <option value="" disabled>
-                    Selecione
-                  </option>
-                  {safrasList.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.usinaNome} — {s.nome}
-                    </option>
+      {safrasList.length === 0 ? (
+        <EmptyState title="Nenhuma safra cadastrada" description="Cadastre uma safra em Organização → Safras e registros no Data Hub antes de calcular os indicadores Bonsucro." />
+      ) : (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-01 · Produtividade agrícola</h3>
+            <p className="text-xs text-lp-muted">Produção ÷ área colhida (dados já cadastrados na safra).</p>
+            <form action={calcularProdutividade} className="flex flex-col gap-3">
+              <Field label="Safra" htmlFor="safraId-01"><SelectSafra id="safraId-01" safras={safrasList} /></Field>
+              <button type="submit" className={buttonClass}>Calcular</button>
+            </form>
+          </div>
+
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-02 · Solo</h3>
+            <p className="text-xs text-lp-muted">Calcário + gesso aplicados (Data Hub) ÷ área colhida.</p>
+            <form action={calcularSolo} className="flex flex-col gap-3">
+              <Field label="Safra" htmlFor="safraId-02"><SelectSafra id="safraId-02" safras={safrasList} /></Field>
+              <button type="submit" className={buttonClass}>Calcular</button>
+            </form>
+          </div>
+
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-03 · Água</h3>
+            <p className="text-xs text-lp-muted">Produção ÷ água consumida no período.</p>
+            <form action={calcularProdutividadeAgua} className="flex flex-col gap-3">
+              <Field label="Safra" htmlFor="safraId-03"><SelectSafra id="safraId-03" safras={safrasList} /></Field>
+              <Field label="Água consumida (m³)" htmlFor="aguaConsumidaM3">
+                <Input id="aguaConsumidaM3" name="aguaConsumidaM3" type="number" step="any" min="0" required placeholder="180000" />
+              </Field>
+              <button type="submit" className={buttonClass}>Calcular</button>
+            </form>
+          </div>
+
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-04 · Biodiversidade</h3>
+            <p className="text-xs text-lp-muted">Média de área preservada ÷ área total das fazendas da usina.</p>
+            <form action={calcularBiodiversidade} className="flex flex-col gap-3">
+              <Field label="Usina" htmlFor="usinaId-04">
+                <Select id="usinaId-04" name="usinaId" required defaultValue="">
+                  <option value="" disabled>Selecione</option>
+                  {usinasList.map((u) => (
+                    <option key={u.id} value={u.id}>{u.nome}</option>
                   ))}
                 </Select>
               </Field>
-            </div>
-            <div className="w-48">
-              <Field label="Água consumida (m³)" htmlFor="aguaConsumidaM3">
-                <Input id="aguaConsumidaM3" name="aguaConsumidaM3" type="number" step="any" required placeholder="180000" />
-              </Field>
-            </div>
-            <button type="submit" className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90">
-              Calcular
-            </button>
-          </form>
-        )}
-      </section>
+              <button type="submit" className={buttonClass}>Calcular</button>
+            </form>
+            <p className="text-xs text-lp-muted">Preencha &ldquo;Área preservada&rdquo; em Organização → Fazendas.</p>
+          </div>
+
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-05 · GHG</h3>
+            <p className="text-xs text-lp-muted">
+              Reutiliza o{" "}
+              <a href="/ghg" className="text-lp-pink hover:underline">Motor GHG</a> — soma os cálculos de emissão já
+              feitos para a safra. Não há um segundo calculador.
+            </p>
+            <form action={calcularGhgBonsucro} className="flex flex-col gap-3">
+              <Field label="Safra" htmlFor="safraId-05"><SelectSafra id="safraId-05" safras={safrasList} /></Field>
+              <button type="submit" className={buttonClass}>Consolidar</button>
+            </form>
+          </div>
+
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-06 · Insumos</h3>
+            <p className="text-xs text-lp-muted">Fertilizantes + defensivos (Data Hub) ÷ área colhida.</p>
+            <form action={calcularInsumos} className="flex flex-col gap-3">
+              <Field label="Safra" htmlFor="safraId-06"><SelectSafra id="safraId-06" safras={safrasList} /></Field>
+              <button type="submit" className={buttonClass}>Calcular</button>
+            </form>
+          </div>
+
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-07 · Social</h3>
+            <p className="text-xs text-lp-muted">Taxa de acidentes por 1.000 funcionários (Data Hub, categoria Social).</p>
+            <form action={calcularSeguranca} className="flex flex-col gap-3">
+              <Field label="Safra" htmlFor="safraId-07"><SelectSafra id="safraId-07" safras={safrasList} /></Field>
+              <button type="submit" className={buttonClass}>Calcular</button>
+            </form>
+          </div>
+
+          <div className={cardClass}>
+            <h3 className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-08 · Econômico</h3>
+            <p className="text-xs text-lp-muted">Margem bruta por tonelada (Data Hub, categoria Econômico).</p>
+            <form action={calcularEconomico} className="flex flex-col gap-3">
+              <Field label="Safra" htmlFor="safraId-08"><SelectSafra id="safraId-08" safras={safrasList} /></Field>
+              <button type="submit" className={buttonClass}>Calcular</button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {historico.length > 0 && (
         <Table>
@@ -132,14 +203,6 @@ export default async function BonsucroPage({
           </tbody>
         </Table>
       )}
-
-      <div className="rounded-2xl border border-lp-line bg-white p-4 text-sm text-lp-muted">
-        <span className="font-mono text-xs uppercase tracking-wide text-lp-muted">BNS-05 · GHG</span> — reutiliza o{" "}
-        <a href="/ghg" className="text-lp-pink hover:underline">
-          Motor GHG
-        </a>{" "}
-        (Módulo 04). Não há um segundo calculador de emissões.
-      </div>
 
       <section className="flex flex-col gap-4">
         <div className="flex items-center justify-between">

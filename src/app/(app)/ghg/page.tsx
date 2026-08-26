@@ -1,18 +1,26 @@
 import { requireSession } from "@/lib/auth/require-session";
 import { listFatores, listCalculosGhg } from "@/lib/queries/ghg";
 import { listRegistros } from "@/lib/queries/data-hub";
-import { criarFator, calcularEmissao } from "./actions";
+import { criarFator, editarFator, excluirFator, calcularEmissao } from "./actions";
 import { Field, Input, Select } from "@/components/ui/field";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
+import { FormError } from "@/components/ui/form-error";
+import { StatusBadge } from "@/components/ui/status-badge";
 
-export default async function GhgPage() {
+export default async function GhgPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ erro?: string; editar?: string }>;
+}) {
   const session = await requireSession();
+  const { erro, editar } = await searchParams;
   const [fatores, registros, historico] = await Promise.all([
-    listFatores(),
+    listFatores(session.empresaId),
     listRegistros(session.empresaId),
     listCalculosGhg(session.empresaId),
   ]);
+  const emEdicao = editar ? fatores.find((f) => f.id === editar && f.empresaId === session.empresaId) : undefined;
 
   return (
     <div className="flex flex-col gap-10">
@@ -25,40 +33,48 @@ export default async function GhgPage() {
         </p>
       </div>
 
+      <FormError code={erro} />
+
       <section className="flex flex-col gap-4">
         <h2 className="font-mono text-xs uppercase tracking-wide text-lp-muted">Fatores de emissão</h2>
         <form
-          action={criarFator}
+          action={emEdicao ? editarFator : criarFator}
           className="grid grid-cols-2 gap-4 rounded-2xl border border-lp-line bg-white p-6 md:grid-cols-4"
         >
+          {emEdicao && <input type="hidden" name="id" value={emEdicao.id} />}
           <Field label="Nome" htmlFor="nome">
-            <Input id="nome" name="nome" required placeholder="Diesel" />
+            <Input id="nome" name="nome" required placeholder="Diesel" defaultValue={emEdicao?.nome} />
           </Field>
           <Field label="Categoria" htmlFor="categoria">
-            <Input id="categoria" name="categoria" required placeholder="combustível, eletricidade, fertilizante..." />
+            <Input id="categoria" name="categoria" required placeholder="combustível, eletricidade, fertilizante..." defaultValue={emEdicao?.categoria} />
           </Field>
           <Field label="Valor" htmlFor="valor">
-            <Input id="valor" name="valor" type="number" step="any" required placeholder="2.68" />
+            <Input id="valor" name="valor" type="number" step="any" min="0" required placeholder="2.68" defaultValue={emEdicao?.valor} />
           </Field>
           <Field label="Unidade" htmlFor="unidade">
-            <Input id="unidade" name="unidade" required placeholder="kgCO2e/L" />
+            <Input id="unidade" name="unidade" required placeholder="kgCO2e/L" defaultValue={emEdicao?.unidade} />
           </Field>
           <Field label="Fonte" htmlFor="fonte">
-            <Input id="fonte" name="fonte" required placeholder="GHG Protocol / MCTI" />
+            <Input id="fonte" name="fonte" required placeholder="GHG Protocol / MCTI" defaultValue={emEdicao?.fonte} />
           </Field>
           <Field label="Versão" htmlFor="versao">
-            <Input id="versao" name="versao" required placeholder="2026" />
+            <Input id="versao" name="versao" required placeholder="2026" defaultValue={emEdicao?.versao} />
           </Field>
           <Field label="Válido de" htmlFor="validoDe">
-            <Input id="validoDe" name="validoDe" type="date" required />
+            <Input id="validoDe" name="validoDe" type="date" required defaultValue={emEdicao?.validoDe} />
           </Field>
-          <div className="flex items-end">
+          <div className="flex items-end gap-3">
             <button
               type="submit"
               className="rounded-full bg-lp-pink px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
-              Adicionar fator
+              {emEdicao ? "Salvar" : "Adicionar fator"}
             </button>
+            {emEdicao && (
+              <a href="/ghg" className="text-sm text-lp-muted hover:text-lp-ink">
+                Cancelar
+              </a>
+            )}
           </div>
         </form>
 
@@ -72,6 +88,8 @@ export default async function GhgPage() {
               <Th>Valor</Th>
               <Th>Fonte</Th>
               <Th>Versão</Th>
+              <Th>Origem</Th>
+              <Th />
             </THead>
             <tbody>
               {fatores.map((f) => (
@@ -83,6 +101,24 @@ export default async function GhgPage() {
                   </Td>
                   <Td>{f.fonte}</Td>
                   <Td>{f.versao}</Td>
+                  <Td>
+                    <StatusBadge label={f.empresaId ? "Próprio" : "Global"} tone={f.empresaId ? "neutral" : "positive"} />
+                  </Td>
+                  <Td>
+                    {f.empresaId === session.empresaId && (
+                      <div className="flex gap-3">
+                        <a href={`/ghg?editar=${f.id}`} className="font-mono text-xs text-lp-pink hover:underline">
+                          Editar
+                        </a>
+                        <form action={excluirFator}>
+                          <input type="hidden" name="id" value={f.id} />
+                          <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                            Excluir
+                          </button>
+                        </form>
+                      </div>
+                    )}
+                  </Td>
                 </Tr>
               ))}
             </tbody>

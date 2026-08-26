@@ -6,16 +6,21 @@ import { db } from "@/db";
 import { empresas, usuarios } from "@/db/schema";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
 import { createSession, destroySession } from "@/lib/auth/session";
+import { isValidCnpj, onlyDigits } from "@/lib/cnpj";
 
 export async function signUp(formData: FormData) {
   const nomeEmpresa = String(formData.get("nomeEmpresa") ?? "").trim();
-  const cnpj = String(formData.get("cnpj") ?? "").trim();
+  const cnpj = onlyDigits(String(formData.get("cnpj") ?? ""));
   const nome = String(formData.get("nome") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const senha = String(formData.get("senha") ?? "");
 
   if (!nomeEmpresa || !cnpj || !nome || !email || senha.length < 8) {
     redirect("/cadastro?erro=dados_invalidos");
+  }
+
+  if (!isValidCnpj(cnpj)) {
+    redirect("/cadastro?erro=cnpj_invalido");
   }
 
   const [existente] = await db
@@ -26,6 +31,11 @@ export async function signUp(formData: FormData) {
 
   if (existente) {
     redirect("/cadastro?erro=email_em_uso");
+  }
+
+  const [cnpjExistente] = await db.select({ id: empresas.id }).from(empresas).where(eq(empresas.cnpj, cnpj)).limit(1);
+  if (cnpjExistente) {
+    redirect("/cadastro?erro=cnpj_em_uso");
   }
 
   const [empresa] = await db.insert(empresas).values({ nome: nomeEmpresa, cnpj }).returning();

@@ -1,30 +1,40 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth/require-session";
 import { registrarAuditoria } from "@/lib/audit";
+import { getOwnedRegistro, getUsableFator, getOwnedFator } from "@/lib/ownership";
 import { db } from "@/db";
-import { fatoresEmissao, registrosAtividade, calculos, indicadores } from "@/db/schema";
+import { fatoresEmissao, calculos, indicadores } from "@/db/schema";
 import { ensureGhgVersao } from "@/lib/seed/metodologias";
 import { unidadeSaidaFator } from "@/lib/queries/ghg";
 
-export async function criarFator(formData: FormData) {
-  const session = await requireSession();
-
+function validarFatorForm(formData: FormData) {
   const nome = String(formData.get("nome") ?? "").trim();
   const categoria = String(formData.get("categoria") ?? "").trim();
-  const valor = String(formData.get("valor") ?? "").trim();
+  const valorRaw = String(formData.get("valor") ?? "").trim();
   const unidade = String(formData.get("unidade") ?? "").trim();
   const fonte = String(formData.get("fonte") ?? "").trim();
   const versao = String(formData.get("versao") ?? "").trim();
   const validoDe = String(formData.get("validoDe") ?? "").trim();
+  const valor = Number(valorRaw);
 
-  if (!nome || !categoria || !valor || !unidade || !fonte || !versao || !validoDe) return;
+  if (!nome || !categoria || !unidade || !fonte || !versao || !validoDe || Number.isNaN(valor) || valor <= 0) {
+    redirect("/ghg?erro=campos_invalidos");
+  }
+
+  return { nome, categoria, valor: valorRaw, unidade, fonte, versao, validoDe };
+}
+
+export async function criarFator(formData: FormData) {
+  const session = await requireSession();
+  const dados = validarFatorForm(formData);
 
   const [fator] = await db
     .insert(fatoresEmissao)
-    .values({ nome, categoria, valor, unidade, fonte, versao, validoDe })
+    .values({ empresaId: session.empresaId, ...dados })
     .returning();
 
   await registrarAuditoria({
@@ -33,7 +43,52 @@ export async function criarFator(formData: FormData) {
     entidade: "fatores_emissao",
     entidadeId: fator.id,
     acao: "criou",
-    detalhes: { nome, valor, unidade },
+    detalhes: { nome: dados.nome, valor: dados.valor, unidade: dados.unidade },
+  });
+
+  revalidatePath("/ghg");
+}
+
+export async function editarFator(formData: FormData) {
+  const session = await requireSession();
+  const id = String(formData.get("id") ?? "");
+
+  const existente = await getOwnedFator(id, session.empresaId);
+  if (!existente) redirect("/ghg?erro=nao_encontrado");
+
+  const dados = validarFatorForm(formData);
+
+  await db
+    .update(fatoresEmissao)
+    .set(dados)
+    .where(and(eq(fatoresEmissao.id, id), eq(fatoresEmissao.empresaId, session.empresaId)));
+
+  await registrarAuditoria({
+    empresaId: session.empresaId,
+    usuarioId: session.usuarioId,
+    entidade: "fatores_emissao",
+    entidadeId: id,
+    acao: "atualizou",
+  });
+
+  revalidatePath("/ghg");
+}
+
+export async function excluirFator(formData: FormData) {
+  const session = await requireSession();
+  const id = String(formData.get("id") ?? "");
+
+  const existente = await getOwnedFator(id, session.empresaId);
+  if (!existente) redirect("/ghg?erro=nao_encontrado");
+
+  await db.delete(fatoresEmissao).where(and(eq(fatoresEmissao.id, id), eq(fatoresEmissao.empresaId, session.empresaId)));
+
+  await registrarAuditoria({
+    empresaId: session.empresaId,
+    usuarioId: session.usuarioId,
+    entidade: "fatores_emissao",
+    entidadeId: id,
+    acao: "excluiu",
   });
 
   revalidatePath("/ghg");
@@ -44,11 +99,13 @@ export async function calcularEmissao(formData: FormData) {
 
   const registroId = String(formData.get("registroId") ?? "").trim();
   const fatorId = String(formData.get("fatorId") ?? "").trim();
-  if (!registroId || !fatorId) return;
+  if (!registroId || !fatorId) redirect("/ghg?erro=campos_invalidos");
 
-  const [registro] = await db.select().from(registrosAtividade).where(eq(registrosAtividade.id, registroId)).limit(1);
-  const [fator] = await db.select().from(fatoresEmissao).where(eq(fatoresEmissao.id, fatorId)).limit(1);
-  if (!registro || !fator) return;
+  const registro = await getOwnedRegistro(registroId, session.empresaId);
+  if (!registro) redirect("/ghg?erro=nao_encontrado");
+
+  const fator = await getUsableFator(fatorId, session.empresaId);
+  if (!fator) redirect("/ghg?erro=nao_encontrado");
 
   const resultado = Number(registro.quantidade) * Number(fator.valor);
   const versao = await ensureGhgVersao();

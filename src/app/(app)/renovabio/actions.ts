@@ -1,9 +1,11 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth/require-session";
 import { registrarAuditoria } from "@/lib/audit";
+import { getOwnedUsina, getOwnedSafra } from "@/lib/ownership";
 import { db } from "@/db";
 import { calculos, indicadores } from "@/db/schema";
 import { ensureRenovaBioVersao } from "@/lib/seed/metodologias";
@@ -20,11 +22,22 @@ export async function calcularCbio(formData: FormData) {
   const pci = Number(formData.get("pci"));
   const volume = Number(formData.get("volume"));
 
-  if (
-    !usinaId ||
-    [ciBiocombustivel, ciFossil, elegibilidade, massaEspecifica, pci, volume].some((n) => Number.isNaN(n))
-  ) {
-    return;
+  const numeros = [ciBiocombustivel, ciFossil, elegibilidade, massaEspecifica, pci, volume];
+  if (!usinaId || numeros.some((n) => Number.isNaN(n))) {
+    redirect("/renovabio?erro=campos_invalidos");
+  }
+  if (elegibilidade < 0 || elegibilidade > 100) {
+    redirect("/renovabio?erro=numero_invalido");
+  }
+  if ([massaEspecifica, pci, volume].some((n) => n <= 0)) {
+    redirect("/renovabio?erro=numero_invalido");
+  }
+
+  const usina = await getOwnedUsina(usinaId, session.empresaId);
+  if (!usina) redirect("/renovabio?erro=nao_encontrado");
+
+  if (safraId && !(await getOwnedSafra(safraId, session.empresaId))) {
+    redirect("/renovabio?erro=nao_encontrado");
   }
 
   // Fórmulas oficiais — ANP, Informe Técnico nº 02/SBQ (ver PRD §8).

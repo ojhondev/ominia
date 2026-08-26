@@ -1,20 +1,36 @@
 import { requireSession } from "@/lib/auth/require-session";
 import { listRegistros } from "@/lib/queries/data-hub";
 import { listUsinas, listFazendas, listSafras } from "@/lib/queries/organizacao";
-import { criarRegistro, validarRegistro } from "./actions";
+import { criarRegistro, validarRegistro, excluirRegistro } from "./actions";
 import { Field, Input, Select } from "@/components/ui/field";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { FormError } from "@/components/ui/form-error";
 
 const CATEGORIA_LABEL: Record<string, string> = {
   agricola: "Agrícola",
   industrial: "Industrial",
   logistica: "Logística",
+  social: "Social",
+  economico: "Econômico",
 };
 
-export default async function DataHubPage() {
+const TIPO_SUGESTOES: Record<string, string> = {
+  agricola: "diesel_agricola, fertilizante_n, fertilizante_p, fertilizante_k, calcario, gesso, defensivo",
+  industrial: "cana_processada, etanol_produzido, acucar_produzido, energia_eletrica, vapor, agua_industrial",
+  logistica: "combustivel_transporte, distancia_km, quantidade_transportada",
+  social: "funcionarios_total, acidentes_registrados, horas_treinamento",
+  economico: "receita_safra, custo_producao",
+};
+
+export default async function DataHubPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ erro?: string }>;
+}) {
   const session = await requireSession();
+  const { erro } = await searchParams;
   const [registros, usinasList, fazendasList, safrasList] = await Promise.all([
     listRegistros(session.empresaId),
     listUsinas(session.empresaId),
@@ -27,10 +43,12 @@ export default async function DataHubPage() {
       <div>
         <h1 className="text-2xl font-medium tracking-tight text-lp-ink">Data Hub</h1>
         <p className="mt-1 text-lp-muted">
-          Coleta manual de dados agrícolas, industriais e logísticos. Cada registro alimenta o Motor GHG e os
-          motores CBIO e Bonsucro — coletar uma vez, reutilizar em várias metodologias.
+          Coleta manual de dados agrícolas, industriais, logísticos, sociais e econômicos. Cada registro alimenta
+          o Motor GHG e os motores CBIO e Bonsucro — coletar uma vez, reutilizar em várias metodologias.
         </p>
       </div>
+
+      <FormError code={erro} />
 
       {usinasList.length === 0 ? (
         <EmptyState
@@ -47,16 +65,26 @@ export default async function DataHubPage() {
               <option value="agricola">Agrícola</option>
               <option value="industrial">Industrial</option>
               <option value="logistica">Logística</option>
+              <option value="social">Social</option>
+              <option value="economico">Econômico</option>
             </Select>
           </Field>
           <Field label="Tipo" htmlFor="tipo">
-            <Input id="tipo" name="tipo" required placeholder="diesel, fertilizante_n, energia_eletrica..." />
+            <Input id="tipo" name="tipo" required placeholder="diesel_agricola, fertilizante_n..." list="tipo-sugestoes" />
+            <datalist id="tipo-sugestoes">
+              {Object.values(TIPO_SUGESTOES)
+                .join(", ")
+                .split(", ")
+                .map((t) => (
+                  <option key={t} value={t} />
+                ))}
+            </datalist>
           </Field>
           <Field label="Quantidade" htmlFor="quantidade">
-            <Input id="quantidade" name="quantidade" type="number" step="any" required placeholder="1200" />
+            <Input id="quantidade" name="quantidade" type="number" step="any" min="0" required placeholder="1200" />
           </Field>
           <Field label="Unidade" htmlFor="unidade">
-            <Input id="unidade" name="unidade" required placeholder="L, kg, kWh, t, km" />
+            <Input id="unidade" name="unidade" required placeholder="L, kg, kWh, t, km, pessoas, R$" />
           </Field>
           <Field label="Data de referência" htmlFor="dataReferencia">
             <Input id="dataReferencia" name="dataReferencia" type="date" required />
@@ -146,14 +174,22 @@ export default async function DataHubPage() {
                   />
                 </Td>
                 <Td>
-                  {r.status === "rascunho" && (
-                    <form action={validarRegistro}>
+                  <div className="flex gap-3">
+                    {r.status === "rascunho" && (
+                      <form action={validarRegistro}>
+                        <input type="hidden" name="id" value={r.id} />
+                        <button type="submit" className="font-mono text-xs text-lp-pink hover:underline">
+                          Validar
+                        </button>
+                      </form>
+                    )}
+                    <form action={excluirRegistro}>
                       <input type="hidden" name="id" value={r.id} />
-                      <button type="submit" className="font-mono text-xs text-lp-pink hover:underline">
-                        Validar
+                      <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                        Excluir
                       </button>
                     </form>
-                  )}
+                  </div>
                 </Td>
               </Tr>
             ))}

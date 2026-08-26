@@ -65,3 +65,22 @@ export async function complianceScore(empresaId: string, usinaId: string) {
   const conformes = lista.filter((l) => l.status === "conforme").length;
   return { conformes, total: lista.length, percentual: Math.round((conformes / lista.length) * 100) };
 }
+
+/** Soma os cálculos EMISSAO (Motor GHG) de uma safra. Se houver mais de uma unidade
+ * entre os cálculos, o resultado fica marcado como "misto" em vez de somar valores
+ * incompatíveis. */
+export async function emissoesDaSafra(empresaId: string, safraId: string) {
+  const rows = await db
+    .select({ resultado: calculos.resultado, unidadeResultado: calculos.unidadeResultado })
+    .from(calculos)
+    .innerJoin(indicadores, eq(calculos.indicadorId, indicadores.id))
+    .where(and(eq(calculos.empresaId, empresaId), eq(calculos.safraId, safraId), eq(indicadores.codigo, "EMISSAO")));
+
+  if (rows.length === 0) return null;
+
+  const unidades = new Set(rows.map((r) => r.unidadeResultado ?? "—"));
+  const total = rows.reduce((acc, r) => acc + Number(r.resultado), 0);
+  const unidade = unidades.size === 1 ? [...unidades][0] : "misto (ver Motor GHG)";
+
+  return { total, unidade };
+}

@@ -16,6 +16,7 @@ export async function listFazendas(empresaId: string) {
       estado: fazendas.estado,
       car: fazendas.car,
       areaHectares: fazendas.areaHectares,
+      areaPreservadaHectares: fazendas.areaPreservadaHectares,
       tipoFornecedor: fazendas.tipoFornecedor,
       usinaId: fazendas.usinaId,
       usinaNome: usinas.nome,

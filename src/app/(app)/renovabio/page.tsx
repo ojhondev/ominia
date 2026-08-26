@@ -7,6 +7,7 @@ import { Field, Input, Select } from "@/components/ui/field";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { FormError } from "@/components/ui/form-error";
 
 const CODIGO_LABEL: Record<string, string> = {
   NEEA: "NEEA",
@@ -14,8 +15,13 @@ const CODIGO_LABEL: Record<string, string> = {
   CBIO_QTD: "Quantidade de CBIO",
 };
 
-export default async function RenovaBioPage() {
+export default async function RenovaBioPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ erro?: string }>;
+}) {
   const session = await requireSession();
+  const { erro } = await searchParams;
   const [usinasList, safrasList, historico, versao] = await Promise.all([
     listUsinas(session.empresaId),
     listSafras(session.empresaId),
@@ -32,6 +38,8 @@ export default async function RenovaBioPage() {
           biocombustível com a do combustível fóssil substituto.
         </p>
       </div>
+
+      <FormError code={erro} />
 
       <div className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
         <StatusBadge label={`Metodologia ${versao.versao} — ${versao.status === "em_revisao" ? "em revisão" : versao.status}`} tone="warning" />

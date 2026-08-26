@@ -15,6 +15,20 @@
       "when": 1787675715520,
       "tag": "0001_silly_lightspeed",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787762101470,
+      "tag": "0002_sloppy_sheva_callister",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1787762331455,
+      "tag": "0003_glamorous_james_howlett",
+      "breakpoints": true
     }
   ]
 }

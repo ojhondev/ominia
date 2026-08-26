@@ -18,6 +18,8 @@ export const categoriaAtividadeEnum = pgEnum("categoria_atividade", [
   "agricola",
   "industrial",
   "logistica",
+  "social",
+  "economico",
 ]);
 
 export const origemRegistroEnum = pgEnum("origem_registro", ["manual", "upload"]);
@@ -99,6 +101,7 @@ export const fazendas = pgTable("fazendas", {
   estado: text("estado"),
   car: text("car"),
   areaHectares: numeric("area_hectares"),
+  areaPreservadaHectares: numeric("area_preservada_hectares"),
   tipoFornecedor: tipoFornecedorEnum("tipo_fornecedor").notNull().default("terceiro"),
   criadoEm: timestamp("criado_em").notNull().defaultNow(),
 });
@@ -148,6 +151,10 @@ export const documentos = pgTable("documentos", {
   nome: text("nome").notNull(),
   tipo: text("tipo").notNull(),
   referenciaExterna: text("referencia_externa"),
+  arquivoUrl: text("arquivo_url"),
+  arquivoNome: text("arquivo_nome"),
+  arquivoMimeType: text("arquivo_mime_type"),
+  arquivoTamanhoBytes: integer("arquivo_tamanho_bytes"),
   validoAte: date("valido_ate"),
   uploadedPor: uuid("uploaded_por").references(() => usuarios.id, { onDelete: "set null" }),
   criadoEm: timestamp("criado_em").notNull().defaultNow(),
@@ -172,6 +179,7 @@ export const evidencias = pgTable("evidencias", {
 
 export const fatoresEmissao = pgTable("fatores_emissao", {
   id: uuid("id").primaryKey().defaultRandom(),
+  empresaId: uuid("empresa_id").references(() => empresas.id, { onDelete: "cascade" }),
   nome: text("nome").notNull(),
   categoria: text("categoria").notNull(),
   valor: numeric("valor").notNull(),

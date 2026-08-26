@@ -1,11 +1,18 @@
 import { requireSession } from "@/lib/auth/require-session";
 import { listDocumentos, listEvidencias } from "@/lib/queries/evidencias";
 import { listUsinas, listFazendas, listSafras } from "@/lib/queries/organizacao";
-import { criarDocumento, criarEvidencia, atualizarStatusEvidencia } from "./actions";
+import {
+  criarDocumento,
+  excluirDocumento,
+  criarEvidencia,
+  atualizarStatusEvidencia,
+  excluirEvidencia,
+} from "./actions";
 import { Field, Input, Select } from "@/components/ui/field";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { FormError } from "@/components/ui/form-error";
 
 const STATUS_TONE = {
   pendente: "warning",
@@ -25,8 +32,19 @@ const ENTIDADE_LABEL: Record<string, string> = {
   safra: "Safra",
 };
 
-export default async function EvidenciasPage() {
+function tamanhoLegivel(bytes: number | null) {
+  if (!bytes) return "";
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+export default async function EvidenciasPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ erro?: string }>;
+}) {
   const session = await requireSession();
+  const { erro } = await searchParams;
   const [documentosList, evidenciasList, usinasList, fazendasList, safrasList] = await Promise.all([
     listDocumentos(session.empresaId),
     listEvidencias(session.empresaId),
@@ -51,6 +69,8 @@ export default async function EvidenciasPage() {
         </p>
       </div>
 
+      <FormError code={erro} />
+
       <section className="flex flex-col gap-4">
         <h2 className="font-mono text-xs uppercase tracking-wide text-lp-muted">Documentos</h2>
         <form
@@ -63,12 +83,23 @@ export default async function EvidenciasPage() {
           <Field label="Tipo" htmlFor="tipo">
             <Input id="tipo" name="tipo" required placeholder="laudo, nota fiscal, certificado, contrato..." />
           </Field>
-          <Field label="Referência/link (opcional)" htmlFor="referenciaExterna">
-            <Input id="referenciaExterna" name="referenciaExterna" placeholder="URL ou caminho do arquivo" />
+          <Field label="Arquivo (PDF, imagem, planilha...)" htmlFor="arquivo">
+            <input
+              id="arquivo"
+              name="arquivo"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv,.doc,.docx"
+              className="w-full rounded-xl border border-lp-line bg-white px-3 py-1.5 text-sm text-lp-ink file:mr-3 file:rounded-full file:border-0 file:bg-lp-paper-soft file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-lp-ink"
+            />
           </Field>
           <Field label="Válido até (opcional)" htmlFor="validoAte">
             <Input id="validoAte" name="validoAte" type="date" />
           </Field>
+          <div className="col-span-2 md:col-span-4">
+            <Field label="Ou referência/link externo (se não anexar arquivo)" htmlFor="referenciaExterna">
+              <Input id="referenciaExterna" name="referenciaExterna" placeholder="URL de um documento já hospedado em outro sistema" />
+            </Field>
+          </div>
           <div className="col-span-2 flex items-end md:col-span-4">
             <button
               type="submit"
@@ -80,22 +111,43 @@ export default async function EvidenciasPage() {
         </form>
 
         {documentosList.length === 0 ? (
-          <EmptyState title="Nenhum documento" description="Upload binário real é um próximo passo — por ora, registre a referência do documento." />
+          <EmptyState title="Nenhum documento" description="Anexe um arquivo real ou registre um link externo." />
         ) : (
           <Table>
             <THead>
               <Th>Nome</Th>
               <Th>Tipo</Th>
+              <Th>Arquivo</Th>
               <Th>Válido até</Th>
-              <Th>Referência</Th>
+              <Th />
             </THead>
             <tbody>
               {documentosList.map((d) => (
                 <Tr key={d.id}>
                   <Td className="font-medium text-lp-ink">{d.nome}</Td>
                   <Td>{d.tipo}</Td>
+                  <Td>
+                    {d.arquivoUrl ? (
+                      <a href={d.arquivoUrl} target="_blank" rel="noopener noreferrer" className="text-lp-pink hover:underline">
+                        {d.arquivoNome} {d.arquivoTamanhoBytes ? `(${tamanhoLegivel(d.arquivoTamanhoBytes)})` : ""}
+                      </a>
+                    ) : d.referenciaExterna ? (
+                      <a href={d.referenciaExterna} target="_blank" rel="noopener noreferrer" className="max-w-xs truncate text-lp-pink hover:underline">
+                        {d.referenciaExterna}
+                      </a>
+                    ) : (
+                      "—"
+                    )}
+                  </Td>
                   <Td>{d.validoAte ?? "—"}</Td>
-                  <Td className="max-w-xs truncate">{d.referenciaExterna ?? "—"}</Td>
+                  <Td>
+                    <form action={excluirDocumento}>
+                      <input type="hidden" name="id" value={d.id} />
+                      <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                        Excluir
+                      </button>
+                    </form>
+                  </Td>
                 </Tr>
               ))}
             </tbody>
@@ -177,24 +229,32 @@ export default async function EvidenciasPage() {
                     <StatusBadge label={STATUS_LABEL[e.status]} tone={STATUS_TONE[e.status as keyof typeof STATUS_TONE]} />
                   </Td>
                   <Td>
-                    {e.status === "pendente" && (
-                      <div className="flex gap-3">
-                        <form action={atualizarStatusEvidencia}>
-                          <input type="hidden" name="id" value={e.id} />
-                          <input type="hidden" name="status" value="aprovado" />
-                          <button type="submit" className="font-mono text-xs text-lp-pink hover:underline">
-                            Aprovar
-                          </button>
-                        </form>
-                        <form action={atualizarStatusEvidencia}>
-                          <input type="hidden" name="id" value={e.id} />
-                          <input type="hidden" name="status" value="rejeitado" />
-                          <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
-                            Rejeitar
-                          </button>
-                        </form>
-                      </div>
-                    )}
+                    <div className="flex gap-3">
+                      {e.status === "pendente" && (
+                        <>
+                          <form action={atualizarStatusEvidencia}>
+                            <input type="hidden" name="id" value={e.id} />
+                            <input type="hidden" name="status" value="aprovado" />
+                            <button type="submit" className="font-mono text-xs text-lp-pink hover:underline">
+                              Aprovar
+                            </button>
+                          </form>
+                          <form action={atualizarStatusEvidencia}>
+                            <input type="hidden" name="id" value={e.id} />
+                            <input type="hidden" name="status" value="rejeitado" />
+                            <button type="submit" className="font-mono text-xs text-rose-600 hover:underline">
+                              Rejeitar
+                            </button>
+                          </form>
+                        </>
+                      )}
+                      <form action={excluirEvidencia}>
+                        <input type="hidden" name="id" value={e.id} />
+                        <button type="submit" className="font-mono text-xs text-lp-muted hover:underline">
+                          Remover vínculo
+                        </button>
+                      </form>
+                    </div>
                   </Td>
                 </Tr>
               ))}

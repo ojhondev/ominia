@@ -42,3 +42,5 @@ next-env.d.ts
 
 # raw brand source files (large; processed versions live in public/)
 /Marca/
+
+.env*

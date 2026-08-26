@@ -188,6 +188,48 @@ export async function ensureBonsucroVersao() {
     unidade: "t produto/m³ água",
     formula: "Produtividade da água = Produção ÷ Água consumida",
   });
+  await ensureIndicador({
+    versaoMetodologiaId: versao.id,
+    codigo: "BNS02_SOLO",
+    nome: "Intensidade de correção de solo",
+    unidade: "kg/ha",
+    formula: "Correção de solo = (calcário + gesso aplicados) ÷ área colhida",
+  });
+  await ensureIndicador({
+    versaoMetodologiaId: versao.id,
+    codigo: "BNS04_BIODIVERSIDADE",
+    nome: "Área preservada",
+    unidade: "%",
+    formula: "% preservado = média(área preservada da fazenda ÷ área total da fazenda)",
+  });
+  await ensureIndicador({
+    versaoMetodologiaId: versao.id,
+    codigo: "BNS05_GHG",
+    nome: "Emissões de GEE da safra",
+    unidade: "variável",
+    formula: "Soma dos cálculos do Motor GHG (indicador EMISSAO) vinculados à safra",
+  });
+  await ensureIndicador({
+    versaoMetodologiaId: versao.id,
+    codigo: "BNS06_INSUMOS",
+    nome: "Intensidade de uso de insumos",
+    unidade: "kg/ha",
+    formula: "Insumos = (fertilizantes + defensivos aplicados) ÷ área colhida",
+  });
+  await ensureIndicador({
+    versaoMetodologiaId: versao.id,
+    codigo: "BNS07_SEGURANCA",
+    nome: "Taxa de acidentes",
+    unidade: "acidentes/1000 funcionários",
+    formula: "Taxa = (acidentes registrados ÷ funcionários totais) × 1000",
+  });
+  await ensureIndicador({
+    versaoMetodologiaId: versao.id,
+    codigo: "BNS08_MARGEM",
+    nome: "Margem bruta por tonelada",
+    unidade: "R$/t",
+    formula: "Margem = (receita da safra − custo de produção) ÷ produção",
+  });
 
   return versao;
 }
