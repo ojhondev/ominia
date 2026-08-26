@@ -1,5 +1,11 @@
-const slots = [1, 2, 3, 4, 5];
-const track = [...slots, ...slots];
+import Image from "next/image";
+
+const parceiros = [
+  { nome: "Usina Santo Ângelo", src: "/marketing/partner-santo-angelo.png" },
+  { nome: "Usina Uberaba", src: "/marketing/partner-uberaba.png" },
+  { nome: "Usina Santa Fé", src: "/marketing/partner-santa-fe.png" },
+];
+const track = [...parceiros, ...parceiros];
 
 export function PartnersStrip() {
   return (
@@ -7,14 +13,20 @@ export function PartnersStrip() {
       <div className="flex flex-col gap-6 px-4 sm:flex-row sm:items-center sm:gap-10 sm:px-6 lg:px-10">
         <p className="shrink-0 text-sm text-lp-muted">Alguns dos nossos parceiros</p>
         <div className="overflow-hidden">
-          <div className="marquee-track flex w-max items-center gap-6">
-            {track.map((slot, i) => (
+          <div className="marquee-track flex w-max items-center gap-12">
+            {track.map((parceiro, i) => (
               <div
-                key={`${slot}-${i}`}
-                aria-hidden={i >= slots.length}
-                className="flex h-12 w-32 shrink-0 items-center justify-center rounded-xl border border-dashed border-lp-line text-xs text-lp-muted"
+                key={`${parceiro.nome}-${i}`}
+                aria-hidden={i >= parceiros.length}
+                className="relative h-8 w-32 shrink-0"
               >
-                Logo
+                <Image
+                  src={parceiro.src}
+                  alt={parceiro.nome}
+                  fill
+                  className="object-contain object-left grayscale opacity-40 brightness-125"
+                  sizes="128px"
+                />
               </div>
             ))}
           </div>
