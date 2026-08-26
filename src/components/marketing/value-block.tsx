@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "./reveal";
 
 export function ValueBlock() {
@@ -13,8 +14,8 @@ export function ValueBlock() {
         <div className="mt-16 flex flex-col gap-16">
           <Reveal delay={80}>
             <div className="flex flex-col items-center gap-8 lg:flex-row">
-              <div className="flex aspect-video w-full items-center justify-center rounded-2xl border border-dashed border-white/25 text-sm text-white/60 lg:w-1/2">
-                Imagem
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl lg:w-1/2">
+                <Image src="/marketing/value-hub.png" alt="Hub de soluções para inventário de emissões CBio e Bonsucro" fill className="object-cover" />
               </div>
               <div className="w-full lg:w-1/2">
                 <h3 className="text-xl font-medium text-white sm:text-2xl">
@@ -32,8 +33,8 @@ export function ValueBlock() {
 
           <Reveal delay={160}>
             <div className="flex flex-col items-center gap-8 lg:flex-row-reverse">
-              <div className="flex aspect-video w-full items-center justify-center rounded-2xl border border-dashed border-white/25 text-sm text-white/60 lg:w-1/2">
-                Imagem
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl lg:w-1/2">
+                <Image src="/marketing/value-time.png" alt="Time especializado em metodologia e evidência" fill className="object-cover" />
               </div>
               <div className="w-full lg:w-1/2">
                 <h3 className="text-xl font-medium text-white sm:text-2xl">

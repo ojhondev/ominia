@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
@@ -9,7 +10,7 @@ import { SolutionLinkCard } from "@/components/marketing/solution-link-card";
 import { Reveal } from "@/components/marketing/reveal";
 import { solucoes, getSolucao } from "@/lib/solucoes";
 
-const segmentos = ["Sucroenergético", "Grãos", "Proteína Animal", "Bioenergia"];
+const segmentos = ["Sucroenergético", "Grãos", "Proteína Animal", "Bioenergia"] as const;
 
 export function generateStaticParams() {
   return solucoes.map((s) => ({ slug: s.slug }));
@@ -57,8 +58,8 @@ export default async function SolucaoPage({
 
       <div className="px-4 sm:px-6 lg:px-10">
         <Reveal>
-          <div className="flex aspect-video items-center justify-center rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9]">
-            Imagem
+          <div className="relative aspect-video overflow-hidden rounded-2xl sm:aspect-[21/9]">
+            <Image src={solucao.imagem} alt={solucao.titulo} fill className="object-cover" priority />
           </div>
         </Reveal>
       </div>
@@ -94,7 +95,7 @@ export default async function SolucaoPage({
               <div className="flex flex-col gap-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
                 <h3 className="text-2xl font-medium text-lp-ink">{segmento}</h3>
                 <div className="sm:max-w-md">
-                  <p className="text-sm text-lp-muted">{solucao.resumo}</p>
+                  <p className="text-sm text-lp-muted">{solucao.porSegmento[segmento]}</p>
                   <Link
                     href="/#relacao-mercado"
                     className="mt-4 inline-block rounded-full bg-lp-pink px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
