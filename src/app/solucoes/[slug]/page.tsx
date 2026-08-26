@@ -59,7 +59,7 @@ export default async function SolucaoPage({
 
       <div className="px-4 sm:px-6 lg:px-10">
         <Reveal>
-          <div className="relative aspect-video overflow-hidden rounded-2xl sm:aspect-[21/9] sm:max-h-80">
+          <div className="relative aspect-video w-full overflow-hidden rounded-2xl sm:aspect-[21/9] sm:max-h-80">
             <Image src={solucao.imagem} alt={solucao.titulo} fill className="object-cover" priority />
             <FieldLines />
           </div>

@@ -48,7 +48,7 @@ export default async function ModuloMercadoPage({
 
       <div className="px-4 sm:px-6 lg:px-10">
         <Reveal>
-          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9] sm:max-h-80">
+          <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl border border-dashed border-lp-line bg-lp-paper-soft text-sm text-lp-muted sm:aspect-[21/9] sm:max-h-80">
             <FieldLines stroke="var(--color-lp-purple)" strokeOpacity={0.14} />
             <span className="relative z-10">Imagem</span>
           </div>
