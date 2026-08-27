@@ -19,7 +19,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
 
   return (
     <div className="flex flex-col gap-6">
-      <Image src="/brand/ominia-wordmark-dark.png" alt="Ominia" width={116} height={21} priority className="h-[21px] w-auto" />
+      <Image src="/brand/ominia-wordmark-dark.png" alt="Ominia" width={116} height={21} priority className="h-[21px] w-auto self-start" />
 
       <div>
         <h1 className="text-xl font-medium tracking-tight text-lp-ink">Entrar</h1>
