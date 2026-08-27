@@ -76,10 +76,11 @@ export default async function AuditoriaPage() {
                 <p className="mt-1 text-xs text-lp-muted">
                   {score ? `${score.conformes} de ${score.total} requisitos conformes` : "sem avaliação ainda"}
                 </p>
-                <div className="mt-3">
+                <div className="mt-3 flex flex-wrap gap-2">
                   <ActionLink href={`/bonsucro?usinaId=${usina.id}`} variant="primary">
                     Ver requisitos →
                   </ActionLink>
+                  <ActionLink href={`/auditoria/${usina.id}/dossie`}>Gerar dossiê →</ActionLink>
                 </div>
               </div>
             ))}

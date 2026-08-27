@@ -8,6 +8,7 @@ import {
   Sprout,
   ClipboardCheck,
   ShieldCheck,
+  BellRing,
   Settings,
   type LucideIcon,
 } from "lucide-react";
@@ -20,6 +21,7 @@ export type NavItem = {
 
 export const mainNavItems: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/alertas", label: "Alertas", icon: BellRing },
   { href: "/organizacao", label: "Organização", icon: Building2 },
   { href: "/data-hub", label: "Data Hub", icon: Database },
   { href: "/evidencias", label: "Evidence Hub", icon: FileStack },
