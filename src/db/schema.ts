@@ -72,6 +72,7 @@ export const usuarios = pgTable("usuarios", {
   email: text("email").notNull().unique(),
   senhaHash: text("senha_hash").notNull(),
   papel: usuarioPapelEnum("papel").notNull().default("admin"),
+  onboardingConcluidoEm: timestamp("onboarding_concluido_em"),
   criadoEm: timestamp("criado_em").notNull().defaultNow(),
 });
 

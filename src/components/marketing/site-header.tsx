@@ -60,6 +60,9 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-8 md:flex">
           <Dropdown label="Soluções" items={solucoesNav} />
+          <Link href="/funcionalidades" className="text-sm text-lp-ink/70 transition-colors hover:text-lp-ink">
+            Funcionalidades
+          </Link>
           <Dropdown label="Institucional" items={institucional} />
         </nav>
 
@@ -100,6 +103,14 @@ export function SiteHeader() {
               </Link>
             ))}
           </nav>
+
+          <Link
+            href="/funcionalidades"
+            onClick={() => setOpen(false)}
+            className="mt-6 block font-mono text-xs tracking-wide text-lp-muted uppercase"
+          >
+            Funcionalidades
+          </Link>
 
           <p className="mt-6 font-mono text-xs tracking-wide text-lp-muted uppercase">Institucional</p>
           <nav className="mt-3 flex flex-col gap-3">

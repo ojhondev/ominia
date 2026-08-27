@@ -24,7 +24,10 @@ function LinkedinGlyph() {
 const columns = [
   {
     title: "Produto",
-    links: solucoes.map((s) => ({ href: `/solucoes/${s.slug}`, label: s.titulo })),
+    links: [
+      { href: "/funcionalidades", label: "Funcionalidades" },
+      ...solucoes.map((s) => ({ href: `/solucoes/${s.slug}`, label: s.titulo })),
+    ],
   },
   {
     title: "Relação com o Mercado",

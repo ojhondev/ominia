@@ -2,6 +2,7 @@ import { requireSession } from "@/lib/auth/require-session";
 import { listFatores, listCalculosGhg } from "@/lib/queries/ghg";
 import { listRegistros } from "@/lib/queries/data-hub";
 import { criarFator, editarFator, excluirFator, calcularEmissao } from "./actions";
+import { labelDoTipo } from "@/lib/tipos-atividade";
 import { Field, Input, Select } from "@/components/ui/field";
 import { Table, THead, Th, Tr, Td } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -142,7 +143,7 @@ export default async function GhgPage({
                 </option>
                 {registros.map((r) => (
                   <option key={r.id} value={r.id}>
-                    {r.tipo} — {Number(r.quantidade).toLocaleString("pt-BR")} {r.unidade} ({r.dataReferencia})
+                    {labelDoTipo(r.tipo)} — {Number(r.quantidade).toLocaleString("pt-BR")} {r.unidade} ({r.dataReferencia})
                   </option>
                 ))}
               </Select>
