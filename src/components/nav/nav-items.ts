@@ -7,6 +7,7 @@ import {
   Leaf,
   Sprout,
   ClipboardCheck,
+  ShieldCheck,
   Settings,
   type LucideIcon,
 } from "lucide-react";
@@ -26,6 +27,7 @@ export const mainNavItems: NavItem[] = [
   { href: "/renovabio", label: "RenovaBio / CBIO", icon: Leaf },
   { href: "/bonsucro", label: "Bonsucro", icon: Sprout },
   { href: "/auditoria", label: "Auditoria", icon: ClipboardCheck },
+  { href: "/relatorios", label: "Registro de Integridade", icon: ShieldCheck },
 ];
 
 export const bottomNavItems: NavItem[] = [

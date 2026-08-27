@@ -13,6 +13,9 @@ export const ERROS: Record<string, string> = {
   arquivo_muito_grande: "Arquivo maior que 20 MB. Envie um arquivo menor.",
   falha_upload: "Não foi possível enviar o arquivo. Tente novamente.",
   tem_dependencias: "Não é possível excluir: existem registros vinculados a este item.",
+  relatorio_ja_existe: "Este cálculo já tem um relatório gerado.",
+  relatorio_publicado: "Este relatório já foi publicado e não pode mais ser editado. Fale com a Ominia para uma correção.",
+  consentimentos_incompletos: "Confirme todos os avisos antes de publicar.",
 };
 
 export function errorMessage(code?: string): string | undefined {

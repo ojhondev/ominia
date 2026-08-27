@@ -51,6 +51,8 @@ export const tipoFornecedorEnum = pgEnum("tipo_fornecedor", [
   "cooperativa",
 ]);
 
+export const statusRelatorioEnum = pgEnum("status_relatorio", ["rascunho", "publicado"]);
+
 // ---------------------------------------------------------------------------
 // Módulo 01 — Organização
 // ---------------------------------------------------------------------------
@@ -259,6 +261,27 @@ export const resultadosCompliance = pgTable("resultados_compliance", {
   status: statusComplianceEnum("status").notNull().default("sem_dados"),
   percentualCompleto: numeric("percentual_completo"),
   atualizadoEm: timestamp("atualizado_em").notNull().defaultNow(),
+});
+
+// ---------------------------------------------------------------------------
+// Registro de Integridade e Rastreabilidade (relatório público por emissão)
+// ---------------------------------------------------------------------------
+
+export const relatoriosEmissao = pgTable("relatorios_emissao", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  empresaId: uuid("empresa_id").notNull().references(() => empresas.id, { onDelete: "cascade" }),
+  calculoId: uuid("calculo_id").notNull().unique().references(() => calculos.id, { onDelete: "cascade" }),
+  slugPublico: text("slug_publico").notNull().unique(),
+  titulo: text("titulo").notNull(),
+  notas: text("notas"),
+  status: statusRelatorioEnum("status").notNull().default("rascunho"),
+  hashConteudo: text("hash_conteudo"),
+  seloUrl: text("selo_url"),
+  consentimentos: jsonb("consentimentos"),
+  criadoPor: uuid("criado_por").references(() => usuarios.id, { onDelete: "set null" }),
+  publicadoPor: uuid("publicado_por").references(() => usuarios.id, { onDelete: "set null" }),
+  publicadoEm: timestamp("publicado_em"),
+  criadoEm: timestamp("criado_em").notNull().defaultNow(),
 });
 
 export const logsAuditoria = pgTable("logs_auditoria", {

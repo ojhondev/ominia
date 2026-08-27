@@ -19,10 +19,10 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   const isAdmin = session.papel === "admin";
 
   return (
-    <div className="flex h-screen overflow-hidden bg-lp-paper-soft">
+    <div className="flex h-screen overflow-hidden bg-lp-paper-soft print:h-auto print:overflow-visible">
       <Sidebar empresaNome={empresa?.nome} isAdmin={isAdmin} />
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <header className="flex h-16 shrink-0 items-center justify-between border-b border-lp-line bg-lp-paper px-4 sm:px-8">
+      <div className="flex flex-1 flex-col overflow-hidden print:overflow-visible">
+        <header className="no-print flex h-16 shrink-0 items-center justify-between border-b border-lp-line bg-lp-paper px-4 sm:px-8">
           <MobileNav empresaNome={empresa?.nome} isAdmin={isAdmin} />
           <div className="hidden md:block" />
           <form action={signOut}>
@@ -35,7 +35,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
             </button>
           </form>
         </header>
-        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-8 sm:py-8">{children}</main>
+        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-8 sm:py-8 print:overflow-visible print:px-0 print:py-0">
+          {children}
+        </main>
       </div>
     </div>
   );

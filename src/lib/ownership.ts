@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { usinas, fazendas, safras, registrosAtividade, documentos, fatoresEmissao } from "@/db/schema";
+import { usinas, fazendas, safras, registrosAtividade, documentos, fatoresEmissao, calculos, relatoriosEmissao } from "@/db/schema";
 
 /**
  * Cada helper busca a linha por id **e** empresaId na mesma query — nunca por id sozinho.
@@ -50,6 +50,20 @@ export async function getOwnedFator(id: string, empresaId: string) {
     .select()
     .from(fatoresEmissao)
     .where(and(eq(fatoresEmissao.id, id), eq(fatoresEmissao.empresaId, empresaId)))
+    .limit(1);
+  return row ?? null;
+}
+
+export async function getOwnedCalculo(id: string, empresaId: string) {
+  const [row] = await db.select().from(calculos).where(and(eq(calculos.id, id), eq(calculos.empresaId, empresaId))).limit(1);
+  return row ?? null;
+}
+
+export async function getOwnedRelatorio(id: string, empresaId: string) {
+  const [row] = await db
+    .select()
+    .from(relatoriosEmissao)
+    .where(and(eq(relatoriosEmissao.id, id), eq(relatoriosEmissao.empresaId, empresaId)))
     .limit(1);
   return row ?? null;
 }

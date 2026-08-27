@@ -72,7 +72,7 @@ export function SidebarContent({
 
 export function Sidebar({ empresaNome, isAdmin }: { empresaNome?: string; isAdmin?: boolean }) {
   return (
-    <aside className="hidden h-full w-60 shrink-0 flex-col bg-lp-purple px-4 py-6 md:flex">
+    <aside className="no-print hidden h-full w-60 shrink-0 flex-col bg-lp-purple px-4 py-6 md:flex">
       <SidebarContent empresaNome={empresaNome} isAdmin={isAdmin} />
     </aside>
   );
